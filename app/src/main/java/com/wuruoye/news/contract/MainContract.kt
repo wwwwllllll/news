@@ -14,6 +14,6 @@ class MainContract {
     }
 
     abstract class Presenter : WPresenter<View>() {
-
+        abstract fun requestApi()
     }
 }

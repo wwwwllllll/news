@@ -6,6 +6,7 @@ import com.wuruoye.library.adapter.FragmentVPAdapter
 import com.wuruoye.library.ui.WBaseActivity
 import com.wuruoye.news.R
 import com.wuruoye.news.contract.MainContract
+import com.wuruoye.news.presenter.MainPresenter
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -19,7 +20,7 @@ class MainActivity : WBaseActivity<MainContract.Presenter>(), MainContract.View 
     }
 
     override fun initData(p0: Bundle?) {
-
+        setPresenter(MainPresenter())
     }
 
     override fun initView() {
