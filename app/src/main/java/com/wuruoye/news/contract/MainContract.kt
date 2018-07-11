@@ -10,7 +10,7 @@ import com.wuruoye.library.contract.WPresenter
  */
 class MainContract {
     interface View : WIView {
-
+        fun onResultApi()
     }
 
     abstract class Presenter : WPresenter<View>() {

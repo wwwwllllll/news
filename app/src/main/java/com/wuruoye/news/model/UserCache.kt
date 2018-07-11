@@ -21,11 +21,5 @@ class UserCache private constructor(): WBaseCache("user") {
         }
     }
 
-    var api: Map<String, Api>
-        get() {
-            return gson.fromJson(getString(API, "[]"), ArrayMap<String, Api>()::class.java)
-        }
-        set(value) {
-            putString(API, gson.toJson(value))
-        }
+    lateinit var api: Map<String, Api>
 }

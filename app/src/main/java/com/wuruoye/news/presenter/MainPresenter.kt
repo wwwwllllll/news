@@ -18,12 +18,13 @@ class MainPresenter : MainContract.Presenter() {
     override fun requestApi() {
         WNet.getInBackground(API.API, mapOf(), object : Listener<String> {
             override fun onFail(p0: String?) {
-
+                val info = p0!!
             }
 
             override fun onSuccessful(p0: String?) {
                 val api = DataUtil.parseApi(p0!!)
                 userCache.api = api
+                view?.onResultApi()
             }
 
         })

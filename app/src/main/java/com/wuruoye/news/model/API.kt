@@ -6,7 +6,8 @@ package com.wuruoye.news.model
  * @Description :
  */
 object API {
-    const val REMOTE_HOST = "http://127.0.0.1:3421"
+    const val REMOTE_HOST = "https://all.wuruoye.com"
 
     const val API = "$REMOTE_HOST/article/api"
+    const val ARTICLE_LIST = "$REMOTE_HOST/article/list"
 }

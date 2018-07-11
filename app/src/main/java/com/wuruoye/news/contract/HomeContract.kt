@@ -2,6 +2,7 @@ package com.wuruoye.news.contract
 
 import com.wuruoye.library.contract.WIView
 import com.wuruoye.library.contract.WPresenter
+import com.wuruoye.news.model.bean.Item
 
 /**
  * @Created : wuruoye
@@ -14,6 +15,7 @@ class HomeContract {
     }
 
     abstract class Presenter : WPresenter<View>() {
-
+        abstract fun getDefaultCategory(): String
+        abstract fun getItems(category: String): Map<String, Item>
     }
 }

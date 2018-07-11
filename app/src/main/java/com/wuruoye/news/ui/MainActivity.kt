@@ -2,6 +2,7 @@ package com.wuruoye.news.ui
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import com.google.gson.JsonObject
 import com.wuruoye.library.adapter.FragmentVPAdapter
 import com.wuruoye.library.ui.WBaseActivity
 import com.wuruoye.news.R
@@ -21,10 +22,12 @@ class MainActivity : WBaseActivity<MainContract.Presenter>(), MainContract.View 
 
     override fun initData(p0: Bundle?) {
         setPresenter(MainPresenter())
+        val obj = JsonObject()
+        mPresenter.requestApi()
     }
 
     override fun initView() {
-        initVP()
+//        initVP()
     }
 
     private fun initVP() {
@@ -36,5 +39,9 @@ class MainActivity : WBaseActivity<MainContract.Presenter>(), MainContract.View 
         val vpAdapter = FragmentVPAdapter(supportFragmentManager, arrayListOf(), list)
         vp_main.adapter = vpAdapter
         ctl_main.attachViewPager(vp_main)
+    }
+
+    override fun onResultApi() {
+        initVP()
     }
 }
