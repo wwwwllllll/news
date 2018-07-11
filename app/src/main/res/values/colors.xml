@@ -3,4 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="romance">#FCFCFD</color>
+    <color name="mercury">#E4E4E4</color>
+    <color name="gray_chateau">#A2A2A2</color>
+    <color name="baltic_sea">#3E3E3E</color>
+    <color name="ship_gray">#505050</color>
+    <color name="storm_dust">#636363</color>
+    <color name="monsoon">#777777</color>
 </resources>

@@ -20,7 +20,7 @@
         android:layout_height="match_parent">
 
         <com.wuruoye.library.widget.HeartBeatView
-            app:heartColor="@color/colorPrimary"
+            app:heartColor="@color/gray_chateau"
             android:layout_width="30dp"
             android:layout_height="30dp" />
 

@@ -3,6 +3,7 @@ package com.wuruoye.news.adapter
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -53,10 +54,12 @@ class ArticleItemRVAdapter : WBaseRVAdapter<ArticleItem>() {
                 tvAuthor.text = item.author
                 tvDate.text = DateUtil.formatTime(item.millis * 1000,
                         "YYYY-MM-dd HH:MM")
+                tvTag.text = item.type
 
-                Glide.with(ivBg)
+                if (item.bg_img.isNotEmpty()) Glide.with(ivBg)
                         .load(item.bg_img)
                         .into(ivBg)
+                else ivBg.visibility = GONE
             }
         }
     }

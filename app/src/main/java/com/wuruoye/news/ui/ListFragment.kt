@@ -45,7 +45,7 @@ class ListFragment : WBaseFragment<ArticleListContract.Presenter>(), ArticleList
             srl_list.setOnRefreshListener(this)
             initRV()
 
-            onRefresh()
+//            onRefresh()
         }
     }
 
@@ -77,6 +77,7 @@ class ListFragment : WBaseFragment<ArticleListContract.Presenter>(), ArticleList
 
     override fun onLoading(loadingView: View) {
         mLoadingView = loadingView
+        mPresenter.requestList(mCategory, mItem.url, mPage)
     }
 
     override fun onResultList(articleList: ArticleList) {

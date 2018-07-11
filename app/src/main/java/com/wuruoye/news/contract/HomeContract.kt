@@ -16,6 +16,7 @@ class HomeContract {
 
     abstract class Presenter : WPresenter<View>() {
         abstract fun getDefaultCategory(): String
-        abstract fun getItems(category: String): Map<String, Item>
+        abstract fun getItems(category: String): List<Map.Entry<String, Item>>
+        abstract fun getPosition(entries: List<Map.Entry<String, Item>>, category: String): Int
     }
 }

@@ -9,5 +9,6 @@ object API {
     const val REMOTE_HOST = "https://all.wuruoye.com"
 
     const val API = "$REMOTE_HOST/article/api"
+    const val ARTICLE_LIST_ = "$REMOTE_HOST/article/list_"
     const val ARTICLE_LIST = "$REMOTE_HOST/article/list"
 }

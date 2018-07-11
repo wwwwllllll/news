@@ -1,5 +1,7 @@
 package com.wuruoye.news.ui
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.View
@@ -7,6 +9,7 @@ import com.wuruoye.library.adapter.FragmentVPAdapter
 import com.wuruoye.library.ui.WBaseFragment
 import com.wuruoye.news.R
 import com.wuruoye.news.contract.HomeContract
+import com.wuruoye.news.model.Config.HOME_CHOOSE
 import com.wuruoye.news.model.bean.Item
 import com.wuruoye.news.presenter.HomePresenter
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -16,7 +19,8 @@ import kotlinx.android.synthetic.main.fragment_home.*
  * @Date : 2018/7/9 16:53.
  * @Description : 新闻显示页面
  */
-class HomeFragment : WBaseFragment<HomeContract.Presenter>(), HomeContract.View {
+class HomeFragment : WBaseFragment<HomeContract.Presenter>(), HomeContract.View,
+        View.OnClickListener {
     private lateinit var mCategory: String
 
     override fun getContentView(): Int {
@@ -30,14 +34,22 @@ class HomeFragment : WBaseFragment<HomeContract.Presenter>(), HomeContract.View 
     }
 
     override fun initView(p0: View?) {
-        val map = mPresenter.getItems(mCategory)
+        p0?.post {
+            ic_home_more.setOnClickListener(this)
+
+            initVP()
+        }
+    }
+
+    private fun initVP() {
+        val entries = mPresenter.getItems(mCategory)
         val titleList = arrayListOf<String>()
         val itemList = arrayListOf<Item>()
         val categories = arrayListOf<String>()
-        for (entry in map.entries) {
+        for (entry in entries) {
             titleList.add(entry.value.title)
             itemList.add(entry.value)
-            categories.add(mCategory + entry.key)
+            categories.add("${mCategory}_${entry.key}")
         }
 
         val fragments = arrayListOf<Fragment>()
@@ -50,10 +62,34 @@ class HomeFragment : WBaseFragment<HomeContract.Presenter>(), HomeContract.View 
             fragments.add(fragment)
         }
 
-        p0!!.post {
-            val adapter = FragmentVPAdapter(childFragmentManager, titleList, fragments)
-            vp_home.adapter = adapter
-            tl_home.setupWithViewPager(vp_home)
+        val adapter = FragmentVPAdapter(childFragmentManager, titleList, fragments)
+        vp_home.adapter = adapter
+        tl_home.setupWithViewPager(vp_home)
+
+        vp_home.currentItem = mPresenter.getPosition(entries, mCategory)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == HOME_CHOOSE && resultCode == RESULT_OK) {
+            val category = data!!.getStringExtra("category")
+            setCategory(category)
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun setCategory(category: String) {
+        if (mCategory != category) {
+            mCategory = category
+            initVP()
+        }
+    }
+
+    override fun onClick(p0: View?) {
+        when (p0!!.id) {
+            R.id.ic_home_more -> {
+                val intent = Intent(context, ItemChooseActivity::class.java)
+                startActivityForResult(intent, HOME_CHOOSE)
+            }
         }
     }
 }

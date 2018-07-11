@@ -14,8 +14,8 @@ import org.json.JSONArray
  * @Description : 网络数据解析类
  */
 object DataUtil {
-    fun parseApi(info: String): ArrayMap<String, Api> {
-        val apiMap = ArrayMap<String, Api>()
+    fun parseApi(info: String): Map<String, Api> {
+        val apiMap = LinkedHashMap<String, Api>()
 
         val appArr = JSONArray(info)
         for (l in 0 until appArr.length()) {
@@ -29,14 +29,14 @@ object DataUtil {
                     val apiTitle = apiObj.getString("title")
                     val titleArr = apiObj.getJSONArray("titles")
 
-                    val titleMap = ArrayMap<String, Title>()
+                    val titleMap = LinkedHashMap<String, Title>()
                     for (j in 0 until titleArr.length()) {
                         val titleObj = titleArr.getJSONObject(j)
                         val titleName = titleObj.getString("name")
                         val titleTitle = titleObj.getString("title")
                         val itemArr = titleObj.getJSONArray("items")
 
-                        val itemMap = ArrayMap<String, Item>()
+                        val itemMap = LinkedHashMap<String, Item>()
                         for (k in 0 until itemArr.length()) {
                             val itemObj = itemArr.getJSONObject(k)
                             val itemName = itemObj.getString("name")
