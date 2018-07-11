@@ -37,7 +37,7 @@ class HomeFragment : WBaseFragment<HomeContract.Presenter>(), HomeContract.View,
         p0?.post {
             ic_home_more.setOnClickListener(this)
 
-            initVP()
+            setCategory(mCategory)
         }
     }
 
@@ -78,10 +78,9 @@ class HomeFragment : WBaseFragment<HomeContract.Presenter>(), HomeContract.View,
     }
 
     private fun setCategory(category: String) {
-        if (mCategory != category) {
-            mCategory = category
-            initVP()
-        }
+        mCategory = category
+        initVP()
+        tv_home_title.text = mPresenter.getTitle(category)
     }
 
     override fun onClick(p0: View?) {

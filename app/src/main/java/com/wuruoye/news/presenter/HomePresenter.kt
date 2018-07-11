@@ -33,4 +33,10 @@ class HomePresenter : HomeContract.Presenter() {
         }
         return 0
     }
+
+    override fun getTitle(category: String): String {
+        val api = userCache.api
+        val categories = category.split("_")
+        return api[categories[0]]!!.api[categories[1]]!!.title
+    }
 }

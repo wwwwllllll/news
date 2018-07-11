@@ -11,7 +11,7 @@
         android:layout_height="wrap_content">
 
         <android.support.design.widget.CollapsingToolbarLayout
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
             android:minHeight="50dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -25,6 +25,7 @@
                     android:layout_height="50dp">
 
                     <TextView
+                        android:id="@+id/tv_home_title"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:text="新闻"
