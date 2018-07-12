@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">News</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda blanditiis delectus deserunt, dolor doloremque et labore, maiores molestiae nam odit quam, quo similique sint sunt temporibus? Accusantium consequatur eum vero.</string>
 </resources>

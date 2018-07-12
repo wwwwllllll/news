@@ -2,6 +2,7 @@ package com.wuruoye.news.contract
 
 import com.wuruoye.library.contract.WIView
 import com.wuruoye.library.contract.WPresenter
+import com.wuruoye.news.model.bean.ArticleDetail
 
 /**
  * @Created : wuruoye
@@ -10,10 +11,10 @@ import com.wuruoye.library.contract.WPresenter
  */
 class DetailContract {
     interface View : WIView {
-
+        fun onResultDetail(detail: ArticleDetail)
     }
 
     abstract class Presenter : WPresenter<View>() {
-
+        abstract fun requestDetail(app: String, category: String, id: String)
     }
 }
