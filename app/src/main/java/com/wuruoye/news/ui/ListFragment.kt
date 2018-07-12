@@ -74,9 +74,16 @@ class ListFragment : WBaseFragment<ArticleListContract.Presenter>(), ArticleList
 
     override fun onItemClick(p0: ArticleItem?) {
 //        Toast.makeText(context, p0!!.title, Toast.LENGTH_SHORT).show()
+//        val bundle = Bundle()
+//        bundle.putParcelable("article", p0!!)
+//        val intent = Intent(context, DetailActivity::class.java)
+//        intent.putExtras(bundle)
+//        startActivity(intent)
+
         val bundle = Bundle()
-        bundle.putParcelable("article", p0!!)
-        val intent = Intent(context, DetailActivity::class.java)
+        bundle.putString("url", p0!!.url)
+        bundle.putString("title", p0.title)
+        val intent = Intent(context, WebActivity::class.java)
         intent.putExtras(bundle)
         startActivity(intent)
     }
