@@ -23,5 +23,7 @@
         <activity android:name=".ui.DetailActivity" />
         <activity android:name=".ui.ImgActivity" />
         <activity android:name=".ui.WebActivity" />
+        <activity android:name=".ui.VideoActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|layoutDirection"/>
     </application>
 </manifest>
