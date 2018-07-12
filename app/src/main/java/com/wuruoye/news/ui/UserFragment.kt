@@ -5,6 +5,7 @@ import android.view.View
 import com.wuruoye.library.ui.WBaseFragment
 import com.wuruoye.news.R
 import com.wuruoye.news.contract.UserContract
+import kotlinx.android.synthetic.main.fragment_user.*
 
 /**
  * @Created : wuruoye
@@ -21,6 +22,10 @@ class UserFragment : WBaseFragment<UserContract.Presenter>(), UserContract.View 
     }
 
     override fun initView(p0: View?) {
-
+        p0!!.post {
+            abl_user.post {
+                cl_user.dispatchDependentViewsChanged(abl_user)
+            }
+        }
     }
 }
