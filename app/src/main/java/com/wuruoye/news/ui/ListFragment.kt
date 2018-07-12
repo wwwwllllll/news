@@ -1,5 +1,6 @@
 package com.wuruoye.news.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
@@ -72,7 +73,12 @@ class ListFragment : WBaseFragment<ArticleListContract.Presenter>(), ArticleList
     }
 
     override fun onItemClick(p0: ArticleItem?) {
-        Toast.makeText(context, p0!!.title, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(context, p0!!.title, Toast.LENGTH_SHORT).show()
+        val bundle = Bundle()
+        bundle.putParcelable("article", p0!!)
+        val intent = Intent(context, DetailActivity::class.java)
+        intent.putExtras(bundle)
+        startActivity(intent)
     }
 
     override fun onLoading(loadingView: View) {

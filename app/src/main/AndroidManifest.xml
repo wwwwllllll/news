@@ -20,5 +20,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.ItemChooseActivity" />
+        <activity android:name=".ui.DetailActivity" />
     </application>
 </manifest>
