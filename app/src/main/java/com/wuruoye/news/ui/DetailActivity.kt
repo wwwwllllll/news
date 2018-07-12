@@ -1,5 +1,6 @@
 package com.wuruoye.news.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,7 @@ import kotlinx.android.synthetic.main.activity_detail.*
 class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
         DetailContract.View, View.OnClickListener {
     private lateinit var mArticle: ArticleItem
+    private val mImgList = arrayListOf<String>()
 
     override fun getContentView(): Int {
         return R.layout.activity_detail
@@ -68,6 +70,15 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
                     Glide.with(image)
                             .load(item.info)
                             .into(image)
+                    mImgList.add(item.info)
+                    image.setOnClickListener {
+                        val bundle = Bundle()
+                        bundle.putStringArrayList("img", mImgList)
+                        bundle.putInt("position", mImgList.indexOf(item.info))
+                        val intent = Intent(this, ImgActivity::class.java)
+                        intent.putExtras(bundle)
+                        startActivity(intent)
+                    }
                 }
                 TYPE_H1 -> {
                     val h1 = LayoutInflater.from(this)

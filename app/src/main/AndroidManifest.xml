@@ -21,5 +21,6 @@
         </activity>
         <activity android:name=".ui.ItemChooseActivity" />
         <activity android:name=".ui.DetailActivity" />
+        <activity android:name=".ui.ImgActivity" />
     </application>
 </manifest>
