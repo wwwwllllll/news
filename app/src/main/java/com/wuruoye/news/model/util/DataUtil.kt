@@ -1,11 +1,7 @@
 package com.wuruoye.news.model.util
 
-import android.support.v4.util.ArrayMap
 import com.google.gson.Gson
-import com.wuruoye.news.model.bean.Api
-import com.wuruoye.news.model.bean.ArticleList
-import com.wuruoye.news.model.bean.Item
-import com.wuruoye.news.model.bean.Title
+import com.wuruoye.news.model.bean.*
 import org.json.JSONArray
 
 /**
@@ -57,5 +53,9 @@ object DataUtil {
 
     fun parseArticleList(info: String): ArticleList {
         return Gson().fromJson(info, ArticleList::class.java)
+    }
+
+    fun parseArticleDetail(info: String): ArticleDetail {
+        return Gson().fromJson(info, ArticleDetail::class.java)
     }
 }

@@ -1,7 +1,10 @@
 package com.wuruoye.news.ui
 
 import android.os.Bundle
+import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ImageView
+import com.bumptech.glide.Glide
 import com.github.chrisbanes.photoview.PhotoView
 import com.wuruoye.library.ui.WBaseActivity
 import com.wuruoye.news.R
@@ -28,9 +31,15 @@ class ImgActivity : WBaseActivity<ImgContract.Presenter>(), ImgContract.View {
     }
 
     override fun initView() {
+        // full screen
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN)
+
         val imgList = arrayListOf<ImageView>()
         for (s in mImgList) {
             val photoView = PhotoView(this)
+            photoView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT)
             photoView.setOnOutsidePhotoTapListener {
                 onBackPressed()
             }
@@ -38,6 +47,9 @@ class ImgActivity : WBaseActivity<ImgContract.Presenter>(), ImgContract.View {
                 onBackPressed()
             }
             imgList.add(photoView)
+            Glide.with(photoView)
+                    .load(s)
+                    .into(photoView)
         }
         val adapter = ImgVPAdapter(imgList)
         vp_img.adapter = adapter

@@ -2,6 +2,8 @@ package com.wuruoye.news.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
@@ -16,6 +18,7 @@ import com.wuruoye.news.model.bean.DetailItem.Companion.TYPE_H1
 import com.wuruoye.news.model.bean.DetailItem.Companion.TYPE_IMG
 import com.wuruoye.news.model.bean.DetailItem.Companion.TYPE_TEXT
 import com.wuruoye.news.model.bean.DetailItem.Companion.TYPE_TEXT_CEN
+import com.wuruoye.news.presenter.DetailPresenter
 import kotlinx.android.synthetic.main.activity_detail.*
 
 /**
@@ -34,15 +37,22 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
 
     override fun initData(p0: Bundle?) {
         mArticle = p0!!.getParcelable("article")
+
+        setPresenter(DetailPresenter())
     }
 
     override fun initView() {
         iv_detail_back.setOnClickListener(this)
         tv_detail_title.text = mArticle.title
+
+        mPresenter.requestDetail("sina", "", mArticle.url)
     }
 
     override fun onResultDetail(detail: ArticleDetail) {
         val items = detail.data
+        if (items.isEmpty()) {
+            onNoData()
+        }
         for (item in items) {
             when (item.type) {
                 TYPE_TEXT -> {
@@ -92,11 +102,36 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
         }
     }
 
+    private fun onNoData() {
+        loge(mArticle.url)
+        AlertDialog.Builder(this)
+                .setTitle("提示")
+                .setMessage("后台解析失败，是否打开网页？")
+                .setPositiveButton("确定") { _, _ ->
+                    val bundle = Bundle()
+                    bundle.putString("url", mArticle.url)
+                    bundle.putString("title", mArticle.title)
+                    val intent = Intent(this, WebActivity::class.java)
+                    intent.putExtras(bundle)
+                    startActivity(intent)
+                    finish()
+                }
+                .setNegativeButton("取消") { _, _ ->
+                    finish()
+                }
+                .setCancelable(false)
+                .show()
+    }
+
     override fun onClick(p0: View?) {
         when (p0!!.id) {
             R.id.iv_detail_back -> {
                 onBackPressed()
             }
         }
+    }
+
+    fun loge(message: String) {
+        Log.e("DetailActivity", message)
     }
 }

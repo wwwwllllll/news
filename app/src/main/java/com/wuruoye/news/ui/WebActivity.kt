@@ -91,7 +91,7 @@ class WebActivity : WBaseActivity<WebContract.Presenter>(), WebContract.View, Vi
         }
 
         ll_web.addView(wv_web)
-        wv_web.loadUrl(mUrl)
+        wv_web.loadUrl(mUrl.split("?")[0])
     }
 
     override fun onClick(p0: View?) {

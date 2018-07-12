@@ -36,7 +36,7 @@ class MainActivity : WBaseActivity<MainContract.Presenter>(), MainContract.View 
         val user = UserFragment()
         list.add(home)
         list.add(user)
-        val adapter = FragmentVPAdapter(supportFragmentManager, arrayListOf(), list)
+        val adapter = FragmentVPAdapter(supportFragmentManager, arrayListOf("首页", "用户"), list)
         vp_main.adapter = adapter
         ctl_main.attachViewPager(vp_main)
     }

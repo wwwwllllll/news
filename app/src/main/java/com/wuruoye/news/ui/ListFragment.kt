@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import android.widget.Toast
 import com.wuruoye.library.adapter.WBaseRVAdapter
 import com.wuruoye.library.ui.WBaseFragment
 import com.wuruoye.news.R
@@ -74,18 +73,18 @@ class ListFragment : WBaseFragment<ArticleListContract.Presenter>(), ArticleList
 
     override fun onItemClick(p0: ArticleItem?) {
 //        Toast.makeText(context, p0!!.title, Toast.LENGTH_SHORT).show()
-//        val bundle = Bundle()
-//        bundle.putParcelable("article", p0!!)
-//        val intent = Intent(context, DetailActivity::class.java)
-//        intent.putExtras(bundle)
-//        startActivity(intent)
-
         val bundle = Bundle()
-        bundle.putString("url", p0!!.url)
-        bundle.putString("title", p0.title)
-        val intent = Intent(context, WebActivity::class.java)
+        bundle.putParcelable("article", p0!!)
+        val intent = Intent(context, DetailActivity::class.java)
         intent.putExtras(bundle)
         startActivity(intent)
+
+//        val bundle = Bundle()
+//        bundle.putString("url", p0!!.url)
+//        bundle.putString("title", p0.title)
+//        val intent = Intent(context, WebActivity::class.java)
+//        intent.putExtras(bundle)
+//        startActivity(intent)
     }
 
     override fun onLoading(loadingView: View) {

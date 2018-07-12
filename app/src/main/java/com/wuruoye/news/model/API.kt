@@ -11,4 +11,5 @@ object API {
     const val API = "$REMOTE_HOST/article/api"
     const val ARTICLE_LIST_ = "$REMOTE_HOST/article/list_"
     const val ARTICLE_LIST = "$REMOTE_HOST/article/list"
+    const val ARTICLE_DETAIL = "$REMOTE_HOST/article/detail"
 }

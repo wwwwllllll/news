@@ -38,8 +38,8 @@
                 android:layout_height="wrap_content" />
 
             <com.wuruoye.library.widget.changetab.ChangeTabItem
-                app:icon="@drawable/ic_home_not"
-                app:iconSelect="@drawable/ic_home_full"
+                app:icon="@drawable/ic_user_not"
+                app:iconSelect="@drawable/ic_user_full"
                 app:text="用户"
                 android:layout_width="0dp"
                 android:layout_weight="1"
