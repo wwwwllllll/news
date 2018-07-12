@@ -44,6 +44,7 @@ class TitleRVAdapter : WBaseRVAdapter<Map.Entry<String, Title>>() {
             tv.setOnClickListener {
                 mOnActionListener?.onItemClick(titleEntry.key)
             }
+
         }
     }
 
