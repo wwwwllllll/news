@@ -1,13 +1,17 @@
 package com.wuruoye.news.ui
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ValueAnimator
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.view.WindowManager
+import android.view.animation.AccelerateDecelerateInterpolator
 import com.wuruoye.library.ui.WBaseActivity
 import com.wuruoye.news.R
 import com.wuruoye.news.contract.StartContract
 import com.wuruoye.news.presenter.StartPresenter
+import kotlinx.android.synthetic.main.activity_start.*
 
 /**
  * @Created : wuruoye
@@ -15,6 +19,9 @@ import com.wuruoye.news.presenter.StartPresenter
  * @Description :
  */
 class StartActivity : WBaseActivity<StartContract.Presenter>(), StartContract.View {
+    companion object {
+        val TEXT_TRANSLATION = 200
+    }
     private var mTimeout = false
     private var mLoginResult = false
 
@@ -29,16 +36,34 @@ class StartActivity : WBaseActivity<StartContract.Presenter>(), StartContract.Vi
     override fun initView() {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        Handler().postDelayed(object : Runnable {
-            override fun run() {
+
+        mPresenter.checkLogin()
+        initAnimator()
+    }
+
+    private fun initAnimator() {
+        val valueAnimator = ValueAnimator.ofFloat(0F, 1F)
+        valueAnimator.duration = 1500L
+        valueAnimator.interpolator = AccelerateDecelerateInterpolator()
+        valueAnimator.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator?) {
                 if (mLoginResult) {
                     goToMain()
                 }else {
                     mTimeout = true
                 }
             }
-        }, 1000)
-        mPresenter.checkLogin()
+        })
+        valueAnimator.addUpdateListener { p0 ->
+            val value = p0!!.animatedValue as Float
+            tv_start.scaleX = value * 0.5F + 1
+            tv_start.scaleY = value * 0.5F + 1
+
+            tv_start_name.scaleX = value * 0.5F + 1
+            tv_start_name.scaleY = value * 0.5F + 1
+            tv_start_name.translationY = - TEXT_TRANSLATION * value
+        }
+        valueAnimator.start()
     }
 
     override fun onResultCheck(login: Boolean) {

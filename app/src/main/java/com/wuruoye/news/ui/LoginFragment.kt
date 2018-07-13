@@ -1,9 +1,13 @@
 package com.wuruoye.news.ui
 
+import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import com.wuruoye.library.ui.WBaseFragment
 import com.wuruoye.news.R
@@ -20,6 +24,9 @@ import kotlinx.android.synthetic.main.fragment_login.*
  */
 class LoginFragment : WBaseFragment<LoginLoginContract.Presenter>(),
         LoginLoginContract.View, View.OnClickListener {
+
+    private lateinit var dlgLogin: AlertDialog
+
     override fun getContentView(): Int {
         return R.layout.fragment_login
     }
@@ -30,9 +37,22 @@ class LoginFragment : WBaseFragment<LoginLoginContract.Presenter>(),
 
     override fun initView(p0: View?) {
         p0!!.post {
+            initDlg()
+
             btn_login_login.setOnClickListener(this)
             btn_login_register.setOnClickListener(this)
         }
+    }
+
+    @SuppressLint("InflateParams")
+    private fun initDlg() {
+        val view = LayoutInflater.from(context)
+                .inflate(R.layout.view_loading, null)
+        val tv = view.findViewById<TextView>(R.id.tv_view_loading)
+        tv.text = "正在登录中..."
+        dlgLogin = AlertDialog.Builder(context!!)
+                .setView(view)
+                .create()
     }
 
     private fun onLoginClick() {
@@ -49,6 +69,7 @@ class LoginFragment : WBaseFragment<LoginLoginContract.Presenter>(),
         }
 
         mPresenter.requestLogin(id, pwd)
+        dlgLogin.show()
     }
 
     override fun onClick(p0: View?) {
@@ -64,6 +85,7 @@ class LoginFragment : WBaseFragment<LoginLoginContract.Presenter>(),
     }
 
     override fun onResultLogin(loginUser: LoginUser) {
+        dlgLogin.dismiss()
         val intent = Intent()
         intent.putExtra("loginUser", loginUser)
         val view = activity as LoginContract.View
@@ -71,6 +93,7 @@ class LoginFragment : WBaseFragment<LoginLoginContract.Presenter>(),
     }
 
     override fun onResultLoginInfo(info: String) {
+        dlgLogin.dismiss()
         Toast.makeText(context, info, Toast.LENGTH_SHORT).show()
     }
 }

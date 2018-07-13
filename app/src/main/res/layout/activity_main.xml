@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@color/white"
     android:layout_width="match_parent"
@@ -32,19 +33,23 @@
                 app:icon="@drawable/ic_home_not"
                 app:iconSelect="@drawable/ic_home_full"
                 app:text="主页"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_gravity="center"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                tools:ignore="NewApi" />
 
             <com.wuruoye.library.widget.changetab.ChangeTabItem
                 app:icon="@drawable/ic_user_not"
                 app:iconSelect="@drawable/ic_user_full"
                 app:text="用户"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_gravity="center"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                tools:ignore="NewApi" />
         </com.wuruoye.library.widget.changetab.ChangeTabLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

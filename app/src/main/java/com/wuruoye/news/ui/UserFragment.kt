@@ -29,7 +29,7 @@ import kotlinx.android.synthetic.main.fragment_user.*
 class UserFragment : WBaseFragment<UserContract.Presenter>(), UserContract.View,
         View.OnClickListener {
     companion object {
-        val ITEM_ICON = arrayOf(R.drawable.ic_information, R.drawable.ic_collect,
+        val ITEM_ICON = arrayOf(R.drawable.ic_information, R.drawable.ic_collect_not,
                 R.drawable.ic_setting)
         val ITEM_TITLE = arrayOf("个人信息", "收藏", "设置")
     }
