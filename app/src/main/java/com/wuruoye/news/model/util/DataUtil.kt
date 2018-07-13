@@ -10,6 +10,8 @@ import org.json.JSONArray
  * @Description : 网络数据解析类
  */
 object DataUtil {
+    private val sGson = Gson()
+
     fun parseApi(info: String): Map<String, Api> {
         val apiMap = LinkedHashMap<String, Api>()
 
@@ -52,10 +54,14 @@ object DataUtil {
     }
 
     fun parseArticleList(info: String): ArticleList {
-        return Gson().fromJson(info, ArticleList::class.java)
+        return sGson.fromJson(info, ArticleList::class.java)
     }
 
     fun parseArticleDetail(info: String): ArticleDetail {
-        return Gson().fromJson(info, ArticleDetail::class.java)
+        return sGson.fromJson(info, ArticleDetail::class.java)
+    }
+
+    fun parseLoginUser(info: String): LoginUser {
+        return sGson.fromJson(info, LoginUser::class.java)
     }
 }

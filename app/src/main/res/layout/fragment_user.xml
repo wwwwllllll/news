@@ -31,6 +31,7 @@
                     android:layout_height="match_parent" />
 
                 <TextView
+                    android:id="@+id/tv_user_sign"
                     android:text="@string/lorem"
                     android:textSize="13sp"
                     android:textColor="@color/monsoon"
@@ -47,6 +48,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civ_user_avatar"
         app:layout_behavior="com.wuruoye.news.adapter.behavior.UserIVBehavior"
         android:src="@color/black"
         app:civ_border_color="@color/monsoon"
@@ -57,6 +59,7 @@
         tools:ignore="UnusedAttribute" />
 
     <TextView
+        android:id="@+id/tv_user_user"
         android:text="无若叶"
         android:maxEms="16"
         android:ellipsize="end"

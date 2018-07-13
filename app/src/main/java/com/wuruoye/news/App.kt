@@ -3,9 +3,11 @@ package com.wuruoye.news
 import android.app.Application
 import com.wuruoye.library.model.WConfig
 import com.wuruoye.library.util.net.OKHttpNet
-import com.wuruoye.library.util.net.WNet
 import com.wuruoye.library.util.thread.DefaultThreadPool
-import okhttp3.*
+import okhttp3.CacheControl
+import okhttp3.Cookie
+import okhttp3.CookieJar
+import okhttp3.HttpUrl
 
 /**
  * @Created : wuruoye
@@ -25,7 +27,9 @@ class App : Application() {
         val newClient = client.newBuilder()
                 .cookieJar(object : CookieJar {
                     override fun saveFromResponse(url: HttpUrl?, cookies: MutableList<Cookie>?) {
-
+                        for (cookie in cookies!!) {
+                            cookieList.add(cookie)
+                        }
                     }
 
                     override fun loadForRequest(url: HttpUrl?): MutableList<Cookie> {
