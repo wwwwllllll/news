@@ -2,6 +2,7 @@ package com.wuruoye.news.contract
 
 import com.wuruoye.library.contract.WIView
 import com.wuruoye.library.contract.WPresenter
+import com.wuruoye.news.model.bean.LoginUser
 
 /**
  * @Created : wuruoye
@@ -10,10 +11,11 @@ import com.wuruoye.library.contract.WPresenter
  */
 class UserContract {
     interface View : WIView {
-
+        fun onResultUserInfo(loginUser: LoginUser)
     }
 
     abstract class Presenter : WPresenter<View>() {
-
+        abstract fun isLogin(): Boolean
+        abstract fun requestUserInfo()
     }
 }
