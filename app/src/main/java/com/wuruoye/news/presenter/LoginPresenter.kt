@@ -7,6 +7,7 @@ import com.wuruoye.news.model.API
 import com.wuruoye.news.model.UserCache
 import com.wuruoye.news.model.util.DataUtil
 import com.wuruoye.news.model.util.SecretUtil
+import java.net.URLEncoder
 
 /**
  * @Created : wuruoye
@@ -17,7 +18,7 @@ class LoginPresenter : LoginLoginContract.Presenter() {
     private val mUserCache = UserCache.getInstance()
 
     override fun requestLogin(id: String, pwd: String) {
-        val sPwd = SecretUtil.getPublicSecret(pwd)
+        val sPwd = URLEncoder.encode(SecretUtil.getPublicSecret(pwd), "utf8")
         val values = mapOf(Pair("id", id),
                 Pair("password", sPwd))
         WNet.getInBackground(API.USER_LOGIN, values, object : Listener<String> {

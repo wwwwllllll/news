@@ -10,6 +10,7 @@ import com.wuruoye.news.R
 import com.wuruoye.news.contract.LoginContract
 import com.wuruoye.news.contract.LoginLoginContract
 import com.wuruoye.news.model.bean.LoginUser
+import com.wuruoye.news.presenter.LoginPresenter
 import kotlinx.android.synthetic.main.fragment_login.*
 
 /**
@@ -24,7 +25,7 @@ class LoginFragment : WBaseFragment<LoginLoginContract.Presenter>(),
     }
 
     override fun initData(p0: Bundle?) {
-
+        setPresenter(LoginPresenter())
     }
 
     override fun initView(p0: View?) {

@@ -77,6 +77,9 @@ class UserFragment : WBaseFragment<UserContract.Presenter>(), UserContract.View,
                 .submit()
         tv_user_user.text = loginUser.name
         tv_user_sign.text = loginUser.sign
+        tv_user_user.post {
+            cl_user.dispatchDependentViewsChanged(abl_user)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
