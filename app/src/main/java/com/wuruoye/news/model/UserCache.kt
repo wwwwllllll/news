@@ -1,6 +1,5 @@
 package com.wuruoye.news.model
 
-import android.util.ArrayMap
 import com.google.gson.Gson
 import com.wuruoye.library.model.WBaseCache
 import com.wuruoye.news.model.bean.Api
@@ -26,9 +25,9 @@ class UserCache private constructor(): WBaseCache("user") {
 
     lateinit var api: Map<String, Api>
 
-    var cachedApi: Map<String, Api>
-        get() = sGson.fromJson(getString(API, ""), ArrayMap<String, Api>()::class.java)
-        set(value) = putString(API, sGson.toJson(value))
+    var cachedApi: String
+        get() = getString(API, "")
+        set(value) = putString(API, value)
 
     var isLogin: Boolean
         get() = getBoolean(IS_LOGIN, false)
