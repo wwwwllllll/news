@@ -17,7 +17,7 @@
             android:layout_gravity="right"
             android:layout_marginRight="20dp"
             android:background="@drawable/ic_close"
-            android:id="@+id/closebutton"/>
+            android:id="@+id/close_bt"/>
     </LinearLayout>
 
     <ImageView
@@ -50,7 +50,8 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginTop="10dp"
-        android:id="@+id/rg_userpassword">
+        android:id="@+id/rg_userpassword"
+        app:passwordToggleEnabled="true">
 
         <EditText
             android:layout_width="match_parent"
