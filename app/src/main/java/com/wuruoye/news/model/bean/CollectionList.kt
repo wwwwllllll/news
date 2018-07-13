@@ -1,4 +1,7 @@
 package com.wuruoye.news.model.bean
 
-class CollectionList {
-}
+data class CollectionList (
+        var Userid : String,
+        var next : String,
+        var data : List<ArticleItem>
+){}

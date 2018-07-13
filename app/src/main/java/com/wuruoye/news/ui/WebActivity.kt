@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_web.*
  * @Date : 2018/7/12 09:20.
  * @Description :
  */
-class WebActivity : WBaseActivity<WebContract.Presenter>(), WebContract.View, View.OnClickListener {
+class  WebActivity : WBaseActivity<WebContract.Presenter>(), WebContract.View, View.OnClickListener {
     private lateinit var mUrl: String
     private lateinit var mTitle: String
 

@@ -64,4 +64,8 @@ object DataUtil {
     fun parseLoginUser(info: String): LoginUser {
         return sGson.fromJson(info, LoginUser::class.java)
     }
+
+    fun parseColllectionList(info: String): CollectionList {
+        return Gson().fromJson(info, CollectionList::class.java)
+    }
 }

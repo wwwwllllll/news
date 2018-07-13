@@ -28,5 +28,6 @@
         <activity android:name=".ui.VideoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|layoutDirection"/>
         <activity android:name=".ui.LoginActivity" />
+        <activity android:name=".ui.CollectionActivity" />
     </application>
 </manifest>
