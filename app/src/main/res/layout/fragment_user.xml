@@ -1,8 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:id="@+id/cl_user"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/abl_user"
+        android:minHeight="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
 
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:minHeight="50dp"
+            app:layout_scrollFlags="snap|scroll|enterAlwaysCollapsed|exitUntilCollapsed"
+            app:contentScrim="@color/romance"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                app:layout_collapseMode="parallax"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_user_bg"
+                    android:foreground="@color/transparent_white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:text="@string/lorem"
+                    android:textSize="13sp"
+                    android:textColor="@color/monsoon"
+                    android:maxWidth="250dp"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        app:layout_behavior="com.wuruoye.news.adapter.behavior.UserIVBehavior"
+        android:src="@color/black"
+        app:civ_border_color="@color/monsoon"
+        app:civ_border_width="1dp"
+        android:translationZ="100dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        tools:ignore="UnusedAttribute" />
+
+    <TextView
+        android:text="无若叶"
+        android:maxEms="16"
+        android:ellipsize="end"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_behavior="com.wuruoye.news.adapter.behavior.UserTVBehavior"
+        android:textColor="@color/monsoon"
+        android:translationZ="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="UnusedAttribute" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:dividerPadding="5dp"
+            android:divider="@color/mercury"
+            android:showDividers="beginning|middle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                layout="@layout/item_user"/>
+            <include
+                layout="@layout/item_user"/>
+            <include
+                layout="@layout/item_user"/>
+            <include
+                layout="@layout/item_user"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

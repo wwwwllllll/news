@@ -13,4 +13,6 @@
     <color name="storm_dust">#636363</color>
     <color name="monsoon">#777777</color>
     <color name="black">#000000</color>
+
+    <color name="transparent_white">#60FFFFFF</color>
 </resources>
