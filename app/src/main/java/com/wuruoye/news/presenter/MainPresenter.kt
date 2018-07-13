@@ -16,17 +16,24 @@ class MainPresenter : MainContract.Presenter() {
     private val userCache = UserCache.getInstance()
 
     override fun requestApi() {
-        WNet.getInBackground(API.API, mapOf(), object : Listener<String> {
-            override fun onFail(p0: String?) {
-                val info = p0!!
-            }
+        val api = userCache.cachedApi
+        if (api.isEmpty()) {
+            WNet.getInBackground(API.API, mapOf(), object : Listener<String> {
+                override fun onFail(p0: String?) {
 
-            override fun onSuccessful(p0: String?) {
-                val api = DataUtil.parseApi(p0!!)
-                userCache.api = api
-                view?.onResultApi()
-            }
+                }
 
-        })
+                override fun onSuccessful(p0: String?) {
+                    val api = DataUtil.parseApi(p0!!)
+                    userCache.api = api
+                    userCache.cachedApi = p0
+                    view?.onResultApi()
+                }
+
+            })
+        }else {
+            userCache.api = DataUtil.parseApi(api)
+            view?.onResultApi()
+        }
     }
 }

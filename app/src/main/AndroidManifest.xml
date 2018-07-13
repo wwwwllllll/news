@@ -13,17 +13,20 @@
         android:theme="@style/AppTheme"
         android:fullBackupContent="true">
 
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.MainActivity" />
         <activity android:name=".ui.ItemChooseActivity" />
         <activity android:name=".ui.DetailActivity" />
         <activity android:name=".ui.ImgActivity" />
         <activity android:name=".ui.WebActivity" />
         <activity android:name=".ui.VideoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|layoutDirection"/>
+        <activity android:name=".ui.LoginActivity" />
     </application>
 </manifest>

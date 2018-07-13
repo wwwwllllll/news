@@ -5,13 +5,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.design.widget.AppBarLayout
-        android:minHeight="50dp"
         android:layout_width="match_parent"
         android:layout_height="50dp">
 
         <android.support.design.widget.CollapsingToolbarLayout
             app:layout_scrollFlags="scroll|snap|enterAlways|exitUntilCollapsed"
-            android:minHeight="50dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

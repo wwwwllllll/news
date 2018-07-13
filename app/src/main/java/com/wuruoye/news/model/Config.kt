@@ -7,4 +7,5 @@ package com.wuruoye.news.model
  */
 object Config {
     const val HOME_CHOOSE = 11
+    const val USER_LOGIN = 12
 }
