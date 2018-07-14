@@ -54,60 +54,84 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:ignore="NewApi" >
 
-            <ImageView
-                android:id="@+id/iv_detail_comment"
-                android:padding="15dp"
-                android:src="@drawable/ic_comment"
+            <LinearLayout
+                android:id="@+id/ll_detail_comment"
+                android:gravity="center_vertical"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
                 android:foreground="?android:attr/selectableItemBackgroundBorderless"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                tools:ignore="NewApi" />
-
-            <TextView
-                android:id="@+id/tv_detail_comment_num"
-                android:textSize="12sp"
-                android:textColor="@color/monsoon"
-                android:text="0"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/iv_detail_praise"
-                android:src="@drawable/ic_heart_not"
-                android:padding="15dp"
-                android:layout_marginStart="10dp"
+                <ImageView
+                    android:id="@+id/iv_detail_comment"
+                    android:padding="15dp"
+                    android:src="@drawable/ic_comment"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"/>
+
+                <TextView
+                    android:id="@+id/tv_detail_comment_num"
+                    android:textSize="12sp"
+                    android:textColor="@color/monsoon"
+                    android:text="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_detail_praise"
+                android:gravity="center_vertical"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
                 android:foreground="?android:attr/selectableItemBackgroundBorderless"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                tools:ignore="NewApi" />
-
-            <TextView
-                android:id="@+id/tv_detail_praise_num"
-                android:textSize="12sp"
-                android:textColor="@color/monsoon"
-                android:text="0"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/iv_detail_collect"
-                android:src="@drawable/ic_collect_not"
-                android:padding="15dp"
-                android:layout_marginStart="10dp"
+                <ImageView
+                    android:id="@+id/iv_detail_praise"
+                    android:src="@drawable/ic_heart_not"
+                    android:padding="15dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"/>
+
+                <TextView
+                    android:id="@+id/tv_detail_praise_num"
+                    android:textSize="12sp"
+                    android:textColor="@color/monsoon"
+                    android:text="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_detail_collect"
+                android:gravity="center_vertical"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
                 android:foreground="?android:attr/selectableItemBackgroundBorderless"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                tools:ignore="NewApi" />
-
-            <TextView
-                android:id="@+id/tv_detail_collect_num"
-                android:textSize="12sp"
-                android:textColor="@color/monsoon"
-                android:text="0"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_detail_collect"
+                    android:src="@drawable/ic_collect_not"
+                    android:padding="15dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    tools:ignore="NewApi" />
+
+                <TextView
+                    android:id="@+id/tv_detail_collect_num"
+                    android:textSize="12sp"
+                    android:textColor="@color/monsoon"
+                    android:text="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
@@ -119,13 +143,10 @@
         <LinearLayout
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:foreground="?android:attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:ignore="NewApi">
-
 
             <LinearLayout
                 android:id="@+id/ll_detail_content"

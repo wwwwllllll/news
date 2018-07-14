@@ -77,9 +77,9 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
     override fun initView() {
         tv_detail_title.text = mArticle.title
         iv_detail_back.setOnClickListener(this)
-        iv_detail_comment.setOnClickListener(this)
-        iv_detail_praise.setOnClickListener(this)
-        iv_detail_collect.setOnClickListener(this)
+        ll_detail_comment.setOnClickListener(this)
+        ll_detail_praise.setOnClickListener(this)
+        ll_detail_collect.setOnClickListener(this)
 
         initDlg()
 
@@ -115,6 +115,7 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
         adapter.setOnActionListener(this)
         rv_detail.adapter = adapter
         rv_detail.layoutManager = LinearLayoutManager(this)
+        rv_detail.isNestedScrollingEnabled = false
     }
 
     override fun onResultDetail(detail: ArticleDetail) {
@@ -199,16 +200,16 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
             R.id.iv_detail_back -> {
                 onBackPressed()
             }
-            R.id.iv_detail_comment -> {
+            R.id.ll_detail_comment -> {
                 mCommentCallback = mDetailCommentCallback
                 mCommentParent = 0
                 tvCommentParent.visibility = View.GONE
                 dlgComment.show()
             }
-            R.id.iv_detail_praise -> {
+            R.id.ll_detail_praise -> {
                 mPresenter.requestPraiseArticle(mArticle.id)
             }
-            R.id.iv_detail_collect -> {
+            R.id.ll_detail_collect -> {
                 mPresenter.requestCollectArticle(mArticle.id, mArticle)
             }
         }
