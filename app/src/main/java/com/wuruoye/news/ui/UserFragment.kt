@@ -13,15 +13,14 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.wuruoye.library.ui.WBaseFragment
-import com.wuruoye.library.util.BitmapUtil
 import com.wuruoye.news.R
 import com.wuruoye.news.contract.UserContract
 import com.wuruoye.news.model.Config.USER_INFO
 import com.wuruoye.news.model.Config.USER_LOGIN
 import com.wuruoye.news.model.bean.LoginUser
+import com.wuruoye.news.model.util.blur
 import com.wuruoye.news.model.util.toast
 import com.wuruoye.news.presenter.UserPresenter
-import kotlinx.android.synthetic.main.fragment_user.*
 
 /**
  * @Created : wuruoye
@@ -154,7 +153,7 @@ class UserFragment : WBaseFragment<UserContract.Presenter>(), UserContract.View,
                                                  isFirstResource: Boolean): Boolean {
                         civ_user_avatar.setImageBitmap(resource)
                         try {
-                            iv_user_bg.setImageBitmap(BitmapUtil.blur(context, resource))
+                            iv_user_bg.setImageBitmap(blur(context!!, resource!!))
                         } catch (e: Exception) {
                         }
                         return true
