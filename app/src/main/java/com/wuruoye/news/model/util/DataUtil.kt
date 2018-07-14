@@ -3,6 +3,7 @@ package com.wuruoye.news.model.util
 import com.google.gson.Gson
 import com.wuruoye.news.model.bean.*
 import org.json.JSONArray
+import org.json.JSONObject
 
 /**
  * @Created : wuruoye
@@ -66,7 +67,18 @@ object DataUtil {
     }
 
     fun parseResult(info: String): NetResult {
-        return sGson.fromJson(info, NetResult::class.java)
+        val obj = JSONObject(info)
+        val result = obj.getBoolean("result")
+        val s = obj.getString("info")
+        return NetResult(result, s)
+    }
+
+    fun parseArticleComment(info: String): ArticleComment {
+        return sGson.fromJson(info, ArticleComment::class.java)
+    }
+
+    fun parseArticleCommentList(info: String): ArticleCommentList {
+        return sGson.fromJson(info, ArticleCommentList::class.java)
     }
 
     fun parseCollectionList(info: String): CollectionList {

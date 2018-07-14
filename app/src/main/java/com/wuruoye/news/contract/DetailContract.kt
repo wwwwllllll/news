@@ -14,6 +14,7 @@ class DetailContract {
     interface View : WIView {
         fun onResultDetail(detail: ArticleDetail)
         fun onResultCommentList(commentList: List<ArticleComment>)
+        fun onResultCommentList(info: String)
         fun onResultPraiseComment(result: Boolean, info: String)
         fun onResultCommentComment(comment: ArticleComment)
         fun onResultCommentComment(info: String)

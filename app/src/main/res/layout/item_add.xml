@@ -7,6 +7,7 @@
     <TextView
         android:id="@+id/tv_item_add_none"
         android:text="已经加载完毕..."
+        android:visibility="gone"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -15,7 +16,6 @@
         android:id="@+id/ll_item_add_loading"
         android:orientation="horizontal"
         android:gravity="center"
-        android:background="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

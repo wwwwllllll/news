@@ -13,6 +13,7 @@ import com.wuruoye.news.model.util.DataUtil
  * @Description :
  */
 class DetailPresenter : DetailContract.Presenter() {
+    private var mNextComment = 0L
 
     override fun requestDetail(app: String, category: String, id: String) {
         val values = mapOf(Pair("app", app), Pair("category", category),
@@ -35,21 +36,57 @@ class DetailPresenter : DetailContract.Presenter() {
                 Pair("content", content), Pair("parent", parent.toString()))
         WNet.postInBackground(API.ARTICLE_COMMENT, values, object : Listener<String> {
             override fun onFail(p0: String?) {
-
+                view?.onResultCommentComment(p0!!)
             }
 
             override fun onSuccessful(p0: String?) {
-
+                val result = DataUtil.parseResult(p0!!)
+                if (result.result) {
+                    val comment = DataUtil.parseArticleComment(result.info)
+                    view?.onResultCommentComment(comment)
+                }else {
+                    view?.onResultCommentComment(result.info)
+                }
             }
 
         })
     }
 
     override fun requestCommentList(article: String) {
+        val values = mapOf(Pair("article", article),
+                Pair("time", mNextComment.toString()))
+        WNet.getInBackground(API.ARTICLE_COMMENT, values, object : Listener<String> {
+            override fun onFail(p0: String?) {
+                view?.onResultCommentList(p0!!)
+            }
 
+            override fun onSuccessful(p0: String?) {
+                val result = DataUtil.parseResult(p0!!)
+                if (result.result) {
+                    val list = DataUtil.parseArticleCommentList(result.info)
+                    mNextComment = list.next
+                    view?.onResultCommentList(list.list)
+                }else {
+                    view?.onResultCommentList(result.info)
+                }
+            }
+
+        })
     }
 
     override fun requestPraiseComment(comment: Int) {
+        val values = mapOf(Pair("comment", comment.toString()))
 
+        WNet.postInBackground(API.COMMENT_PRAISE, values, object : Listener<String> {
+            override fun onFail(p0: String?) {
+                view?.onResultPraiseComment(false, p0!!)
+            }
+
+            override fun onSuccessful(p0: String?) {
+                val result = DataUtil.parseResult(p0!!)
+                view?.onResultPraiseComment(result.result, result.info)
+            }
+
+        })
     }
 }

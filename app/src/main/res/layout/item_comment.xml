@@ -25,7 +25,7 @@
             android:id="@+id/tv_item_comment_user"
             android:text="无若叶"
             android:textSize="16sp"
-            android:textColor="@color/monsoon"
+            android:textColor="@color/ship_gray"
             android:layout_marginStart="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -50,6 +50,7 @@
         android:id="@+id/tv_item_comment_content"
         android:text="@string/lorem"
         android:textSize="14sp"
+        android:textColor="@color/monsoon"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:paddingTop="5dp"

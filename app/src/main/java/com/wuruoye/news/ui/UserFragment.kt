@@ -18,6 +18,7 @@ import com.wuruoye.news.R
 import com.wuruoye.news.contract.UserContract
 import com.wuruoye.news.model.Config.USER_LOGIN
 import com.wuruoye.news.model.bean.LoginUser
+import com.wuruoye.news.model.util.toast
 import com.wuruoye.news.presenter.UserPresenter
 import kotlinx.android.synthetic.main.fragment_user.*
 
@@ -131,6 +132,7 @@ class UserFragment : WBaseFragment<UserContract.Presenter>(), UserContract.View,
                     override fun onLoadFailed(e: GlideException?, model: Any?,
                                               target: Target<Bitmap>?,
                                               isFirstResource: Boolean): Boolean {
+                        civ_user_avatar.setImageResource(R.drawable.ic_avatar)
                         return false
                     }
 
@@ -148,6 +150,10 @@ class UserFragment : WBaseFragment<UserContract.Presenter>(), UserContract.View,
         tv_user_user.post {
             cl_user.dispatchDependentViewsChanged(abl_user)
         }
+    }
+
+    override fun onResultUserInfo(info: String) {
+        context?.toast(info)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
