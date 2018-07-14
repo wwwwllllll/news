@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/romance"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_back"
+                android:padding="16dp"
+                android:id="@+id/btn_user_info_back"/>
+
+            <TextView
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/monsoon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="个人信息"/>
+        </LinearLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:divider="@color/mercury"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:showDividers="beginning|middle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textSize="15sp"
+                    android:textColor="@color/monsoon"
+                    android:padding="10dp"
+                    android:gravity="center_vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="用户头像 :"/>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:src="@drawable/ic_avatar"
+                    app:civ_border_width="1dp"
+                    app:civ_border_color="@color/monsoon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textSize="15sp"
+                    android:textColor="@color/monsoon"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="用户 ID :"/>
+
+                <TextView
+                    android:textSize="15sp"
+                    android:textColor="@color/monsoon"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:text="@string/app_name"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textSize="15sp"
+                    android:textColor="@color/monsoon"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="用户名 :"/>
+
+                <TextView
+                    android:textSize="15sp"
+                    android:textColor="@color/monsoon"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:text="@string/app_name"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textSize="15sp"
+                    android:textColor="@color/monsoon"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="签名 :"/>
+
+                <TextView
+                    android:textSize="15sp"
+                    android:textColor="@color/monsoon"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:text="@string/app_name"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textSize="15sp"
+                    android:textColor="@color/monsoon"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="验证邮箱 :"/>
+
+                <TextView
+                    android:textSize="15sp"
+                    android:textColor="@color/monsoon"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:text="@string/app_name"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textSize="15sp"
+                    android:textColor="@color/monsoon"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="手机号 :"/>
+
+                <TextView
+                    android:textSize="15sp"
+                    android:textColor="@color/monsoon"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:text="@string/app_name"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

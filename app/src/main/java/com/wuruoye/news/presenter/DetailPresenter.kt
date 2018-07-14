@@ -38,16 +38,16 @@ class DetailPresenter : DetailContract.Presenter() {
                 Pair("content", content), Pair("parent", parent.toString()))
         WNet.postInBackground(API.ARTICLE_COMMENT, values, object : Listener<String> {
             override fun onFail(p0: String?) {
-                view?.onResultCommentComment(p0!!)
+                view?.onResultComment(p0!!)
             }
 
             override fun onSuccessful(p0: String?) {
                 val result = DataUtil.parseResult(p0!!)
                 if (result.result) {
                     val comment = DataUtil.parseArticleComment(result.info)
-                    view?.onResultCommentComment(comment)
+                    view?.onResultComment(comment)
                 }else {
-                    view?.onResultCommentComment(result.info)
+                    view?.onResultComment(result.info)
                 }
             }
 

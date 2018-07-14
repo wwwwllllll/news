@@ -53,15 +53,13 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
         }
 
         override fun onComment(add: Boolean) {
-            if (add) {
-
-            }
+            tv_detail_comment_num.text = (tv_detail_comment_num.text.toString().toInt()
+                    + if (add) 1 else -1).toString()
         }
 
         override fun onNoMore() {
 
         }
-
     }
 
     override fun getContentView(): Int {
@@ -99,6 +97,7 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
                 .setView(view)
                 .setPositiveButton("提交") {_, _ ->
                     val content = et.text.toString()
+                    et.text.clear()
                     val article = mArticle.id
                     val parent = mCommentParent
                     mPresenter.requestComment(article, content, parent)
@@ -236,7 +235,7 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
         mPresenter.requestPraiseComment(item.id)
     }
 
-    override fun onResultCommentComment(comment: ArticleComment) {
+    override fun onResultComment(comment: ArticleComment) {
         mCommentCallback.onComment(true)
         val adapter = rv_detail.adapter as CommentRVAdapter
         adapter.addDataHead(comment)
@@ -245,7 +244,7 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
         }
     }
 
-    override fun onResultCommentComment(info: String) {
+    override fun onResultComment(info: String) {
         Toast.makeText(this, info, Toast.LENGTH_SHORT).show()
     }
 
