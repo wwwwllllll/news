@@ -43,7 +43,7 @@ class RegisterFragment : WBaseFragment<LoginRegisterContract.Presenter>(),
     private fun initDlg() {
         val view = LayoutInflater.from(context)
                 .inflate(R.layout.dlg_loading, null)
-        view.findViewById<TextView>(R.id.tv_view_loading).text = "正在注册中..."
+        view.findViewById<TextView>(R.id.tv_dlg_loading).text = "正在注册中..."
         dlgRegister = AlertDialog.Builder(context!!)
                 .setView(view)
                 .create()

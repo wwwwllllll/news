@@ -23,6 +23,7 @@ class NetRequest : IWNet {
     init {
         mClient = OkHttpClient.Builder()
                 .connectTimeout(WConfig.CONNECT_TIME_OUT.toLong(), TimeUnit.SECONDS)
+                .writeTimeout(10000, TimeUnit.SECONDS)
                 .cookieJar(object : CookieJar {
                     override fun saveFromResponse(url: HttpUrl?, cookies: MutableList<Cookie>?) {
                         for (cookie in cookies!!) {
@@ -106,15 +107,14 @@ class NetRequest : IWNet {
                 })
     }
 
-    override fun uploadFile(url: String, values: Map<String, String>, files: Map<String, String>, types: List<String>, listener: Listener<String>) {
+    override fun uploadFile(url: String, values: Map<String, String>, files: Map<String, String>,
+                            types: List<String>, listener: Listener<String>) {
         if (files.size != types.size) {
             throw IllegalArgumentException()
         }
-        val builder = MultipartBody.Builder()
-        try {
-            builder.addPart(generateForm(values, IWNet.PARAM_TYPE.FORM))
-        } catch (ignored: JSONException) {
-
+        val builder = MultipartBody.Builder().setType(MultipartBody.FORM)
+        for ((key, value) in values) {
+            builder.addFormDataPart(key, value)
         }
 
         var i = 0

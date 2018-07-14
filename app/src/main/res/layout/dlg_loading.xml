@@ -13,7 +13,7 @@
         android:layout_height="30dp" />
 
     <TextView
-        android:id="@+id/tv_view_loading"
+        android:id="@+id/tv_dlg_loading"
         android:text="加载中..."
         android:textSize="18sp"
         android:textColor="@color/monsoon"

@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_start.*
  */
 class StartActivity : WBaseActivity<StartContract.Presenter>(), StartContract.View {
     companion object {
-        val TEXT_TRANSLATION = 500
+        val TEXT_TRANSLATION = 600
     }
     private var mTimeout = false
     private var mLoginResult = false

@@ -16,7 +16,7 @@ data class LoginUser(
         var id: String,
         var is_available: Boolean,
         var name: String,
-        val phone: String,
+        var phone: String,
         var sign: String
 ) : Parcelable {
     constructor(source: Parcel) : this(

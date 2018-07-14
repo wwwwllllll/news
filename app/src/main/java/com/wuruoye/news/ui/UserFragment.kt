@@ -16,6 +16,7 @@ import com.wuruoye.library.ui.WBaseFragment
 import com.wuruoye.library.util.BitmapUtil
 import com.wuruoye.news.R
 import com.wuruoye.news.contract.UserContract
+import com.wuruoye.news.model.Config.USER_INFO
 import com.wuruoye.news.model.Config.USER_LOGIN
 import com.wuruoye.news.model.bean.LoginUser
 import com.wuruoye.news.model.util.toast
@@ -103,7 +104,11 @@ class UserFragment : WBaseFragment<UserContract.Presenter>(), UserContract.View,
             }
             R.id.ll_user_info -> {
                 if (mIsLogin) {
-
+                    val bundle = Bundle()
+                    bundle.putParcelable("user", mLoginUser)
+                    val intent = Intent(context, UserInfoActivity::class.java)
+                    intent.putExtras(bundle)
+                    startActivityForResult(intent, USER_INFO)
                 }else {
                     startActivityForResult(Intent(context, LoginActivity::class.java), USER_LOGIN)
                 }
@@ -140,7 +145,10 @@ class UserFragment : WBaseFragment<UserContract.Presenter>(), UserContract.View,
                                                  target: Target<Bitmap>?, dataSource: DataSource?,
                                                  isFirstResource: Boolean): Boolean {
                         civ_user_avatar.setImageBitmap(resource)
-                        iv_user_bg.setImageBitmap(BitmapUtil.blur(context, resource))
+                        try {
+                            iv_user_bg.setImageBitmap(BitmapUtil.blur(context, resource))
+                        } catch (e: Exception) {
+                        }
                         return true
                     }
                 })
@@ -159,6 +167,9 @@ class UserFragment : WBaseFragment<UserContract.Presenter>(), UserContract.View,
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == USER_LOGIN && resultCode == RESULT_OK) {
             val loginUser = data!!.getParcelableExtra<LoginUser>("loginUser")
+            onLoginResult(loginUser)
+        }else if (requestCode == USER_INFO && resultCode == RESULT_OK) {
+            val loginUser = data!!.getParcelableExtra<LoginUser>("user")
             onLoginResult(loginUser)
         }
         super.onActivityResult(requestCode, resultCode, data)

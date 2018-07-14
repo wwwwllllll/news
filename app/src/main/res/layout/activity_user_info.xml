@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@color/romance"
     android:layout_width="match_parent"
@@ -21,7 +22,7 @@
                 android:layout_height="50dp"
                 android:src="@drawable/ic_back"
                 android:padding="16dp"
-                android:id="@+id/btn_user_info_back"/>
+                android:id="@+id/iv_user_info_back"/>
 
             <TextView
                 android:textSize="20sp"
@@ -39,18 +40,22 @@
 
         <LinearLayout
             android:divider="@color/mercury"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:showDividers="beginning|middle"
+            android:showDividers="middle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="NewApi">
 
             <LinearLayout
+                android:id="@+id/ll_user_info_avatar"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
@@ -64,15 +69,20 @@
                     android:text="用户头像 :"/>
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/civ_user_info"
                     android:src="@drawable/ic_avatar"
                     app:civ_border_width="1dp"
-                    app:civ_border_color="@color/monsoon"
+                    app:civ_border_color="@color/gray_chateau"
                     android:layout_width="50dp"
                     android:layout_height="50dp" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/ll_user_info_id"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
@@ -85,6 +95,7 @@
                     android:text="用户 ID :"/>
 
                 <TextView
+                    android:id="@+id/tv_user_info_id"
                     android:textSize="15sp"
                     android:textColor="@color/monsoon"
                     android:gravity="center_vertical"
@@ -95,8 +106,13 @@
                     android:layout_height="match_parent"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/ll_user_info_name"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
@@ -109,6 +125,7 @@
                     android:text="用户名 :"/>
 
                 <TextView
+                    android:id="@+id/tv_user_info_name"
                     android:textSize="15sp"
                     android:textColor="@color/monsoon"
                     android:gravity="center_vertical"
@@ -117,10 +134,21 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"/>
+
+                <ImageView
+                    android:src="@drawable/ic_right"
+                    android:padding="16dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/ll_user_info_sign"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
@@ -133,6 +161,7 @@
                     android:text="签名 :"/>
 
                 <TextView
+                    android:id="@+id/tv_user_info_sign"
                     android:textSize="15sp"
                     android:textColor="@color/monsoon"
                     android:gravity="center_vertical"
@@ -140,11 +169,24 @@
                     android:text="@string/app_name"
                     android:layout_width="0dp"
                     android:layout_weight="1"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:layout_height="match_parent"/>
+
+                <ImageView
+                    android:src="@drawable/ic_right"
+                    android:padding="16dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/ll_user_info_email"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
@@ -157,6 +199,7 @@
                     android:text="验证邮箱 :"/>
 
                 <TextView
+                    android:id="@+id/tv_user_info_email"
                     android:textSize="15sp"
                     android:textColor="@color/monsoon"
                     android:gravity="center_vertical"
@@ -165,10 +208,21 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"/>
+
+                <ImageView
+                    android:src="@drawable/ic_right"
+                    android:padding="16dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/ll_user_info_phone"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
@@ -181,6 +235,7 @@
                     android:text="手机号 :"/>
 
                 <TextView
+                    android:id="@+id/tv_user_info_phone"
                     android:textSize="15sp"
                     android:textColor="@color/monsoon"
                     android:gravity="center_vertical"
@@ -189,6 +244,12 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"/>
+
+                <ImageView
+                    android:src="@drawable/ic_right"
+                    android:padding="16dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp" />
             </LinearLayout>
 
         </LinearLayout>
