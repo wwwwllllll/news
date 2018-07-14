@@ -13,6 +13,7 @@ import java.net.URLEncoder
  * @Description :
  */
 class RegisterPresenter : LoginRegisterContract.Presenter() {
+
     override fun requestRegister(id: String, nickname: String, pwd: String, email: String) {
         val values = mapOf(Pair("id", id), Pair("name", nickname),
                 Pair("password", URLEncoder.encode(SecretUtil.getPublicSecret(pwd), "utf8")),

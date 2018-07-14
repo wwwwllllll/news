@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.wuruoye.library.adapter.WBaseRVAdapter
+import com.wuruoye.library.util.DateUtil
 import com.wuruoye.news.R
 import com.wuruoye.news.model.bean.ArticleItem
 import com.wuruoye.news.model.util.DataUtil
@@ -35,30 +36,35 @@ class CollectionItemRVAdapter: WBaseRVAdapter<ArticleItem>() {
         }
     }
 
+    fun setOnActionListener(listener: OnActionListner) {
+        mOnActionListener = listener
+    }
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == TYPE_NORMAL) {
             val viewholder = holder as ViewHolder
             val data = getData(position)
             viewholder.itemView.setOnClickListener {
-
+                onItemClick(data)
             }
 
-            viewholder.itemView.collection_news_title.text = data.title
-            viewholder.itemView.collection_news_source.text = data.author
+            with(viewholder.itemView) {
+                collection_news_title.text = data.title
+                collection_news_source.text = data.author
+                collection_news_time.text = DateUtil.formatTime(data.millis*1000, "YYYY-MM-dd HH:MM")
+            }
         }else{
             val viewholder = holder as AddViewHolder
             mOnActionListener?.OnLoading(viewholder.ll)
         }
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == TYPE_NORMAL) {
-            ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_collectnews,parent,false))
+            return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_collectnews,parent,false))
         }else{
-            AddViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_add,parent,false))
+            return AddViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_add,parent,false))
         }
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     class ViewHolder(itemview :View): RecyclerView.ViewHolder(itemview) {

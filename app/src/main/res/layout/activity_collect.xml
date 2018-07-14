@@ -1,15 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/uc_news_list">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_back"
+                android:padding="15dp"
+                android:id="@+id/collection_back_bt"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="我的收藏"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginRight="50dp"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+        </LinearLayout>
+    </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/news_list"
+        android:id="@+id/collection_news_list"
         android:orientation="vertical"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:padding="16dp">
 
     </android.support.v7.widget.RecyclerView>
 </LinearLayout>

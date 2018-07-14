@@ -16,17 +16,14 @@ class CollectionPresenter : CollectionContract.Presenter() {
 
         val url = url.replace("\${page}", page)
 
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         WNet.getInBackground(url, value, object: Listener<String> {
 
             override fun onSuccessful(p0: String?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 val list = DataUtil.parseColllectionList(p0!!)
                 view.GetCollectionList(list)
             }
 
             override fun onFail(p0: String?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
         })
     }

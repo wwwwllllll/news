@@ -7,9 +7,7 @@ import com.wuruoye.news.model.bean.CollectionList
 
 class CollectionContract {
     interface View : WIView {
-        fun GetCollectionList(collectionList: CollectionList) {
-
-        }
+        fun GetCollectionList(collectionList: CollectionList)
     }
 
     abstract class Presenter: WPresenter<View>() {
