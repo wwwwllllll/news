@@ -35,11 +35,13 @@ class UserInfoActivity : WBaseActivity<UserInfoContract.Presenter>(), UserInfoCo
         const val TYPE_SIGN = 2
         const val TYPE_EMAIL = 3
         const val TYPE_PHONE = 4
+        val ITEM_PHOTO = arrayOf("相册", "拍照")
     }
     private lateinit var mLoginUser: LoginUser
     private lateinit var mPhotoGet: WPhoto
     private var mCurrentType = 0
 
+    private lateinit var dlgPhoto: AlertDialog
     private lateinit var dlgLoading: AlertDialog
     private lateinit var dlgUserInfo: AlertDialog
     private lateinit var tilUserInfo: TextInputLayout
@@ -66,7 +68,7 @@ class UserInfoActivity : WBaseActivity<UserInfoContract.Presenter>(), UserInfoCo
         ll_user_info_sign.setOnClickListener(this)
         ll_user_info_email.setOnClickListener(this)
         ll_user_info_phone.setOnClickListener(this)
-        civ_user_info.setOnClickListener(this)
+        ll_user_info_avatar.setOnClickListener(this)
     }
 
     @SuppressLint("InflateParams")
@@ -88,6 +90,22 @@ class UserInfoActivity : WBaseActivity<UserInfoContract.Presenter>(), UserInfoCo
         dlgLoading = AlertDialog.Builder(this)
                 .setView(loadingView)
                 .create()
+
+        dlgPhoto = AlertDialog.Builder(this)
+                .setTitle("选择方式")
+                .setItems(ITEM_PHOTO) {_, position ->
+                    when (position) {
+                        0 -> {
+                            mPhotoGet.choosePhoto(mPresenter.getAvatarPath(), 1, 1,
+                                    500, 500, this)
+                        }
+                        1 -> {
+                            mPhotoGet.takePhoto(mPresenter.getAvatarPath(), 1, 1,
+                                    500, 500, this)
+                        }
+                    }
+                }
+                .create()
     }
 
     override fun onClick(p0: View?) {
@@ -95,9 +113,8 @@ class UserInfoActivity : WBaseActivity<UserInfoContract.Presenter>(), UserInfoCo
             R.id.iv_user_info_back -> {
                 onBackPressed()
             }
-            R.id.civ_user_info -> {
-                mPhotoGet.choosePhoto(mPresenter.getAvatarPath(), 1, 1,
-                        500, 500, this)
+            R.id.ll_user_info_avatar -> {
+                dlgPhoto.show()
             }
             R.id.ll_user_info_name -> {
                 showDlg(TYPE_NAME)

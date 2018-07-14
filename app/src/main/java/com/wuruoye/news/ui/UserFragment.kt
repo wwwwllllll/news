@@ -114,7 +114,15 @@ class UserFragment : WBaseFragment<UserContract.Presenter>(), UserContract.View,
                 }
             }
             R.id.ll_user_collect -> {
-
+                if (mIsLogin) {
+                    val bundle = Bundle()
+                    bundle.putParcelable("user", mLoginUser)
+                    val intent = Intent(context, CollectActivity::class.java)
+                    intent.putExtras(bundle)
+                    startActivity(intent)
+                }else {
+                    context!!.toast("请先登录")
+                }
             }
             R.id.ll_user_setting -> {
 

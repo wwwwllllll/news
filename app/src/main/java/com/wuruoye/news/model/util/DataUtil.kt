@@ -84,4 +84,22 @@ object DataUtil {
     fun parseArticleInfo(info: String): ArticleInfo {
         return sGson.fromJson(info, ArticleInfo::class.java)
     }
+
+    fun parseArticleCollectList(info: String): ArticleCollectList {
+        val obj = JSONObject(info)
+        val list = obj.getJSONArray("list")
+        val next = obj.getLong("next")
+        val collectList = arrayListOf<ArticleCollect>()
+        for (i in 0 until list.length()) {
+            val collectObj = list.getJSONObject(i)
+            val article = collectObj.getString("article")
+            val id = collectObj.getInt("id")
+            val user = collectObj.getString("user")
+            val time = collectObj.getLong("time")
+            val content = collectObj.getString("content")
+            collectList.add(ArticleCollect(id, article, user,
+                    sGson.fromJson(content, ArticleItem::class.java), time))
+        }
+        return ArticleCollectList(next, collectList)
+    }
 }

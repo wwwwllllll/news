@@ -33,7 +33,6 @@
 
                 <TextView
                     android:id="@+id/tv_user_sign"
-                    android:text="@string/lorem"
                     android:textSize="13sp"
                     android:textColor="@color/monsoon"
                     android:maxWidth="250dp"
@@ -51,7 +50,7 @@
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/civ_user_avatar"
         app:layout_behavior="com.wuruoye.news.adapter.behavior.UserIVBehavior"
-
+        android:src="@drawable/ic_avatar"
         app:civ_border_color="@color/monsoon"
         app:civ_border_width="1dp"
         android:translationZ="100dp"
@@ -61,7 +60,7 @@
 
     <TextView
         android:id="@+id/tv_user_user"
-        android:text="无若叶"
+        android:text="未登录"
         android:maxEms="16"
         android:ellipsize="end"
         android:textSize="20sp"
