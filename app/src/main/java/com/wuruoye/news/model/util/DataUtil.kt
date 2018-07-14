@@ -68,4 +68,8 @@ object DataUtil {
     fun parseResult(info: String): NetResult {
         return sGson.fromJson(info, NetResult::class.java)
     }
+
+    fun parseCollectionList(info: String): CollectionList {
+        return sGson.fromJson(info, CollectionList::class.java)
+    }
 }

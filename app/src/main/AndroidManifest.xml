@@ -29,5 +29,6 @@
             android:configChanges="keyboardHidden|orientation|screenSize|layoutDirection"/>
         <activity android:name=".ui.LoginActivity" />
         <activity android:name=".ui.CollectionActivity" />
+        <activity android:name=".ui.UserInfoActivity" />
     </application>
 </manifest>

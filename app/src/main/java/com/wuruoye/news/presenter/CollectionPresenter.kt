@@ -19,7 +19,7 @@ class CollectionPresenter : CollectionContract.Presenter() {
         WNet.getInBackground(url, value, object: Listener<String> {
 
             override fun onSuccessful(p0: String?) {
-                val list = DataUtil.parseColllectionList(p0!!)
+                val list = DataUtil.parseCollectionList(p0!!)
                 view.GetCollectionList(list)
             }
 
