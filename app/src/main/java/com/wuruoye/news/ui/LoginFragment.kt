@@ -47,7 +47,7 @@ class LoginFragment : WBaseFragment<LoginLoginContract.Presenter>(),
     @SuppressLint("InflateParams")
     private fun initDlg() {
         val view = LayoutInflater.from(context)
-                .inflate(R.layout.view_loading, null)
+                .inflate(R.layout.dlg_loading, null)
         val tv = view.findViewById<TextView>(R.id.tv_view_loading)
         tv.text = "正在登录中..."
         dlgLogin = AlertDialog.Builder(context!!)

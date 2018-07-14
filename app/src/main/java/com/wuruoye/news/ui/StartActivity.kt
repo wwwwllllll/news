@@ -56,8 +56,8 @@ class StartActivity : WBaseActivity<StartContract.Presenter>(), StartContract.Vi
         })
         valueAnimator.addUpdateListener { p0 ->
             val value = p0!!.animatedValue as Float
-            tv_start.scaleX = value * 0.5F + 1
-            tv_start.scaleY = value * 0.5F + 1
+            iv_start.scaleX = value * 0.5F + 1
+            iv_start.scaleY = value * 0.5F + 1
 
             tv_start_name.scaleX = value * 0.5F + 1
             tv_start_name.scaleY = value * 0.5F + 1

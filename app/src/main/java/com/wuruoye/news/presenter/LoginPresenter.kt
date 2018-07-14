@@ -27,11 +27,8 @@ class LoginPresenter : LoginLoginContract.Presenter() {
             }
 
             override fun onSuccessful(p0: String?) {
-                val user = DataUtil.parseLoginUser(p0!!)
-                mUserCache.isLogin = true
-                mUserCache.userId = id
-                mUserCache.userPwd = sPwd
-                view?.onResultLogin(user)
+                val result = DataUtil.parseResult(p0!!)
+
             }
 
         })

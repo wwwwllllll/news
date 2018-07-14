@@ -1,17 +1,23 @@
 package com.wuruoye.news.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.wuruoye.library.ui.WBaseActivity
 import com.wuruoye.news.R
+import com.wuruoye.news.adapter.CommentRVAdapter
 import com.wuruoye.news.contract.DetailContract
+import com.wuruoye.news.model.bean.ArticleComment
 import com.wuruoye.news.model.bean.ArticleDetail
 import com.wuruoye.news.model.bean.ArticleItem
 import com.wuruoye.news.model.bean.DetailItem.Companion.TYPE_H1
@@ -27,9 +33,17 @@ import kotlinx.android.synthetic.main.activity_detail.*
  * @Description :
  */
 class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
-        DetailContract.View, View.OnClickListener {
+        DetailContract.View, View.OnClickListener, CommentRVAdapter.OnActionListener {
     private lateinit var mArticle: ArticleItem
     private val mImgList = arrayListOf<String>()
+
+    private lateinit var mCommentCallback: CommentRVAdapter.OnActionCallback
+    private lateinit var mPraiseCallback: CommentRVAdapter.OnActionCallback
+    private var mLoadCallback: CommentRVAdapter.OnActionCallback? = null
+    private var mCommentParent = 0
+
+    private lateinit var dlgComment: AlertDialog
+    private lateinit var tvCommentParent: TextView
 
     override fun getContentView(): Int {
         return R.layout.activity_detail
@@ -44,8 +58,42 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
     override fun initView() {
         iv_detail_back.setOnClickListener(this)
         tv_detail_title.text = mArticle.title
+        iv_detail_comment.setOnClickListener(this)
+
+        initDlg()
+        initRV()
 
         mPresenter.requestDetail("sina", "", mArticle.url)
+    }
+
+    @SuppressLint("InflateParams")
+    private fun initDlg() {
+        val view = LayoutInflater.from(this)
+                .inflate(R.layout.dlg_comment, null)
+        val et = view.findViewById<EditText>(R.id.et_dlg_comment)
+        tvCommentParent = view.findViewById(R.id.tv_dlg_comment_parent)
+
+        dlgComment = AlertDialog.Builder(this)
+                .setTitle("写评论")
+                .setView(view)
+                .setPositiveButton("提交") {_, _ ->
+                    val content = et.text.toString()
+                    val article = mArticle.id
+                    val parent = mCommentParent
+                    mPresenter.requestComment(article, content, parent)
+                }
+                .setNegativeButton("取消") {_, _ ->
+
+                }
+                .setCancelable(false)
+                .create()
+    }
+
+    private fun initRV() {
+        val adapter = CommentRVAdapter()
+        adapter.setOnActionListener(this)
+        rv_detail.adapter = adapter
+        rv_detail.layoutManager = LinearLayoutManager(this)
     }
 
     override fun onResultDetail(detail: ArticleDetail) {
@@ -128,6 +176,55 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
             R.id.iv_detail_back -> {
                 onBackPressed()
             }
+            R.id.iv_detail_comment -> {
+                mCommentParent = 0
+                tvCommentParent.visibility = View.GONE
+                dlgComment.show()
+            }
+        }
+    }
+
+    override fun onCommentClick(callback: CommentRVAdapter.OnActionCallback, item: ArticleComment) {
+        mPraiseCallback = callback
+        mCommentParent = item.id
+        tvCommentParent.visibility = View.VISIBLE
+        dlgComment.show()
+    }
+
+    override fun onLoading(callback: CommentRVAdapter.OnActionCallback) {
+        mLoadCallback = callback
+        mPresenter.requestCommentList(mArticle.id)
+    }
+
+    override fun onPraiseClick(callback: CommentRVAdapter.OnActionCallback, item: ArticleComment) {
+        mPraiseCallback = callback
+        mPresenter.requestPraiseComment(item.id)
+    }
+
+    override fun onResultCommentComment(comment: ArticleComment) {
+        mCommentCallback.onComment(true)
+        val adapter = rv_detail.adapter as CommentRVAdapter
+        adapter.addDataHead(comment)
+        rv_detail.post {
+            rv_detail.smoothScrollToPosition(0)
+        }
+    }
+
+    override fun onResultCommentComment(info: String) {
+        Toast.makeText(this, info, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onResultCommentList(commentList: List<ArticleComment>) {
+        if (commentList.isEmpty() && mLoadCallback != null) {
+            mLoadCallback!!.onNoMore()
+        }
+    }
+
+    override fun onResultPraiseComment(result: Boolean, info: String) {
+        if (!result) {
+            Toast.makeText(this, info, Toast.LENGTH_SHORT).show()
+        }else {
+            mPraiseCallback.onPraise(info == "UP")
         }
     }
 

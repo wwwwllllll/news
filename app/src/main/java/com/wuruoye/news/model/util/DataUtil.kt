@@ -64,4 +64,8 @@ object DataUtil {
     fun parseLoginUser(info: String): LoginUser {
         return sGson.fromJson(info, LoginUser::class.java)
     }
+
+    fun parseResult(info: String): NetResult {
+        return sGson.fromJson(info, NetResult::class.java)
+    }
 }

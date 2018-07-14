@@ -27,12 +27,8 @@ class StartPresenter : StartContract.Presenter() {
                 }
 
                 override fun onSuccessful(p0: String?) {
-                    try {
-                        val loginUser = DataUtil.parseLoginUser(p0!!)
-                        view?.onResultCheck(true)
-                    } catch (e: Exception) {
-                        view?.onResultCheck(false)
-                    }
+                    val result = DataUtil.parseResult(p0!!)
+                    view?.onResultCheck(result.result)
                 }
 
             })

@@ -43,7 +43,20 @@ class CommentRVAdapter : WBaseRVAdapter<ArticleComment>(){
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == TYPE_ADD) {
             val viewHolder = holder as AddViewHolder
-            mOnActionListener?.onLoading(viewHolder.ll)
+            mOnActionListener?.onLoading(object : OnActionCallback {
+                override fun onPraise(add: Boolean) {
+
+                }
+
+                override fun onComment(add: Boolean) {
+
+                }
+
+                override fun onNoMore() {
+                    viewHolder.ll.visibility = GONE
+                }
+
+            })
         }else {
             val comment = getData(position)
             val viewHolder = holder as ViewHolder
@@ -70,6 +83,9 @@ class CommentRVAdapter : WBaseRVAdapter<ArticleComment>(){
                         }
                     }
 
+                    override fun onNoMore() {
+
+                    }
                 }
 
                 Glide.with(civ)
@@ -93,10 +109,10 @@ class CommentRVAdapter : WBaseRVAdapter<ArticleComment>(){
                 tvComment.text = comment.comment_num.toString()
 
                 ivPraise.setOnClickListener {
-                    mOnActionListener?.onPraiseClick(callback)
+                    mOnActionListener?.onPraiseClick(callback, comment)
                 }
                 ivComment.setOnClickListener {
-                    mOnActionListener?.onCommentClick(callback)
+                    mOnActionListener?.onCommentClick(callback, comment)
                 }
             }
         }
@@ -112,6 +128,10 @@ class CommentRVAdapter : WBaseRVAdapter<ArticleComment>(){
         }else {
             TYPE_ADD
         }
+    }
+
+    fun setOnActionListener(listener: OnActionListener) {
+        mOnActionListener = listener
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -132,13 +152,14 @@ class CommentRVAdapter : WBaseRVAdapter<ArticleComment>(){
     }
 
     interface OnActionListener {
-        fun onLoading(loadingView: View)
-        fun onPraiseClick(callback: OnActionCallback)
-        fun onCommentClick(callback: OnActionCallback)
+        fun onLoading(callback: OnActionCallback)
+        fun onPraiseClick(callback: OnActionCallback, item: ArticleComment)
+        fun onCommentClick(callback: OnActionCallback, item: ArticleComment)
     }
 
     interface OnActionCallback {
         fun onPraise(add: Boolean)
         fun onComment(add: Boolean)
+        fun onNoMore()
     }
 }
