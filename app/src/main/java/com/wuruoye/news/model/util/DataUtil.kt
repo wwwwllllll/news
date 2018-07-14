@@ -65,7 +65,7 @@ object DataUtil {
         return sGson.fromJson(info, LoginUser::class.java)
     }
 
-    fun parseColllectionList(info: String): CollectionList {
-        return Gson().fromJson(info, CollectionList::class.java)
+    fun parseResult(info: String): NetResult {
+        return sGson.fromJson(info, NetResult::class.java)
     }
 }

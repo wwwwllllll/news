@@ -1,7 +1,11 @@
 package com.wuruoye.news.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import com.wuruoye.library.ui.WBaseFragment
 import com.wuruoye.news.R
@@ -17,6 +21,8 @@ import kotlinx.android.synthetic.main.fragment_register.*
  */
 class RegisterFragment : WBaseFragment<LoginRegisterContract.Presenter>(),
         LoginRegisterContract.View {
+    private lateinit var dlgRegister: AlertDialog
+
     override fun getContentView(): Int {
         return R.layout.fragment_register
     }
@@ -31,6 +37,16 @@ class RegisterFragment : WBaseFragment<LoginRegisterContract.Presenter>(),
                 onRegisterClick()
             }
         }
+    }
+
+    @SuppressLint("InflateParams")
+    private fun initDlg() {
+        val view = LayoutInflater.from(context)
+                .inflate(R.layout.dlg_loading, null)
+        view.findViewById<TextView>(R.id.tv_view_loading).text = "正在注册中..."
+        dlgRegister = AlertDialog.Builder(context!!)
+                .setView(view)
+                .create()
     }
 
     private fun onRegisterClick() {
@@ -57,9 +73,11 @@ class RegisterFragment : WBaseFragment<LoginRegisterContract.Presenter>(),
         }
 
         mPresenter.requestRegister(id, nickname, pwd, email)
+        dlgRegister.show()
     }
 
     override fun onResultRegister(ok: Boolean, info: String) {
+        dlgRegister.dismiss()
         Toast.makeText(context, info, Toast.LENGTH_SHORT).show()
         if (ok) {
             et_register_id.text.clear()

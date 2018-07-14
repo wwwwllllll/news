@@ -18,6 +18,7 @@ import com.wuruoye.news.R
 import com.wuruoye.news.contract.UserContract
 import com.wuruoye.news.model.Config.USER_LOGIN
 import com.wuruoye.news.model.bean.LoginUser
+import com.wuruoye.news.presenter.UserPresenter
 import kotlinx.android.synthetic.main.fragment_user.*
 
 /**
@@ -28,18 +29,22 @@ import kotlinx.android.synthetic.main.fragment_user.*
 class UserFragment : WBaseFragment<UserContract.Presenter>(), UserContract.View,
         View.OnClickListener {
     companion object {
-        val ITEM_ICON = arrayOf(R.drawable.ic_information, R.drawable.ic_collect,
+        val ITEM_ICON = arrayOf(R.drawable.ic_information, R.drawable.ic_collect_not,
                 R.drawable.ic_setting)
         val ITEM_TITLE = arrayOf("个人信息", "收藏", "设置")
     }
     private var mIsLogin = false
+    private var mLoginUser: LoginUser? = null
+
+    private lateinit var tvUserInfo: TextView
 
     override fun getContentView(): Int {
         return R.layout.fragment_user
     }
 
     override fun initData(p0: Bundle?) {
-
+        setPresenter(UserPresenter())
+        mIsLogin = mPresenter.isLogin()
     }
 
     override fun initView(p0: View?) {
@@ -56,6 +61,16 @@ class UserFragment : WBaseFragment<UserContract.Presenter>(), UserContract.View,
             tv_user_user.setOnClickListener(this)
 
             initLL()
+            initUser()
+        }
+    }
+
+    private fun initUser() {
+        if (mIsLogin) {
+            mPresenter.requestUserInfo()
+            tvUserInfo.text = "用户信息"
+        }else {
+            tvUserInfo.text = "用户登录"
         }
     }
 
@@ -70,20 +85,27 @@ class UserFragment : WBaseFragment<UserContract.Presenter>(), UserContract.View,
 
             tv.text = ITEM_TITLE[i]
             iv.setImageResource(ITEM_ICON[i])
+
+            if (i == 0) {
+                tvUserInfo = tv
+            }
         }
     }
 
     override fun onClick(p0: View?) {
         when (p0!!.id) {
             R.id.civ_user_avatar -> {
-                val intent = Intent(context, LoginActivity::class.java)
-                startActivityForResult(intent, USER_LOGIN)
+
             }
             R.id.tv_user_user -> {
 
             }
             R.id.ll_user_info -> {
+                if (mIsLogin) {
 
+                }else {
+                    startActivityForResult(Intent(context, LoginActivity::class.java), USER_LOGIN)
+                }
             }
             R.id.ll_user_collect -> {
 
@@ -96,6 +118,12 @@ class UserFragment : WBaseFragment<UserContract.Presenter>(), UserContract.View,
 
     private fun onLoginResult(loginUser: LoginUser) {
         mIsLogin = true
+        tvUserInfo.text = "用户信息"
+        onResultUserInfo(loginUser)
+    }
+
+    override fun onResultUserInfo(loginUser: LoginUser) {
+        mLoginUser = loginUser
         Glide.with(civ_user_avatar)
                 .asBitmap()
                 .load(loginUser.avatar)

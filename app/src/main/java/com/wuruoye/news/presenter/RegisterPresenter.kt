@@ -18,7 +18,7 @@ class RegisterPresenter : LoginRegisterContract.Presenter() {
         val values = mapOf(Pair("id", id), Pair("name", nickname),
                 Pair("password", URLEncoder.encode(SecretUtil.getPublicSecret(pwd), "utf8")),
                 Pair("email", URLEncoder.encode(SecretUtil.getPublicSecret(email), "utf8")))
-        WNet.postInBackground(API.USER_REGISTER, values, object : Listener<String> {
+        WNet.postInBackground(API.USER, values, object : Listener<String> {
             override fun onFail(p0: String?) {
                 view.onResultRegister(false, p0!!)
             }
