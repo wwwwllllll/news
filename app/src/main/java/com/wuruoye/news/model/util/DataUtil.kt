@@ -80,4 +80,8 @@ object DataUtil {
     fun parseArticleCommentList(info: String): ArticleCommentList {
         return sGson.fromJson(info, ArticleCommentList::class.java)
     }
+
+    fun parseArticleInfo(info: String): ArticleInfo {
+        return sGson.fromJson(info, ArticleInfo::class.java)
+    }
 }

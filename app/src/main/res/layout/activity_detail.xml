@@ -58,10 +58,12 @@
 
             <ImageView
                 android:id="@+id/iv_detail_comment"
-                android:padding="12dp"
+                android:padding="15dp"
                 android:src="@drawable/ic_comment"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
                 android:layout_width="50dp"
-                android:layout_height="50dp" />
+                android:layout_height="50dp"
+                tools:ignore="NewApi" />
 
             <TextView
                 android:id="@+id/tv_detail_comment_num"
@@ -74,13 +76,15 @@
             <ImageView
                 android:id="@+id/iv_detail_praise"
                 android:src="@drawable/ic_heart_not"
-                android:padding="12dp"
+                android:padding="15dp"
                 android:layout_marginStart="10dp"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
                 android:layout_width="50dp"
-                android:layout_height="50dp" />
+                android:layout_height="50dp"
+                tools:ignore="NewApi" />
 
             <TextView
-                android:id="@+id/tv_detail_praise"
+                android:id="@+id/tv_detail_praise_num"
                 android:textSize="12sp"
                 android:textColor="@color/monsoon"
                 android:text="0"
@@ -90,10 +94,12 @@
             <ImageView
                 android:id="@+id/iv_detail_collect"
                 android:src="@drawable/ic_collect_not"
-                android:padding="12dp"
+                android:padding="15dp"
                 android:layout_marginStart="10dp"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
                 android:layout_width="50dp"
-                android:layout_height="50dp" />
+                android:layout_height="50dp"
+                tools:ignore="NewApi" />
 
             <TextView
                 android:id="@+id/tv_detail_collect_num"
@@ -130,10 +136,10 @@
                 android:layout_height="match_parent" />
 
             <TextView
+                android:id="@+id/tv_detail_comment"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="@color/monsoon"
-                android:text="新闻评论"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:layout_width="wrap_content"
