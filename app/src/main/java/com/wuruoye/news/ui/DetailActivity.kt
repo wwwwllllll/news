@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
@@ -24,6 +23,8 @@ import com.wuruoye.news.model.bean.DetailItem.Companion.TYPE_H1
 import com.wuruoye.news.model.bean.DetailItem.Companion.TYPE_IMG
 import com.wuruoye.news.model.bean.DetailItem.Companion.TYPE_TEXT
 import com.wuruoye.news.model.bean.DetailItem.Companion.TYPE_TEXT_CEN
+import com.wuruoye.news.model.util.loge
+import com.wuruoye.news.model.util.toast
 import com.wuruoye.news.presenter.DetailPresenter
 import kotlinx.android.synthetic.main.activity_detail.*
 
@@ -45,6 +46,23 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
     private lateinit var dlgComment: AlertDialog
     private lateinit var tvCommentParent: TextView
 
+    private val mDetailCommentCallback = object : CommentRVAdapter.OnActionCallback {
+        override fun onPraise(add: Boolean) {
+
+        }
+
+        override fun onComment(add: Boolean) {
+            if (add) {
+
+            }
+        }
+
+        override fun onNoMore() {
+
+        }
+
+    }
+
     override fun getContentView(): Int {
         return R.layout.activity_detail
     }
@@ -61,7 +79,6 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
         iv_detail_comment.setOnClickListener(this)
 
         initDlg()
-        initRV()
 
         mPresenter.requestDetail("sina", "", mArticle.url)
     }
@@ -97,6 +114,7 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
     }
 
     override fun onResultDetail(detail: ArticleDetail) {
+        initRV()
         val items = detail.data
         if (items.isEmpty()) {
             onNoData()
@@ -177,6 +195,7 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
                 onBackPressed()
             }
             R.id.iv_detail_comment -> {
+                mCommentCallback = mDetailCommentCallback
                 mCommentParent = 0
                 tvCommentParent.visibility = View.GONE
                 dlgComment.show()
@@ -185,7 +204,7 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
     }
 
     override fun onCommentClick(callback: CommentRVAdapter.OnActionCallback, item: ArticleComment) {
-        mPraiseCallback = callback
+        mCommentCallback = callback
         mCommentParent = item.id
         tvCommentParent.visibility = View.VISIBLE
         dlgComment.show()
@@ -217,18 +236,22 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
     override fun onResultCommentList(commentList: List<ArticleComment>) {
         if (commentList.isEmpty() && mLoadCallback != null) {
             mLoadCallback!!.onNoMore()
+        }else {
+            val adapter = rv_detail.adapter as CommentRVAdapter
+            adapter.addData(commentList)
         }
+    }
+
+    override fun onResultCommentList(info: String) {
+        mLoadCallback?.onNoMore()
+        toast(info)
     }
 
     override fun onResultPraiseComment(result: Boolean, info: String) {
         if (!result) {
-            Toast.makeText(this, info, Toast.LENGTH_SHORT).show()
+            toast(info)
         }else {
             mPraiseCallback.onPraise(info == "UP")
         }
-    }
-
-    fun loge(message: String) {
-        Log.e("DetailActivity", message)
     }
 }

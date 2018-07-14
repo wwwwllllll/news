@@ -12,6 +12,7 @@ import com.wuruoye.news.model.bean.LoginUser
 class UserContract {
     interface View : WIView {
         fun onResultUserInfo(loginUser: LoginUser)
+        fun onResultUserInfo(info: String)
     }
 
     abstract class Presenter : WPresenter<View>() {

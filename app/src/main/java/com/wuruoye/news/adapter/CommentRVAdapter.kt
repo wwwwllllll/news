@@ -24,8 +24,8 @@ import de.hdodenhof.circleimageview.CircleImageView
  */
 class CommentRVAdapter : WBaseRVAdapter<ArticleComment>(){
     companion object {
-        val TYPE_NORMAL = 1
-        val TYPE_ADD = 2
+        const val TYPE_NORMAL = 1
+        const val TYPE_ADD = 2
     }
     private var mOnActionListener: OnActionListener? = null
 
@@ -54,6 +54,7 @@ class CommentRVAdapter : WBaseRVAdapter<ArticleComment>(){
 
                 override fun onNoMore() {
                     viewHolder.ll.visibility = GONE
+                    viewHolder.tv.visibility = VISIBLE
                 }
 
             })
@@ -98,6 +99,7 @@ class CommentRVAdapter : WBaseRVAdapter<ArticleComment>(){
                 }else {
                     tvParent.visibility = GONE
                 }
+                tvContent.text = comment.content
                 tvDate.text = DateUtil.formatTime(comment.time, "YYYY-MM-dd HH:SS")
 
                 if (comment.is_praise) {

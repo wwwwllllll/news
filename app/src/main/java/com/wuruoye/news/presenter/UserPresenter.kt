@@ -23,12 +23,16 @@ class UserPresenter : UserContract.Presenter() {
         val values = mapOf(Pair("id", mUserCache.userId))
         WNet.getInBackground(API.USER, values, object : Listener<String> {
             override fun onFail(p0: String?) {
-
+                view?.onResultUserInfo(p0!!)
             }
 
             override fun onSuccessful(p0: String?) {
-                val loginUser = DataUtil.parseLoginUser(p0!!)
-                view?.onResultUserInfo(loginUser)
+                val result = DataUtil.parseResult(p0!!)
+                if (result.result) {
+                    view?.onResultUserInfo(DataUtil.parseLoginUser(result.info))
+                }else {
+                    view?.onResultUserInfo(result.info)
+                }
             }
         })
     }
