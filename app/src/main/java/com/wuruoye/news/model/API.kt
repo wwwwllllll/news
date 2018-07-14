@@ -15,5 +15,8 @@ object API {
     const val USER_LOGIN = "$REMOTE_HOST/user/login"
     const val USER = "$REMOTE_HOST/user/user"
     const val ARTICLE_COMMENT = "$REMOTE_HOST/user/article_comment"
+    const val ARTICLE_INFO = "$REMOTE_HOST/user/article_info"
+    const val ARTICLE_PRAISE = "$REMOTE_HOST/user/article_praise"
+    const val ARTICLE_COLLECT = "$REMOTE_HOST/user/article_collect"
     const val COMMENT_PRAISE = "$REMOTE_HOST/user/comment_praise"
 }

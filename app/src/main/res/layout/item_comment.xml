@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:paddingTop="5dp"
     android:paddingBottom="5dp"
@@ -74,35 +75,56 @@
             android:layout_weight="1"
             android:layout_height="wrap_content" />
 
-        <ImageView
-            android:id="@+id/iv_item_comment_praise"
-            android:src="@drawable/ic_heart_not"
-            android:padding="5dp"
-            android:layout_width="25dp"
-            android:layout_height="25dp" />
-
-        <TextView
-            android:id="@+id/tv_item_comment_praise"
-            android:text="1"
-            android:textSize="12sp"
-            android:textColor="@color/gray_chateau"
+        <LinearLayout
+            android:id="@+id/ll_item_comment_praise"
+            android:gravity="center_vertical"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:ignore="NewApi">
 
-        <ImageView
-            android:id="@+id/iv_item_comment_comment"
-            android:src="@drawable/ic_comment"
-            android:padding="5dp"
-            android:layout_marginStart="10dp"
-            android:layout_width="25dp"
-            android:layout_height="25dp" />
+            <ImageView
+                android:id="@+id/iv_item_comment_praise"
+                android:src="@drawable/ic_heart_not"
+                android:padding="5dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp" />
 
-        <TextView
-            android:id="@+id/tv_item_comment_comment"
-            android:text="1"
-            android:textSize="12sp"
-            android:textColor="@color/gray_chateau"
+            <TextView
+                android:id="@+id/tv_item_comment_praise"
+                android:text="0"
+                android:textSize="12sp"
+                android:textColor="@color/gray_chateau"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_item_comment_comment"
+            android:gravity="center_vertical"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:ignore="NewApi">
+
+            <ImageView
+                android:id="@+id/iv_item_comment_comment"
+                android:src="@drawable/ic_comment"
+                android:padding="5dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp" />
+
+            <TextView
+                android:id="@+id/tv_item_comment_comment"
+                android:text="0"
+                android:textSize="12sp"
+                android:textColor="@color/gray_chateau"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

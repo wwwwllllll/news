@@ -110,10 +110,10 @@ class CommentRVAdapter : WBaseRVAdapter<ArticleComment>(){
                 tvPraise.text = comment.praise_num.toString()
                 tvComment.text = comment.comment_num.toString()
 
-                ivPraise.setOnClickListener {
+                llPraise.setOnClickListener {
                     mOnActionListener?.onPraiseClick(callback, comment)
                 }
-                ivComment.setOnClickListener {
+                llComment.setOnClickListener {
                     mOnActionListener?.onCommentClick(callback, comment)
                 }
             }
@@ -142,8 +142,10 @@ class CommentRVAdapter : WBaseRVAdapter<ArticleComment>(){
         val tvParent = itemView.findViewById<TextView>(R.id.tv_item_comment_parent)
         val tvContent = itemView.findViewById<TextView>(R.id.tv_item_comment_content)
         val tvDate = itemView.findViewById<TextView>(R.id.tv_item_comment_date)
+        val llPraise = itemView.findViewById<LinearLayout>(R.id.ll_item_comment_praise)
         val ivPraise = itemView.findViewById<ImageView>(R.id.iv_item_comment_praise)
         val tvPraise = itemView.findViewById<TextView>(R.id.tv_item_comment_praise)
+        val llComment = itemView.findViewById<LinearLayout>(R.id.ll_item_comment_comment)
         val ivComment = itemView.findViewById<ImageView>(R.id.iv_item_comment_comment)
         val tvComment = itemView.findViewById<TextView>(R.id.tv_item_comment_comment)
     }

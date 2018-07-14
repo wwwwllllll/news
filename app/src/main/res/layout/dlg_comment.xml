@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:padding="20dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -21,14 +22,13 @@
         android:textSize="13sp" />
 
     <ScrollView
-        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/et_dlg_comment"
-            android:minLines="4"
-            android:maxLines="6"
+            android:minLines="5"
+            android:maxLines="10"
             android:lineSpacingExtra="5dp"
             android:gravity="top"
             android:textSize="15sp"

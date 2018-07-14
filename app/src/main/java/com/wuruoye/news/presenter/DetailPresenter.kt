@@ -1,10 +1,12 @@
 package com.wuruoye.news.presenter
 
+import com.google.gson.Gson
 import com.wuruoye.library.model.Listener
 import com.wuruoye.library.util.net.WNet
 import com.wuruoye.library.util.net.WNet.getInBackground
 import com.wuruoye.news.contract.DetailContract
 import com.wuruoye.news.model.API
+import com.wuruoye.news.model.bean.ArticleItem
 import com.wuruoye.news.model.util.DataUtil
 
 /**
@@ -87,6 +89,58 @@ class DetailPresenter : DetailContract.Presenter() {
                 view?.onResultPraiseComment(result.result, result.info)
             }
 
+        })
+    }
+
+    override fun requestArticleInfo(article: String) {
+        val values = mapOf(Pair("article", article))
+
+        WNet.getInBackground(API.ARTICLE_INFO, values, object : Listener<String> {
+            override fun onFail(p0: String?) {
+                view?.onResultArticleInfo(p0!!)
+            }
+
+            override fun onSuccessful(p0: String?) {
+                val result = DataUtil.parseResult(p0!!)
+                if (result.result) {
+                    view?.onResultArticleInfo(DataUtil.parseArticleInfo(result.info))
+                }else {
+                    view?.onResultArticleInfo(result.info)
+                }
+            }
+
+        })
+    }
+
+    override fun requestCollectArticle(article: String, content: ArticleItem) {
+        val values = mapOf(Pair("article", article),
+                Pair("content", Gson().toJson(content)))
+
+        WNet.postInBackground(API.ARTICLE_COLLECT, values, object : Listener<String> {
+            override fun onFail(p0: String?) {
+                view?.onResultCollectArticle(false, p0!!)
+            }
+
+            override fun onSuccessful(p0: String?) {
+                val result = DataUtil.parseResult(p0!!)
+                view?.onResultCollectArticle(result.result, result.info)
+            }
+
+        })
+    }
+
+    override fun requestPraiseArticle(article: String) {
+        val values = mapOf(Pair("article", article))
+
+        WNet.postInBackground(API.ARTICLE_PRAISE, values, object : Listener<String> {
+            override fun onFail(p0: String?) {
+                view?.onResultPraiseArticle(false, p0!!)
+            }
+
+            override fun onSuccessful(p0: String?) {
+                val result = DataUtil.parseResult(p0!!)
+                view?.onResultPraiseArticle(result.result, result.info)
+            }
         })
     }
 }

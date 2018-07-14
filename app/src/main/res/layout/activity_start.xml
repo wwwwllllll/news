@@ -7,6 +7,7 @@
     <ImageView
         android:id="@+id/iv_start"
         android:scaleType="centerCrop"
+        android:src="@drawable/start_1"
         android:foreground="@color/transparent_white"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

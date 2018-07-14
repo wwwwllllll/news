@@ -18,6 +18,7 @@ import com.wuruoye.news.adapter.CommentRVAdapter
 import com.wuruoye.news.contract.DetailContract
 import com.wuruoye.news.model.bean.ArticleComment
 import com.wuruoye.news.model.bean.ArticleDetail
+import com.wuruoye.news.model.bean.ArticleInfo
 import com.wuruoye.news.model.bean.ArticleItem
 import com.wuruoye.news.model.bean.DetailItem.Companion.TYPE_H1
 import com.wuruoye.news.model.bean.DetailItem.Companion.TYPE_IMG
@@ -74,13 +75,16 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
     }
 
     override fun initView() {
-        iv_detail_back.setOnClickListener(this)
         tv_detail_title.text = mArticle.title
-        iv_detail_comment.setOnClickListener(this)
+        iv_detail_back.setOnClickListener(this)
+        ll_detail_comment.setOnClickListener(this)
+        ll_detail_praise.setOnClickListener(this)
+        ll_detail_collect.setOnClickListener(this)
 
         initDlg()
 
         mPresenter.requestDetail("sina", "", mArticle.url)
+        mPresenter.requestArticleInfo(mArticle.id)
     }
 
     @SuppressLint("InflateParams")
@@ -111,9 +115,11 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
         adapter.setOnActionListener(this)
         rv_detail.adapter = adapter
         rv_detail.layoutManager = LinearLayoutManager(this)
+        rv_detail.isNestedScrollingEnabled = false
     }
 
     override fun onResultDetail(detail: ArticleDetail) {
+        tv_detail_comment.text = "新闻评论"
         initRV()
         val items = detail.data
         if (items.isEmpty()) {
@@ -194,19 +200,28 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
             R.id.iv_detail_back -> {
                 onBackPressed()
             }
-            R.id.iv_detail_comment -> {
+            R.id.ll_detail_comment -> {
                 mCommentCallback = mDetailCommentCallback
                 mCommentParent = 0
                 tvCommentParent.visibility = View.GONE
                 dlgComment.show()
             }
+            R.id.ll_detail_praise -> {
+                mPresenter.requestPraiseArticle(mArticle.id)
+            }
+            R.id.ll_detail_collect -> {
+                mPresenter.requestCollectArticle(mArticle.id, mArticle)
+            }
         }
     }
 
-    override fun onCommentClick(callback: CommentRVAdapter.OnActionCallback, item: ArticleComment) {
+    @SuppressLint("SetTextI18n")
+    override fun onCommentClick(callback: CommentRVAdapter.OnActionCallback,
+                                item: ArticleComment) {
         mCommentCallback = callback
         mCommentParent = item.id
         tvCommentParent.visibility = View.VISIBLE
+        tvCommentParent.text = "@${item.user.name}: ${item.content}"
         dlgComment.show()
     }
 
@@ -215,7 +230,8 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
         mPresenter.requestCommentList(mArticle.id)
     }
 
-    override fun onPraiseClick(callback: CommentRVAdapter.OnActionCallback, item: ArticleComment) {
+    override fun onPraiseClick(callback: CommentRVAdapter.OnActionCallback,
+                               item: ArticleComment) {
         mPraiseCallback = callback
         mPresenter.requestPraiseComment(item.id)
     }
@@ -252,6 +268,45 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
             toast(info)
         }else {
             mPraiseCallback.onPraise(info == "UP")
+        }
+    }
+
+    override fun onResultArticleInfo(info: ArticleInfo) {
+        tv_detail_praise_num.text = info.praise_num.toString()
+        tv_detail_comment_num.text = info.comment_num.toString()
+        tv_detail_collect_num.text = info.collect_num.toString()
+
+        iv_detail_praise.setImageResource(
+                if (info.is_praise) R.drawable.ic_heart_full else R.drawable.ic_heart_not)
+        iv_detail_collect.setImageResource(
+                if (info.is_collect) R.drawable.ic_collect_full else R.drawable.ic_collect_not)
+    }
+
+    override fun onResultArticleInfo(info: String) {
+        toast(info)
+    }
+
+    override fun onResultCollectArticle(result: Boolean, info: String) {
+        if (result) {
+            val up = info == "UP"
+            iv_detail_collect.setImageResource(
+                    if (up) R.drawable.ic_collect_full else R.drawable.ic_collect_not)
+            tv_detail_collect_num.text = (tv_detail_collect_num.text.toString().toInt()
+                    + if (up) 1 else -1).toString()
+        }else {
+            toast(info)
+        }
+    }
+
+    override fun onResultPraiseArticle(result: Boolean, info: String) {
+        if (result) {
+            val up = info == "UP"
+            iv_detail_praise.setImageResource(
+                    if (up) R.drawable.ic_heart_full else R.drawable.ic_heart_not)
+            tv_detail_praise_num.text = (tv_detail_praise_num.text.toString().toInt()
+                    + if (up) 1 else -1).toString()
+        }else {
+            toast(info)
         }
     }
 }
