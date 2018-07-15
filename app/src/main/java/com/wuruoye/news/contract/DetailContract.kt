@@ -28,6 +28,7 @@ class DetailContract {
 
     abstract class Presenter : WPresenter<View>() {
         abstract fun isLogin(): Boolean
+        abstract fun isNoImg(): Boolean
         abstract fun requestDetail(app: String, category: String, id: String)
         abstract fun requestCommentList(article: String)
         abstract fun requestPraiseComment(comment: Int)

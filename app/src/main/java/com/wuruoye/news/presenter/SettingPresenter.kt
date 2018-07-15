@@ -43,6 +43,7 @@ class SettingPresenter : SettingContract.Presenter() {
 
             override fun onSuccessful(p0: String?) {
                 val result = DataUtil.parseResult(p0!!)
+                mUserCache.isLogin = false
                 view?.onResultLogout(result.result, result.info)
             }
         })

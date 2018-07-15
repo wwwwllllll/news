@@ -40,6 +40,7 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
         DetailContract.View, View.OnClickListener, CommentRVAdapter.OnActionListener {
     private lateinit var mArticle: ArticleItem
     private var mIsLogin = false
+    private var mNoImg = false
     private var mLoginChanged = false
     private val mImgList = arrayListOf<String>()
 
@@ -76,6 +77,7 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
 
         setPresenter(DetailPresenter())
         mIsLogin = mPresenter.isLogin()
+        mNoImg = mPresenter.isNoImg()
     }
 
     override fun initView() {
@@ -159,14 +161,21 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
                     text.text = item.info
                 }
                 TYPE_IMG -> {
-                    val image = LayoutInflater.from(this)
-                            .inflate(R.layout.view_image, ll_detail_content, false)
-                            as ImageView
-                    ll_detail_content.addView(image)
+                    val image: View
+                    if (mNoImg) {
+                        image = LayoutInflater.from(this)
+                                .inflate(R.layout.view_img_no, ll_detail_content, false)
+                                as TextView
+                    }else {
+                        image = LayoutInflater.from(this)
+                                .inflate(R.layout.view_image, ll_detail_content, false)
+                                as ImageView
 
-                    Glide.with(image)
-                            .load(item.info)
-                            .into(image)
+                        Glide.with(image)
+                                .load(item.info)
+                                .into(image)
+                    }
+                    ll_detail_content.addView(image)
                     mImgList.add(item.info)
                     image.setOnClickListener {
                         val bundle = Bundle()

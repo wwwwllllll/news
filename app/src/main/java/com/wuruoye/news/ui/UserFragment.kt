@@ -75,6 +75,10 @@ class UserFragment : WBaseFragment<UserContract.Presenter>(), UserContract.View,
             tvUserInfo.text = "用户信息"
         }else {
             tvUserInfo.text = "用户登录"
+            civ_user_avatar.setImageResource(R.drawable.ic_avatar)
+            iv_user_bg.setImageResource(0)
+            tv_user_user.text = "未登录"
+            tv_user_sign.text = ""
         }
     }
 
@@ -190,8 +194,8 @@ class UserFragment : WBaseFragment<UserContract.Presenter>(), UserContract.View,
         }else if (requestCode == HOME_SETTING && resultCode == RESULT_OK) {
             val result = data!!.getIntExtra("result", RESULT_LOGOUT)
             if (result == RESULT_LOGOUT) {
-                mIsLogin = false
                 mLoginUser = null
+                mIsLogin = false
                 initUser()
             }else {
                 val loginUser = data.getParcelableExtra<LoginUser>("user")

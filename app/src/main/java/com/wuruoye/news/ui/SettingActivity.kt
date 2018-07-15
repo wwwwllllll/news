@@ -83,7 +83,7 @@ class SettingActivity : WBaseActivity<SettingContract.Presenter>(), SettingContr
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == SETTING_LOGIN && resultCode == Activity.RESULT_OK) {
             mLoginChanged = true
-            mLoginUser = data!!.getParcelableExtra("user")
+            mLoginUser = data!!.getParcelableExtra("loginUser")
             tv_setting_login.text = "用户登出"
         }
         super.onActivityResult(requestCode, resultCode, data)

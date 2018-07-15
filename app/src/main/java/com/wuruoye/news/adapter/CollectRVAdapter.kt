@@ -53,7 +53,6 @@ class CollectRVAdapter : WBaseRVAdapter<ArticleCollect>() {
             val collect = getData(position)
 
             with(viewHolder) {
-                close()
                 tvTitle.text = collect.content.title
                 tvAuthor.text = collect.content.author
                 tvDate.text = DateUtil.formatTime(collect.time, "YYYY-MM-dd HH:mm")

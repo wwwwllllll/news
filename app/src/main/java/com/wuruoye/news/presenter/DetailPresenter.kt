@@ -23,6 +23,10 @@ class DetailPresenter : DetailContract.Presenter() {
         return mUserCache.isLogin
     }
 
+    override fun isNoImg(): Boolean {
+        return mUserCache.noImg
+    }
+
     override fun requestDetail(app: String, category: String, id: String) {
         val values = mapOf(Pair("app", app), Pair("category", category),
                 Pair("id", id))
