@@ -48,6 +48,7 @@ class CollectActivity : WBaseActivity<CollectContract.Presenter>(), CollectContr
         adapter.setOnActionListener(this)
         rv_collect.adapter = adapter
         rv_collect.layoutManager = LinearLayoutManager(this)
+        rv_collect.isNestedScrollingEnabled = false
     }
 
     override fun onClick(p0: View?) {

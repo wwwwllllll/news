@@ -1,6 +1,5 @@
 package com.wuruoye.news.model
 
-import com.google.gson.Gson
 import com.wuruoye.library.model.WBaseCache
 import com.wuruoye.news.model.bean.Api
 
@@ -12,11 +11,12 @@ import com.wuruoye.news.model.bean.Api
 class UserCache private constructor(): WBaseCache("user") {
     companion object {
         private val sInstance = UserCache()
-        val sGson = Gson()
         const val API = "api"
         const val IS_LOGIN = "is_login"
         const val USER_ID = "user_id"
         const val USER_PWD = "user_pwd"
+        const val NO_IMG = "no_img"
+        const val PROXY = "proxy"
 
         fun getInstance(): UserCache{
             return sInstance
@@ -40,4 +40,12 @@ class UserCache private constructor(): WBaseCache("user") {
     var userPwd: String
         get() = getString(USER_PWD, "")
         set(value) = putString(USER_PWD, value)
+
+    var noImg: Boolean
+        get() = getBoolean(NO_IMG, false)
+        set(value) = putBoolean(NO_IMG, value)
+
+    var proxy: Boolean
+        get() = getBoolean(PROXY, false)
+        set(value) = putBoolean(PROXY, value)
 }

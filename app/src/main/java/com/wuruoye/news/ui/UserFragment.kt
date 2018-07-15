@@ -15,12 +15,14 @@ import com.bumptech.glide.request.target.Target
 import com.wuruoye.library.ui.WBaseFragment
 import com.wuruoye.news.R
 import com.wuruoye.news.contract.UserContract
+import com.wuruoye.news.model.Config.HOME_SETTING
 import com.wuruoye.news.model.Config.USER_INFO
 import com.wuruoye.news.model.Config.USER_LOGIN
 import com.wuruoye.news.model.bean.LoginUser
 import com.wuruoye.news.model.util.blur
 import com.wuruoye.news.model.util.toast
 import com.wuruoye.news.presenter.UserPresenter
+import com.wuruoye.news.ui.SettingActivity.Companion.RESULT_LOGOUT
 import kotlinx.android.synthetic.main.fragment_user.*
 
 /**
@@ -125,7 +127,8 @@ class UserFragment : WBaseFragment<UserContract.Presenter>(), UserContract.View,
                 }
             }
             R.id.ll_user_setting -> {
-
+                val intent = Intent(context, SettingActivity::class.java)
+                startActivityForResult(intent, HOME_SETTING)
             }
         }
     }
@@ -184,6 +187,16 @@ class UserFragment : WBaseFragment<UserContract.Presenter>(), UserContract.View,
         }else if (requestCode == USER_INFO && resultCode == RESULT_OK) {
             val loginUser = data!!.getParcelableExtra<LoginUser>("user")
             onLoginResult(loginUser)
+        }else if (requestCode == HOME_SETTING && resultCode == RESULT_OK) {
+            val result = data!!.getIntExtra("result", RESULT_LOGOUT)
+            if (result == RESULT_LOGOUT) {
+                mIsLogin = false
+                mLoginUser = null
+                initUser()
+            }else {
+                val loginUser = data.getParcelableExtra<LoginUser>("user")
+                onLoginResult(loginUser)
+            }
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
