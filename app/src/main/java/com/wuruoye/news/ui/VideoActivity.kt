@@ -1,12 +1,10 @@
 package com.wuruoye.news.ui
 
 import android.os.Bundle
-import android.view.View.GONE
 import android.view.WindowManager
 import com.wuruoye.library.ui.WBaseActivity
 import com.wuruoye.news.R
 import com.wuruoye.news.contract.VideoContract
-import kotlinx.android.synthetic.main.activity_video.*
 
 /**
  * @Created : wuruoye
@@ -34,20 +32,20 @@ class VideoActivity : WBaseActivity<VideoContract.Presenter>(), VideoContract.Vi
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
-        with(sp_video) {
-            initUIState()
-            setUp(mUrl, true, mTitle)
-            isShowFullAnimation = false
-            isRotateViewAuto = true
-            isRotateWithSystem = false
-            isNeedShowWifiTip = false
-            startWindowFullscreen(applicationContext, false, false)
-            fullscreenButton.visibility = GONE
-        }
+//        with(sp_video) {
+//            initUIState()
+//            setUp(mUrl, true, mTitle)
+//            isShowFullAnimation = false
+//            isRotateViewAuto = true
+//            isRotateWithSystem = false
+//            isNeedShowWifiTip = false
+//            startWindowFullscreen(applicationContext, false, false)
+//            fullscreenButton.visibility = GONE
+//        }
     }
 
     override fun onDestroy() {
-        sp_video.destroyDrawingCache()
+//        sp_video.destroyDrawingCache()
         super.onDestroy()
     }
 }

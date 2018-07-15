@@ -6,7 +6,7 @@ import com.wuruoye.news.contract.LoginRegisterContract
 import com.wuruoye.news.model.API
 import com.wuruoye.news.model.util.DataUtil
 import com.wuruoye.news.model.util.SecretUtil
-import java.net.URLEncoder
+import java.util.regex.Pattern
 
 /**
  * @Created : wuruoye
@@ -14,11 +14,18 @@ import java.net.URLEncoder
  * @Description :
  */
 class RegisterPresenter : LoginRegisterContract.Presenter() {
+    override fun checkEmail(email: String): Boolean {
+        val check = "\"^([a-z0-9A-Z]+[-|\\\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]" +
+                "+(-[a-z0-9A-Z]+)?\\\\.)+[a-zA-Z]{2,}\$\""
+        val regex = Pattern.compile(check)
+        val matcher = regex.matcher(email)
+        return matcher.matches()
+    }
 
     override fun requestRegister(id: String, nickname: String, pwd: String, email: String) {
         val values = mapOf(Pair("id", id), Pair("name", nickname),
-                Pair("password", URLEncoder.encode(SecretUtil.getPublicSecret(pwd), "utf8")),
-                Pair("email", URLEncoder.encode(SecretUtil.getPublicSecret(email), "utf8")))
+                Pair("password", SecretUtil.getPublicSecret(pwd)),
+                Pair("email",   SecretUtil.getPublicSecret(email)))
         WNet.postInBackground(API.USER, values, object : Listener<String> {
             override fun onFail(p0: String?) {
                 view?.onResultRegister(false, p0!!)

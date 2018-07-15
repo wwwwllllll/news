@@ -7,6 +7,7 @@ import com.wuruoye.library.adapter.FragmentVPAdapter
 import com.wuruoye.library.ui.WBaseActivity
 import com.wuruoye.news.R
 import com.wuruoye.news.contract.MainContract
+import com.wuruoye.news.contract.UserContract
 import com.wuruoye.news.presenter.MainPresenter
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -16,6 +17,8 @@ import kotlinx.android.synthetic.main.activity_main.*
  * @Description : 主页
  */
 class MainActivity : WBaseActivity<MainContract.Presenter>(), MainContract.View {
+    private lateinit var mUserView: UserContract.View
+
     override fun getContentView(): Int {
         return R.layout.activity_main
     }
@@ -34,6 +37,7 @@ class MainActivity : WBaseActivity<MainContract.Presenter>(), MainContract.View 
         val list = ArrayList<Fragment>()
         val home = HomeFragment()
         val user = UserFragment()
+        mUserView = user
         list.add(home)
         list.add(user)
         val adapter = FragmentVPAdapter(supportFragmentManager, arrayListOf("首页", "用户"), list)
@@ -43,5 +47,9 @@ class MainActivity : WBaseActivity<MainContract.Presenter>(), MainContract.View 
 
     override fun onResultApi() {
         initVP()
+    }
+
+    override fun onLogin() {
+        mUserView.onLogin()
     }
 }

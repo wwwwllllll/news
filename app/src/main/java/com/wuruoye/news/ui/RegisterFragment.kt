@@ -33,6 +33,8 @@ class RegisterFragment : WBaseFragment<LoginRegisterContract.Presenter>(),
 
     override fun initView(p0: View?) {
         p0!!.post {
+            initDlg()
+
             btn_register.setOnClickListener {
                 onRegisterClick()
             }
@@ -67,7 +69,7 @@ class RegisterFragment : WBaseFragment<LoginRegisterContract.Presenter>(),
             til_register_pwd.error = "密码长度应大于 6"
             return
         }
-        if (email.isEmpty()) {
+        if (mPresenter.checkEmail(email)) {
             til_register_email.error = "邮箱不能为空"
             return
         }

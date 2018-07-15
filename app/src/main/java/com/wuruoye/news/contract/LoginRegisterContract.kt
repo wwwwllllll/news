@@ -14,6 +14,7 @@ class LoginRegisterContract {
     }
 
     abstract class Presenter : WPresenter<View>() {
+        abstract fun checkEmail(email: String): Boolean
         abstract fun requestRegister(id: String, nickname: String, pwd: String, email: String)
     }
 }

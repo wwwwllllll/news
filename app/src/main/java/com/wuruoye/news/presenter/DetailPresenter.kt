@@ -6,6 +6,7 @@ import com.wuruoye.library.util.net.WNet
 import com.wuruoye.library.util.net.WNet.getInBackground
 import com.wuruoye.news.contract.DetailContract
 import com.wuruoye.news.model.API
+import com.wuruoye.news.model.UserCache
 import com.wuruoye.news.model.bean.ArticleItem
 import com.wuruoye.news.model.util.DataUtil
 
@@ -15,7 +16,12 @@ import com.wuruoye.news.model.util.DataUtil
  * @Description :
  */
 class DetailPresenter : DetailContract.Presenter() {
+    private val mUserCache = UserCache.getInstance()
     private var mNextComment = 0L
+
+    override fun isLogin(): Boolean {
+        return mUserCache.isLogin
+    }
 
     override fun requestDetail(app: String, category: String, id: String) {
         val values = mapOf(Pair("app", app), Pair("category", category),

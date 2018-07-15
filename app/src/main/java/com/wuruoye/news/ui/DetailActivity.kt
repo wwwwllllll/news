@@ -1,6 +1,7 @@
 package com.wuruoye.news.ui
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -16,6 +17,7 @@ import com.wuruoye.library.ui.WBaseActivity
 import com.wuruoye.news.R
 import com.wuruoye.news.adapter.CommentRVAdapter
 import com.wuruoye.news.contract.DetailContract
+import com.wuruoye.news.model.Config.DETAIL_LOGIN
 import com.wuruoye.news.model.bean.ArticleComment
 import com.wuruoye.news.model.bean.ArticleDetail
 import com.wuruoye.news.model.bean.ArticleInfo
@@ -37,6 +39,8 @@ import kotlinx.android.synthetic.main.activity_detail.*
 class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
         DetailContract.View, View.OnClickListener, CommentRVAdapter.OnActionListener {
     private lateinit var mArticle: ArticleItem
+    private var mIsLogin = false
+    private var mLoginChanged = false
     private val mImgList = arrayListOf<String>()
 
     private lateinit var mCommentCallback: CommentRVAdapter.OnActionCallback
@@ -46,6 +50,7 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
 
     private lateinit var dlgComment: AlertDialog
     private lateinit var tvCommentParent: TextView
+    private lateinit var dlgLogin: AlertDialog
 
     private val mDetailCommentCallback = object : CommentRVAdapter.OnActionCallback {
         override fun onPraise(add: Boolean) {
@@ -70,6 +75,7 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
         mArticle = p0!!.getParcelable("article")
 
         setPresenter(DetailPresenter())
+        mIsLogin = mPresenter.isLogin()
     }
 
     override fun initView() {
@@ -106,6 +112,16 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
 
                 }
                 .setCancelable(false)
+                .create()
+
+        dlgLogin = AlertDialog.Builder(this)
+                .setTitle("提示")
+                .setMessage("暂未登录，不能使用当前功能，是否登录？")
+                .setPositiveButton("登录") {_, _ ->
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivityForResult(intent, DETAIL_LOGIN)
+                }
+                .setNegativeButton("取消", null)
                 .create()
     }
 
@@ -200,28 +216,62 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
                 onBackPressed()
             }
             R.id.ll_detail_comment -> {
-                mCommentCallback = mDetailCommentCallback
-                mCommentParent = 0
-                tvCommentParent.visibility = View.GONE
-                dlgComment.show()
+                if (mIsLogin) {
+                    mCommentCallback = mDetailCommentCallback
+                    mCommentParent = 0
+                    tvCommentParent.visibility = View.GONE
+                    dlgComment.show()
+                }else {
+                    dlgLogin.show()
+                }
             }
             R.id.ll_detail_praise -> {
-                mPresenter.requestPraiseArticle(mArticle.id)
+                if (mIsLogin) {
+                    mPresenter.requestPraiseArticle(mArticle.id)
+                }else {
+                    dlgLogin.show()
+                }
             }
             R.id.ll_detail_collect -> {
-                mPresenter.requestCollectArticle(mArticle.id, mArticle)
+                if (mIsLogin) {
+                    mPresenter.requestCollectArticle(mArticle.id, mArticle)
+                }else {
+                    dlgLogin.show()
+                }
             }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == DETAIL_LOGIN && resultCode == Activity.RESULT_OK) {
+            mIsLogin = true
+            mLoginChanged = true
+            dlgLogin.dismiss()
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun onBackPressed() {
+        if (mLoginChanged) {
+            setResult(Activity.RESULT_OK)
+            finish()
+        }else {
+            super.onBackPressed()
         }
     }
 
     @SuppressLint("SetTextI18n")
     override fun onCommentClick(callback: CommentRVAdapter.OnActionCallback,
                                 item: ArticleComment) {
-        mCommentCallback = callback
-        mCommentParent = item.id
-        tvCommentParent.visibility = View.VISIBLE
-        tvCommentParent.text = "@${item.user.name}: ${item.content}"
-        dlgComment.show()
+        if (mIsLogin) {
+            mCommentCallback = callback
+            mCommentParent = item.id
+            tvCommentParent.visibility = View.VISIBLE
+            tvCommentParent.text = "@${item.user.name}: ${item.content}"
+            dlgComment.show()
+        }else {
+            dlgLogin.show()
+        }
     }
 
     override fun onLoading(callback: CommentRVAdapter.OnActionCallback) {
@@ -231,8 +281,12 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
 
     override fun onPraiseClick(callback: CommentRVAdapter.OnActionCallback,
                                item: ArticleComment) {
-        mPraiseCallback = callback
-        mPresenter.requestPraiseComment(item.id)
+        if (mIsLogin) {
+            mPraiseCallback = callback
+            mPresenter.requestPraiseComment(item.id)
+        }else {
+            dlgLogin.show()
+        }
     }
 
     override fun onResultComment(comment: ArticleComment) {

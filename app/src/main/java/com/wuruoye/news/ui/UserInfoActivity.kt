@@ -189,6 +189,7 @@ class UserInfoActivity : WBaseActivity<UserInfoContract.Presenter>(), UserInfoCo
     }
 
     private fun onDlg() {
+        val user = LoginUser(mLoginUser)
         when (mCurrentType) {
             TYPE_NAME -> {
                 val name = etUserInfo.text.toString()
@@ -196,7 +197,7 @@ class UserInfoActivity : WBaseActivity<UserInfoContract.Presenter>(), UserInfoCo
                     tilUserInfo.error = "用户名长度应在 2-10 之间"
                     return
                 }
-                mLoginUser.name = name
+                user.name = name
             }
             TYPE_SIGN -> {
                 val sign = etUserInfo.text.toString().trim()
@@ -204,7 +205,7 @@ class UserInfoActivity : WBaseActivity<UserInfoContract.Presenter>(), UserInfoCo
                     tilUserInfo.error = "用户签名长度应在 1-100 之间"
                     return
                 }
-                mLoginUser.sign = sign
+                user.sign = sign
             }
             TYPE_PHONE -> {
                 val phone = etUserInfo.text.toString()
@@ -212,7 +213,7 @@ class UserInfoActivity : WBaseActivity<UserInfoContract.Presenter>(), UserInfoCo
                     tilUserInfo.error = "请输入正确手机号"
                     return
                 }
-                mLoginUser.phone = phone
+                user.phone = phone
             }
             TYPE_EMAIL -> {
                 val email = etUserInfo.text.toString()
@@ -220,11 +221,11 @@ class UserInfoActivity : WBaseActivity<UserInfoContract.Presenter>(), UserInfoCo
                     tilUserInfo.error = "请输入正确邮箱地址"
                     return
                 }
-                mLoginUser.email = email
+                user.email = email
             }
         }
         etUserInfo.text.clear()
-        mPresenter.requestUserInfo(mLoginUser)
+        mPresenter.requestUserInfo(user)
         dlgUserInfo.dismiss()
     }
 

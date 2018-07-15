@@ -19,6 +19,9 @@ data class LoginUser(
         var phone: String,
         var sign: String
 ) : Parcelable {
+    constructor(user: LoginUser): this(user.avatar, user.create_time, user.email, user.email_confirm,
+            user.id, user.is_available, user.name, user.phone, user.sign)
+
     constructor(source: Parcel) : this(
             source.readString(),
             source.readLong(),

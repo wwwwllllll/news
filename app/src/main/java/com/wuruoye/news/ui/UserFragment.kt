@@ -21,6 +21,7 @@ import com.wuruoye.news.model.bean.LoginUser
 import com.wuruoye.news.model.util.blur
 import com.wuruoye.news.model.util.toast
 import com.wuruoye.news.presenter.UserPresenter
+import kotlinx.android.synthetic.main.fragment_user.*
 
 /**
  * @Created : wuruoye
@@ -127,6 +128,11 @@ class UserFragment : WBaseFragment<UserContract.Presenter>(), UserContract.View,
 
             }
         }
+    }
+
+    override fun onLogin() {
+        mIsLogin = true
+        initUser()
     }
 
     private fun onLoginResult(loginUser: LoginUser) {

@@ -1,5 +1,6 @@
 package com.wuruoye.news.ui
 
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
@@ -10,6 +11,8 @@ import com.wuruoye.library.ui.WBaseFragment
 import com.wuruoye.news.R
 import com.wuruoye.news.adapter.ArticleItemRVAdapter
 import com.wuruoye.news.contract.ArticleListContract
+import com.wuruoye.news.contract.MainContract
+import com.wuruoye.news.model.Config.HOME_DETAIL
 import com.wuruoye.news.model.bean.ArticleItem
 import com.wuruoye.news.model.bean.ArticleList
 import com.wuruoye.news.model.bean.Item
@@ -22,7 +25,8 @@ import kotlinx.android.synthetic.main.fragment_list.*
  * @Description :
  */
 class ListFragment : WBaseFragment<ArticleListContract.Presenter>(), ArticleListContract.View,
-        WBaseRVAdapter.OnItemClickListener<ArticleItem>, ArticleItemRVAdapter.OnActionListener, SwipeRefreshLayout.OnRefreshListener {
+        WBaseRVAdapter.OnItemClickListener<ArticleItem>, ArticleItemRVAdapter.OnActionListener,
+        SwipeRefreshLayout.OnRefreshListener {
     private lateinit var mItem: Item
     private lateinit var mCategory: String
     private lateinit var mPage: String
@@ -66,6 +70,14 @@ class ListFragment : WBaseFragment<ArticleListContract.Presenter>(), ArticleList
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == HOME_DETAIL && resultCode == RESULT_OK) {
+            val view = activity as MainContract.View
+            view.onLogin()
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
     override fun onRefresh() {
         mPage = "1"
         mPresenter.requestList(mCategory, mItem.url, mPage)
@@ -77,7 +89,7 @@ class ListFragment : WBaseFragment<ArticleListContract.Presenter>(), ArticleList
         bundle.putParcelable("article", p0!!)
         val intent = Intent(context, DetailActivity::class.java)
         intent.putExtras(bundle)
-        startActivity(intent)
+        startActivityForResult(intent, HOME_DETAIL)
 
 //        val bundle = Bundle()
 //        bundle.putString("url", p0!!.url)

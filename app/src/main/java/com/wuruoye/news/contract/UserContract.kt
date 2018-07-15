@@ -11,6 +11,7 @@ import com.wuruoye.news.model.bean.LoginUser
  */
 class UserContract {
     interface View : WIView {
+        fun onLogin()
         fun onResultUserInfo(loginUser: LoginUser)
         fun onResultUserInfo(info: String)
     }
