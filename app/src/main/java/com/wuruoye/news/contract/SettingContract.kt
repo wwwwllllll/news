@@ -18,8 +18,10 @@ class SettingContract {
         abstract fun isLogin(): Boolean
         abstract fun setNoImg(check: Boolean)
         abstract fun setProxy(check: Boolean)
+        abstract fun setWeb(check: Boolean)
         abstract fun getNoImg(): Boolean
         abstract fun getProxy(): Boolean
+        abstract fun getWeb(): Boolean
         abstract fun requestLogout()
         abstract fun requestReloadApi()
     }

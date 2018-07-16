@@ -3,10 +3,13 @@ package com.wuruoye.news.ui
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.PopupMenu
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -26,6 +29,7 @@ import com.wuruoye.news.model.bean.DetailItem.Companion.TYPE_H1
 import com.wuruoye.news.model.bean.DetailItem.Companion.TYPE_IMG
 import com.wuruoye.news.model.bean.DetailItem.Companion.TYPE_TEXT
 import com.wuruoye.news.model.bean.DetailItem.Companion.TYPE_TEXT_CEN
+import com.wuruoye.news.model.util.ShareUtil
 import com.wuruoye.news.model.util.loge
 import com.wuruoye.news.model.util.toast
 import com.wuruoye.news.presenter.DetailPresenter
@@ -37,7 +41,7 @@ import kotlinx.android.synthetic.main.activity_detail.*
  * @Description :
  */
 class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
-        DetailContract.View, View.OnClickListener, CommentRVAdapter.OnActionListener {
+        DetailContract.View, View.OnClickListener, CommentRVAdapter.OnActionListener, PopupMenu.OnMenuItemClickListener {
     private lateinit var mArticle: ArticleItem
     private var mIsLogin = false
     private var mNoImg = false
@@ -52,6 +56,7 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
     private lateinit var dlgComment: AlertDialog
     private lateinit var tvCommentParent: TextView
     private lateinit var dlgLogin: AlertDialog
+    private lateinit var pmMenu: PopupMenu
 
     private val mDetailCommentCallback = object : CommentRVAdapter.OnActionCallback {
         override fun onPraise(add: Boolean) {
@@ -83,6 +88,7 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
     override fun initView() {
         tv_detail_title.text = mArticle.title
         iv_detail_back.setOnClickListener(this)
+        iv_detail_menu.setOnClickListener(this)
         ll_detail_comment.setOnClickListener(this)
         ll_detail_praise.setOnClickListener(this)
         ll_detail_collect.setOnClickListener(this)
@@ -125,6 +131,10 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
                 }
                 .setNegativeButton("取消", null)
                 .create()
+
+        pmMenu = PopupMenu(this, iv_detail_menu)
+        pmMenu.menuInflater.inflate(R.menu.menu_detail, pmMenu.menu)
+        pmMenu.setOnMenuItemClickListener(this)
     }
 
     private fun initRV() {
@@ -224,6 +234,9 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
             R.id.iv_detail_back -> {
                 onBackPressed()
             }
+            R.id.iv_detail_menu -> {
+                pmMenu.show()
+            }
             R.id.ll_detail_comment -> {
                 if (mIsLogin) {
                     mCommentCallback = mDetailCommentCallback
@@ -249,6 +262,32 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
                 }
             }
         }
+    }
+
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        when (item!!.itemId) {
+            R.id.menu_detail_share -> {
+                ShareUtil.shareText(this, mArticle.url)
+            }
+            R.id.menu_detail_refresh -> {
+                recreate()
+            }
+            R.id.menu_detail_browser -> {
+                val intent = Intent(Intent.ACTION_VIEW)
+                val uri = Uri.parse(mArticle.url)
+                intent.data = uri
+                startActivity(intent)
+            }
+            R.id.menu_detail_web -> {
+                val bundle = Bundle()
+                bundle.putString("url", mArticle.url)
+                bundle.putString("title", mArticle.title)
+                val intent = Intent(this, WebActivity::class.java)
+                intent.putExtras(bundle)
+                startActivity(intent)
+            }
+        }
+        return true
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -85,18 +85,20 @@ class ListFragment : WBaseFragment<ArticleListContract.Presenter>(), ArticleList
 
     override fun onItemClick(p0: ArticleItem?) {
 //        Toast.makeText(context, p0!!.title, Toast.LENGTH_SHORT).show()
-        val bundle = Bundle()
-        bundle.putParcelable("article", p0!!)
-        val intent = Intent(context, DetailActivity::class.java)
-        intent.putExtras(bundle)
-        startActivityForResult(intent, HOME_DETAIL)
-
-//        val bundle = Bundle()
-//        bundle.putString("url", p0!!.url)
-//        bundle.putString("title", p0.title)
-//        val intent = Intent(context, WebActivity::class.java)
-//        intent.putExtras(bundle)
-//        startActivity(intent)
+        if (!mPresenter.getWeb()) {
+            val bundle = Bundle()
+            bundle.putParcelable("article", p0!!)
+            val intent = Intent(context, DetailActivity::class.java)
+            intent.putExtras(bundle)
+            startActivityForResult(intent, HOME_DETAIL)
+        }else {
+            val bundle = Bundle()
+            bundle.putString("url", p0!!.url)
+            bundle.putString("title", p0.title)
+            val intent = Intent(context, WebActivity::class.java)
+            intent.putExtras(bundle)
+            startActivity(intent)
+        }
     }
 
     override fun onLoading(loadingView: View) {
@@ -104,9 +106,9 @@ class ListFragment : WBaseFragment<ArticleListContract.Presenter>(), ArticleList
         mPresenter.requestList(mCategory, mItem.url, mPage)
     }
 
-    override fun onResultList(articleList: ArticleList) {
+    override fun onResultList(articleList: ArticleList, add: Boolean) {
         srl_list.isRefreshing = false
         mPage = articleList.next
-        setData(true, articleList.data)
+        setData(add, articleList.data)
     }
 }

@@ -17,6 +17,7 @@ class UserCache private constructor(): WBaseCache("user") {
         const val USER_PWD = "user_pwd"
         const val NO_IMG = "no_img"
         const val PROXY = "proxy"
+        const val WEB = "web"
 
         fun getInstance(): UserCache{
             return sInstance
@@ -48,4 +49,8 @@ class UserCache private constructor(): WBaseCache("user") {
     var proxy: Boolean
         get() = getBoolean(PROXY, false)
         set(value) = putBoolean(PROXY, value)
+
+    var web: Boolean
+        get() = getBoolean(WEB, false)
+        set(value) = putBoolean(WEB, value)
 }

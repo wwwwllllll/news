@@ -44,31 +44,36 @@
             android:layout_height="wrap_content"
             tools:ignore="NewApi" >
 
+            <TextView
+                android:text="新闻"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/gray_chateau"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <!--<View-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:background="@color/mercury"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"/>-->
+
             <LinearLayout
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:orientation="vertical"
+                android:dividerPadding="1dp"
+                android:showDividers="middle"
+                android:divider="@color/mercury"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:text="新闻"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/gray_chateau"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <View
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@color/mercury"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
-
                 <LinearLayout
+                    android:id="@+id/ll_setting_proxy"
                     android:orientation="horizontal"
                     android:padding="10dp"
+                    android:foreground="?android:attr/selectableItemBackgroundBorderless"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -87,7 +92,9 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_setting_img"
                     android:padding="10dp"
+                    android:foreground="?android:attr/selectableItemBackgroundBorderless"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -106,10 +113,33 @@
                         android:layout_height="wrap_content" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/ll_setting_web"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="网页显示新闻详情"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:textSize="15sp"
+                        android:textColor="@color/monsoon"
+                        android:layout_height="wrap_content" />
+
+                    <Switch
+                        android:id="@+id/s_setting_web"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
                 <TextView
                     android:id="@+id/tv_setting_reload_api"
                     android:text="重新加载 API"
                     android:textSize="16sp"
+                    android:textColor="@color/monsoon"
                     android:padding="10dp"
                     android:gravity="center"
                     android:foreground="?android:attr/selectableItemBackgroundBorderless"
@@ -117,27 +147,30 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
+            <TextView
+                android:text="用户"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/gray_chateau"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <!--<View-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:background="@color/mercury"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"/>-->
+
             <LinearLayout
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:orientation="vertical"
+                android:dividerPadding="1dp"
+                android:divider="@color/mercury"
+                android:showDividers="middle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
-                <TextView
-                    android:text="用户"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/gray_chateau"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <View
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@color/mercury"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
 
                 <TextView
                     android:id="@+id/tv_setting_login"

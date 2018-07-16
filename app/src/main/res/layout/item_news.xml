@@ -61,15 +61,6 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/tv_item_news_tag"
-                android:layout_marginStart="10dp"
-                android:textSize="12sp"
-                android:textColor="@color/monsoon"
-                android:text="标签"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
                 android:id="@+id/tv_item_news_date"
                 android:text="07-20 12:00:00"
                 android:textColor="@color/gray_chateau"

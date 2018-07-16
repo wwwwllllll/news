@@ -39,13 +39,19 @@ class SettingActivity : WBaseActivity<SettingContract.Presenter>(), SettingContr
     }
 
     override fun initView() {
+        iv_setting_back.setOnClickListener(this)
         tv_setting_login.setOnClickListener(this)
         tv_setting_reload_api.setOnClickListener(this)
+        ll_setting_img.setOnClickListener(this)
+        ll_setting_proxy.setOnClickListener(this)
+        ll_setting_web.setOnClickListener(this)
         s_setting_img.setOnCheckedChangeListener(this)
         s_setting_proxy.setOnCheckedChangeListener(this)
+        s_setting_web.setOnCheckedChangeListener(this)
 
         s_setting_img.isChecked = mPresenter.getNoImg()
         s_setting_proxy.isChecked = mPresenter.getProxy()
+        s_setting_web.isChecked = mPresenter.getWeb()
         if (mIsLogin) {
             tv_setting_login.text = "用户登出"
         }else {
@@ -55,6 +61,9 @@ class SettingActivity : WBaseActivity<SettingContract.Presenter>(), SettingContr
 
     override fun onClick(p0: View?) {
         when (p0!!.id) {
+            R.id.iv_setting_back -> {
+                onBackPressed()
+            }
             R.id.tv_setting_login -> {
                 if (mIsLogin) {
                     mPresenter.requestLogout()
@@ -66,6 +75,15 @@ class SettingActivity : WBaseActivity<SettingContract.Presenter>(), SettingContr
             R.id.tv_setting_reload_api -> {
                 mPresenter.requestReloadApi()
             }
+            R.id.ll_setting_img -> {
+                s_setting_img.isChecked = !s_setting_img.isChecked
+            }
+            R.id.ll_setting_proxy -> {
+                s_setting_proxy.isChecked = !s_setting_proxy.isChecked
+            }
+            R.id.ll_setting_web -> {
+                s_setting_web.isChecked = !s_setting_web.isChecked
+            }
         }
     }
 
@@ -76,6 +94,9 @@ class SettingActivity : WBaseActivity<SettingContract.Presenter>(), SettingContr
             }
             R.id.s_setting_proxy -> {
                 mPresenter.setProxy(p1)
+            }
+            R.id.s_setting_web -> {
+                mPresenter.setWeb(p1)
             }
         }
     }
@@ -107,6 +128,7 @@ class SettingActivity : WBaseActivity<SettingContract.Presenter>(), SettingContr
 
     override fun onResultLogout(result: Boolean, info: String) {
         if (result) {
+            mIsLogin = false
             mLoginChanged = true
             mLoginUser = null
             tv_setting_login.text = "用户登录"

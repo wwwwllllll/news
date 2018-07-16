@@ -54,7 +54,6 @@ class ArticleItemRVAdapter : WBaseRVAdapter<ArticleItem>() {
                 tvAuthor.text = item.author
                 tvDate.text = DateUtil.formatTime(item.millis * 1000,
                         "YYYY-MM-dd HH:MM")
-                tvTag.text = item.type
 
                 if (item.bg_img.isNotEmpty()) Glide.with(ivBg)
                         .load(item.bg_img)
@@ -84,7 +83,6 @@ class ArticleItemRVAdapter : WBaseRVAdapter<ArticleItem>() {
         val tvTitle = itemView.findViewById<TextView>(R.id.tv_item_news_title)
         val tvForward = itemView.findViewById<TextView>(R.id.tv_item_news_forward)
         val tvAuthor = itemView.findViewById<TextView>(R.id.tv_item_news_author)
-        val tvTag = itemView.findViewById<TextView>(R.id.tv_item_news_tag)
         val tvDate = itemView.findViewById<TextView>(R.id.tv_item_news_date)
         val ivBg = itemView.findViewById<ImageView>(R.id.iv_item_news_bg)
     }

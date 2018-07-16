@@ -15,6 +15,10 @@ import com.wuruoye.news.model.util.DataUtil
 class ListPresenter : ArticleListContract.Presenter() {
     private val mUserCache = UserCache.getInstance()
 
+    override fun getWeb(): Boolean {
+        return mUserCache.web
+    }
+
     override fun requestList(category: String, url: String, page: String) {
         if (mUserCache.proxy) {
             val values = mapOf(Pair("app", "sina"), Pair("category", category),
@@ -26,7 +30,8 @@ class ListPresenter : ArticleListContract.Presenter() {
 
                 override fun onSuccessful(p0: String?) {
                     val list = DataUtil.parseArticleList(p0!!)
-                    view?.onResultList(list)
+                    val add = page != "1"
+                    view?.onResultList(list, add)
                 }
 
             })
@@ -47,7 +52,8 @@ class ListPresenter : ArticleListContract.Presenter() {
 
                         override fun onSuccessful(p0: String?) {
                             val list = DataUtil.parseArticleList(p0!!)
-                            view?.onResultList(list)
+                            val add = page != "1"
+                            view?.onResultList(list, add)
                         }
 
                     })

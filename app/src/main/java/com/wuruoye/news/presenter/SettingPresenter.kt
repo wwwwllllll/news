@@ -27,12 +27,20 @@ class SettingPresenter : SettingContract.Presenter() {
         return mUserCache.proxy
     }
 
+    override fun getWeb(): Boolean {
+        return mUserCache.web
+    }
+
     override fun setNoImg(check: Boolean) {
         mUserCache.noImg = check
     }
 
     override fun setProxy(check: Boolean) {
         mUserCache.proxy = check
+    }
+
+    override fun setWeb(check: Boolean) {
+        mUserCache.web = check
     }
 
     override fun requestLogout() {
