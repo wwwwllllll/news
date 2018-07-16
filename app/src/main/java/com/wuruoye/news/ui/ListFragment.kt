@@ -27,6 +27,10 @@ import kotlinx.android.synthetic.main.fragment_list.*
 class ListFragment : WBaseFragment<ArticleListContract.Presenter>(), ArticleListContract.View,
         WBaseRVAdapter.OnItemClickListener<ArticleItem>, ArticleItemRVAdapter.OnActionListener,
         SwipeRefreshLayout.OnRefreshListener {
+    companion object {
+        val TYPE_ARTICLE = "1"
+        val TYPE_VIDEO = "4"
+    }
     private lateinit var mItem: Item
     private lateinit var mCategory: String
     private lateinit var mPage: String
@@ -84,20 +88,31 @@ class ListFragment : WBaseFragment<ArticleListContract.Presenter>(), ArticleList
     }
 
     override fun onItemClick(p0: ArticleItem?) {
-//        Toast.makeText(context, p0!!.title, Toast.LENGTH_SHORT).show()
-        if (!mPresenter.getWeb()) {
-            val bundle = Bundle()
-            bundle.putParcelable("article", p0!!)
-            val intent = Intent(context, DetailActivity::class.java)
-            intent.putExtras(bundle)
-            startActivityForResult(intent, HOME_DETAIL)
-        }else {
-            val bundle = Bundle()
-            bundle.putString("url", p0!!.url)
-            bundle.putString("title", p0.title)
-            val intent = Intent(context, WebActivity::class.java)
-            intent.putExtras(bundle)
-            startActivity(intent)
+        when (p0!!.open) {
+            TYPE_ARTICLE -> {
+                if (!mPresenter.getWeb()) {
+                    val bundle = Bundle()
+                    bundle.putParcelable("article", p0)
+                    val intent = Intent(context, DetailActivity::class.java)
+                    intent.putExtras(bundle)
+                    startActivityForResult(intent, HOME_DETAIL)
+                }else {
+                    val bundle = Bundle()
+                    bundle.putString("url", p0.url)
+                    bundle.putString("title", p0.title)
+                    val intent = Intent(context, WebActivity::class.java)
+                    intent.putExtras(bundle)
+                    startActivity(intent)
+                }
+            }
+            TYPE_VIDEO -> {
+                val bundle = Bundle()
+                bundle.putString("url", p0.url)
+                bundle.putString("title", p0.title)
+                val intent = Intent(context, VideoActivity::class.java)
+                intent.putExtras(bundle)
+                startActivity(intent)
+            }
         }
     }
 

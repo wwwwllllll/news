@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.wuruoye.library.adapter.WBaseRVAdapter
 import com.wuruoye.library.util.DateUtil
 import com.wuruoye.news.R
+import com.wuruoye.news.model.UserCache
 import com.wuruoye.news.model.bean.ArticleItem
 
 /**
@@ -26,6 +27,7 @@ class ArticleItemRVAdapter : WBaseRVAdapter<ArticleItem>() {
     }
 
     private var mOnActionListener: OnActionListener? = null
+    private var mUserCache = UserCache.getInstance()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == TYPE_NORMAL) {
@@ -55,7 +57,8 @@ class ArticleItemRVAdapter : WBaseRVAdapter<ArticleItem>() {
                 tvDate.text = DateUtil.formatTime(item.millis * 1000,
                         "YYYY-MM-dd HH:MM")
 
-                if (item.bg_img.isNotEmpty()) Glide.with(ivBg)
+                if (item.bg_img.isNotEmpty() && !mUserCache.noImg)
+                    Glide.with(ivBg)
                         .load(item.bg_img)
                         .into(ivBg)
                 else ivBg.visibility = GONE
