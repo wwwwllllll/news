@@ -15,6 +15,10 @@ import com.wuruoye.news.model.util.DataUtil
 class StartPresenter : StartContract.Presenter() {
     private val mUserCache = UserCache.getInstance()
 
+    override fun getTextSize(): Float {
+        return mUserCache.textSize
+    }
+
     override fun checkLogin() {
         if (!mUserCache.isLogin) {
             view?.onResultCheck(false)

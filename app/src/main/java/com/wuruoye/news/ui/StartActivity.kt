@@ -4,12 +4,14 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.WindowManager
 import android.view.animation.AccelerateDecelerateInterpolator
 import com.wuruoye.library.ui.WBaseActivity
 import com.wuruoye.news.R
 import com.wuruoye.news.contract.StartContract
+import com.wuruoye.news.model.UserCache
 import com.wuruoye.news.presenter.StartPresenter
 import kotlinx.android.synthetic.main.activity_start.*
 
@@ -72,6 +74,14 @@ class StartActivity : WBaseActivity<StartContract.Presenter>(), StartContract.Vi
         }else {
             mLoginResult = true
         }
+    }
+
+    override fun getResources(): Resources {
+        val resource = super.getResources()
+        val configure = resource.configuration
+        configure.fontScale = UserCache.getInstance().textSize
+        resource.updateConfiguration(configure, resource.displayMetrics)
+        return resource
     }
 
     private fun goToMain() {

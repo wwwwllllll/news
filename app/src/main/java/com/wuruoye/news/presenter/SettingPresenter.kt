@@ -31,6 +31,10 @@ class SettingPresenter : SettingContract.Presenter() {
         return mUserCache.web
     }
 
+    override fun getTextSize(): Float {
+        return mUserCache.textSize
+    }
+
     override fun setNoImg(check: Boolean) {
         mUserCache.noImg = check
     }
@@ -41,6 +45,10 @@ class SettingPresenter : SettingContract.Presenter() {
 
     override fun setWeb(check: Boolean) {
         mUserCache.web = check
+    }
+
+    override fun setTextSize(scale: Float) {
+        mUserCache.textSize = scale
     }
 
     override fun requestLogout() {

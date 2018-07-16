@@ -19,9 +19,11 @@ class SettingContract {
         abstract fun setNoImg(check: Boolean)
         abstract fun setProxy(check: Boolean)
         abstract fun setWeb(check: Boolean)
+        abstract fun setTextSize(scale: Float)
         abstract fun getNoImg(): Boolean
         abstract fun getProxy(): Boolean
         abstract fun getWeb(): Boolean
+        abstract fun getTextSize(): Float
         abstract fun requestLogout()
         abstract fun requestReloadApi()
     }

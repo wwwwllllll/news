@@ -1,10 +1,14 @@
 package com.wuruoye.news.ui
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.CompoundButton
+import android.widget.RadioGroup
 import com.wuruoye.library.ui.WBaseActivity
 import com.wuruoye.news.R
 import com.wuruoye.news.contract.SettingContract
@@ -24,10 +28,18 @@ class SettingActivity : WBaseActivity<SettingContract.Presenter>(), SettingContr
     companion object {
         const val RESULT_LOGIN = 1
         const val RESULT_LOGOUT = 2
+        val ITEM_TEXT = arrayOf(R.id.rb_setting_text_smallest, R.id.rb_setting_text_small,
+                R.id.rb_setting_text_normal, R.id.rb_setting_text_large,
+                R.id.rb_setting_text_largest)
+        val ITEM_TEXT_SIZE = arrayOf(0.6F, 0.8F, 1F, 1.2F, 1.4F)
+        val ITEM_TEXT_TITLE = arrayOf("最小", "较小", "正常", "较大", "最大")
     }
     private var mIsLogin = false
     private var mLoginChanged = false
     private var mLoginUser: LoginUser? = null
+
+    private lateinit var dlgText: AlertDialog
+    private lateinit var rgText: RadioGroup
 
     override fun getContentView(): Int {
         return R.layout.activity_setting
@@ -39,12 +51,15 @@ class SettingActivity : WBaseActivity<SettingContract.Presenter>(), SettingContr
     }
 
     override fun initView() {
+        initDlg()
+
         iv_setting_back.setOnClickListener(this)
         tv_setting_login.setOnClickListener(this)
         tv_setting_reload_api.setOnClickListener(this)
         ll_setting_img.setOnClickListener(this)
         ll_setting_proxy.setOnClickListener(this)
         ll_setting_web.setOnClickListener(this)
+        ll_setting_text.setOnClickListener(this)
         s_setting_img.setOnCheckedChangeListener(this)
         s_setting_proxy.setOnCheckedChangeListener(this)
         s_setting_web.setOnCheckedChangeListener(this)
@@ -52,11 +67,36 @@ class SettingActivity : WBaseActivity<SettingContract.Presenter>(), SettingContr
         s_setting_img.isChecked = mPresenter.getNoImg()
         s_setting_proxy.isChecked = mPresenter.getProxy()
         s_setting_web.isChecked = mPresenter.getWeb()
+        try {
+            tv_setting_text.text = ITEM_TEXT_TITLE[ITEM_TEXT_SIZE
+                    .indexOf(mPresenter.getTextSize())]
+        } catch (e: Exception) {
+            mPresenter.setTextSize(ITEM_TEXT_SIZE[2])
+            tv_setting_text.text = ITEM_TEXT_TITLE[2]
+        }
         if (mIsLogin) {
             tv_setting_login.text = "用户登出"
         }else {
             tv_setting_login.text = "用户登录"
         }
+    }
+
+    @SuppressLint("InflateParams")
+    private fun initDlg() {
+        rgText = LayoutInflater.from(this)
+                .inflate(R.layout.dlg_text_picker, null) as RadioGroup
+        dlgText = AlertDialog.Builder(this)
+                .setTitle("选择字体大小")
+                .setView(rgText)
+                .setPositiveButton("确定") { _, _ ->
+                    val select = ITEM_TEXT.indexOf(rgText.checkedRadioButtonId)
+                    val size = ITEM_TEXT_SIZE[select]
+                    mPresenter.setTextSize(size)
+                    tv_setting_text.text = ITEM_TEXT_TITLE[select]
+                    toast("重新进入应用查看更改")
+                }
+                .setNegativeButton("取消", null)
+                .create()
     }
 
     override fun onClick(p0: View?) {
@@ -83,6 +123,10 @@ class SettingActivity : WBaseActivity<SettingContract.Presenter>(), SettingContr
             }
             R.id.ll_setting_web -> {
                 s_setting_web.isChecked = !s_setting_web.isChecked
+            }
+            R.id.ll_setting_text -> {
+                rgText.check(ITEM_TEXT[ITEM_TEXT_SIZE.indexOf(mPresenter.getTextSize())])
+                dlgText.show()
             }
         }
     }

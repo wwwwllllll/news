@@ -15,5 +15,6 @@ class StartContract {
 
     abstract class Presenter : WPresenter<View>() {
         abstract fun checkLogin()
+        abstract fun getTextSize(): Float
     }
 }
