@@ -72,10 +72,12 @@
                 <LinearLayout
                     android:id="@+id/ll_setting_proxy"
                     android:orientation="horizontal"
-                    android:padding="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:gravity="center_vertical"
                     android:foreground="?android:attr/selectableItemBackgroundBorderless"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="50dp">
 
                     <TextView
                         android:text="使用后台代理"
@@ -93,11 +95,13 @@
 
                 <LinearLayout
                     android:id="@+id/ll_setting_img"
-                    android:padding="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:gravity="center_vertical"
                     android:foreground="?android:attr/selectableItemBackgroundBorderless"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="50dp">
 
                     <TextView
                         android:text="无图模式"
@@ -116,10 +120,12 @@
                 <LinearLayout
                     android:id="@+id/ll_setting_web"
                     android:orientation="horizontal"
-                    android:padding="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:gravity="center_vertical"
                     android:foreground="?android:attr/selectableItemBackgroundBorderless"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="50dp">
 
                     <TextView
                         android:text="网页显示新闻详情"
@@ -140,11 +146,10 @@
                     android:orientation="horizontal"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    android:paddingTop="15dp"
-                    android:paddingBottom="15dp"
+                    android:gravity="center_vertical"
                     android:foreground="?android:attr/selectableItemBackgroundBorderless"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="50dp">
 
                     <TextView
                         android:text="字体大小"
@@ -170,11 +175,12 @@
                     android:text="重新加载 API"
                     android:textSize="16sp"
                     android:textColor="@color/monsoon"
-                    android:padding="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
                     android:gravity="center"
                     android:foreground="?android:attr/selectableItemBackgroundBorderless"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="50dp" />
             </LinearLayout>
 
             <TextView
@@ -207,11 +213,12 @@
                     android:text="退出登录"
                     android:textSize="16sp"
                     android:textColor="@color/monsoon"
-                    android:padding="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
                     android:gravity="center"
                     android:foreground="?android:attr/selectableItemBackgroundBorderless"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="50dp"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
