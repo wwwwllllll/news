@@ -65,7 +65,7 @@
             android:lineSpacingExtra="5dp"
             android:gravity="center"
             android:textColor="@color/romance"
-            android:background="@color/gray_chateau"
+            android:background="@color/activateColor"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
     </LinearLayout>

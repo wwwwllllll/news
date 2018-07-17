@@ -22,10 +22,10 @@
             android:id="@+id/ctl_main"
             app:normalBorderColor="@color/gray_chateau"
             app:normalTextColor="@color/gray_chateau"
-            app:normalStuffColor="@color/gray_chateau"
-            app:selectBorderColor="@color/monsoon"
-            app:selectTextColor="@color/monsoon"
-            app:selectStuffColor="@color/monsoon"
+            app:normalStuffColor="@color/transparent"
+            app:selectBorderColor="@color/activateColor"
+            app:selectTextColor="@color/activateColor"
+            app:selectStuffColor="@color/activateColor"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

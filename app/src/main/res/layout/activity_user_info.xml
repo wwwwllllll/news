@@ -138,6 +138,7 @@
                 <ImageView
                     android:src="@drawable/ic_right"
                     android:padding="16dp"
+                    android:tint="@color/activateColor"
                     android:layout_width="50dp"
                     android:layout_height="50dp" />
             </LinearLayout>
@@ -176,6 +177,7 @@
                 <ImageView
                     android:src="@drawable/ic_right"
                     android:padding="16dp"
+                    android:tint="@color/activateColor"
                     android:layout_width="50dp"
                     android:layout_height="50dp" />
             </LinearLayout>
@@ -214,6 +216,7 @@
                 <ImageView
                     android:src="@drawable/ic_right"
                     android:padding="16dp"
+                    android:tint="@color/activateColor"
                     android:layout_width="50dp"
                     android:layout_height="50dp" />
             </LinearLayout>
@@ -250,12 +253,11 @@
                 <ImageView
                     android:src="@drawable/ic_right"
                     android:padding="16dp"
+                    android:tint="@color/activateColor"
                     android:layout_width="50dp"
                     android:layout_height="50dp" />
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
-
-
 </LinearLayout>

@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:foreground="?android:attr/selectableItemBackgroundBorderless"
-    android:clickable="true"
     android:gravity="center_vertical"
     android:layout_width="match_parent"
     android:layout_height="60dp"
@@ -21,6 +20,14 @@
         android:textSize="16sp"
         android:text="设置"
         android:textColor="@color/gray_chateau"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content" />
+
+    <ImageView
+        android:src="@drawable/ic_right"
+        android:padding="16dp"
+        android:tint="@color/activateColor"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
 </LinearLayout>

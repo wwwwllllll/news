@@ -106,7 +106,7 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
         val et = view.findViewById<EditText>(R.id.et_dlg_comment)
         tvCommentParent = view.findViewById(R.id.tv_dlg_comment_parent)
 
-        dlgComment = AlertDialog.Builder(this)
+        dlgComment = AlertDialog.Builder(this, R.style.DlgTheme)
                 .setTitle("写评论")
                 .setView(view)
                 .setPositiveButton("提交") {_, _ ->
@@ -122,7 +122,7 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
                 .setCancelable(false)
                 .create()
 
-        dlgLogin = AlertDialog.Builder(this)
+        dlgLogin = AlertDialog.Builder(this, R.style.DlgTheme)
                 .setTitle("提示")
                 .setMessage("暂未登录，不能使用当前功能，是否登录？")
                 .setPositiveButton("登录") {_, _ ->

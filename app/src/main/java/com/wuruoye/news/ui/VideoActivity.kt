@@ -47,7 +47,7 @@ class VideoActivity : WBaseActivity<VideoContract.Presenter>(), VideoContract.Vi
     }
 
     private fun initDlg() {
-        dlgLoading = AlertDialog.Builder(this)
+        dlgLoading = AlertDialog.Builder(this, R.style.DlgTheme)
                 .setTitle("提示")
                 .setView(R.layout.dlg_loading)
                 .setNegativeButton("退出") {_, _ ->
@@ -55,7 +55,7 @@ class VideoActivity : WBaseActivity<VideoContract.Presenter>(), VideoContract.Vi
                 }
                 .setCancelable(false)
                 .create()
-        dlgError = AlertDialog.Builder(this)
+        dlgError = AlertDialog.Builder(this, R.style.DlgTheme)
                 .setTitle("提示")
                 .setMessage("视频播放出错，是否重新加载？")
                 .setPositiveButton("确定") {_, _ ->
@@ -67,7 +67,7 @@ class VideoActivity : WBaseActivity<VideoContract.Presenter>(), VideoContract.Vi
                 }
                 .setCancelable(false)
                 .create()
-        dlgComplete = AlertDialog.Builder(this)
+        dlgComplete = AlertDialog.Builder(this, R.style.DlgTheme)
                 .setTitle("提示")
                 .setMessage("视频播放完毕，是否再次播放？")
                 .setPositiveButton("确定") {_, _ ->

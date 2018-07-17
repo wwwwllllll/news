@@ -97,7 +97,7 @@ class  WebActivity : WBaseActivity<WebContract.Presenter>(), WebContract.View,
     }
 
     private fun initDlg() {
-        pmMenu = PopupMenu(this, iv_web_menu)
+        pmMenu = PopupMenu(this, iv_web_menu, R.style.DlgTheme)
         pmMenu.menuInflater.inflate(R.menu.menu_web, pmMenu.menu)
         pmMenu.setOnMenuItemClickListener(this)
     }

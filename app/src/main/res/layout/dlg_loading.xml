@@ -8,7 +8,7 @@
     android:layout_height="wrap_content">
 
     <com.wuruoye.library.widget.HeartBeatView
-        app:heartColor="@color/gray_chateau"
+        app:heartColor="@color/activateColor"
         android:layout_width="30dp"
         android:layout_height="30dp" />
 

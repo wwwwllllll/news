@@ -13,6 +13,10 @@
     <color name="storm_dust">#636363</color>
     <color name="monsoon">#777777</color>
     <color name="black">#000000</color>
+    <color name="coquelicot">#FF570A</color>
+    <color name="mountain_meadow">#2CC485</color>
+    <color name="royal_purple">#7353BA</color>
 
     <color name="transparent_white">#60FFFFFF</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>

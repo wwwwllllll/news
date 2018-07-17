@@ -78,7 +78,7 @@ class UserInfoActivity : WBaseActivity<UserInfoContract.Presenter>(), UserInfoCo
         tilUserInfo = view.findViewById(R.id.til_dlg_user_info)
         etUserInfo = view.findViewById(R.id.et_dlg_user_info)
 
-        dlgUserInfo = AlertDialog.Builder(this)
+        dlgUserInfo = AlertDialog.Builder(this, R.style.DlgTheme)
                 .setView(view)
                 .setPositiveButton("修改", null)
                 .setNegativeButton("取消", null)
@@ -87,11 +87,11 @@ class UserInfoActivity : WBaseActivity<UserInfoContract.Presenter>(), UserInfoCo
         val loadingView = LayoutInflater.from(this)
                 .inflate(R.layout.dlg_loading, null)
         loadingView.findViewById<TextView>(R.id.tv_dlg_loading).text = "上传图片中..."
-        dlgLoading = AlertDialog.Builder(this)
+        dlgLoading = AlertDialog.Builder(this, R.style.DlgTheme)
                 .setView(loadingView)
                 .create()
 
-        dlgPhoto = AlertDialog.Builder(this)
+        dlgPhoto = AlertDialog.Builder(this, R.style.DlgTheme)
                 .setTitle("选择方式")
                 .setItems(ITEM_PHOTO) {_, position ->
                     when (position) {

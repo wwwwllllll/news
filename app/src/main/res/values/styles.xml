@@ -1,12 +1,23 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <item name="activateColor" type="color">@color/gray_chateau</item>
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/romance</item>
         <item name="colorPrimaryDark">@color/romance</item>
-        <item name="colorAccent">@color/gray_chateau</item>
+        <item name="colorAccent">@color/activateColor</item>
         <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
     </style>
 
+    <style name="DlgTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@color/romance</item>
+        <item name="android:colorAccent" tools:ignore="NewApi">@color/activateColor</item>
+        <item name="android:textColorPrimary">@color/activateColor</item>
+    </style>
+
+    <style name="CounterTheme" parent="AppTheme">
+        <item name="android:textColor">@color/activateColor</item>
+    </style>
 </resources>

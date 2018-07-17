@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.wuruoye.library.adapter.WBaseRVAdapter
 import com.wuruoye.library.ui.WBaseFragment
+import com.wuruoye.library.util.ResourceUtil
 import com.wuruoye.news.R
 import com.wuruoye.news.adapter.ArticleItemRVAdapter
 import com.wuruoye.news.contract.ArticleListContract
@@ -50,6 +51,7 @@ class ListFragment : WBaseFragment<ArticleListContract.Presenter>(), ArticleList
 
     override fun initView(p0: View?) {
         p0?.post{
+            srl_list.setColorSchemeColors(ResourceUtil.getColor(context, R.color.activateColor))
             srl_list.setOnRefreshListener(this)
             initRV()
 

@@ -58,6 +58,6 @@
         android:layout_gravity="center"
         android:padding="5dp"
         android:background="@null"
-        android:textColor="@color/gray_chateau"
+        android:textColor="@color/activateColor"
         android:id="@+id/btn_login_register"/>
 </LinearLayout>

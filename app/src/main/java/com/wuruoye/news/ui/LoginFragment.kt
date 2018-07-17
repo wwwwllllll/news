@@ -50,7 +50,7 @@ class LoginFragment : WBaseFragment<LoginLoginContract.Presenter>(),
                 .inflate(R.layout.dlg_loading, null)
         val tv = view.findViewById<TextView>(R.id.tv_dlg_loading)
         tv.text = "正在登录中..."
-        dlgLogin = AlertDialog.Builder(context!!)
+        dlgLogin = AlertDialog.Builder(context!!, R.style.DlgTheme)
                 .setView(view)
                 .create()
     }

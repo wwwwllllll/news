@@ -54,7 +54,7 @@ class SettingActivity : WBaseActivity<SettingContract.Presenter>(), SettingContr
         initDlg()
 
         iv_setting_back.setOnClickListener(this)
-        tv_setting_login.setOnClickListener(this)
+        btn_setting_login.setOnClickListener(this)
         tv_setting_reload_api.setOnClickListener(this)
         ll_setting_img.setOnClickListener(this)
         ll_setting_proxy.setOnClickListener(this)
@@ -75,9 +75,9 @@ class SettingActivity : WBaseActivity<SettingContract.Presenter>(), SettingContr
             tv_setting_text.text = ITEM_TEXT_TITLE[2]
         }
         if (mIsLogin) {
-            tv_setting_login.text = "用户登出"
+            btn_setting_login.text = "用户登出"
         }else {
-            tv_setting_login.text = "用户登录"
+            btn_setting_login.text = "用户登录"
         }
     }
 
@@ -85,7 +85,7 @@ class SettingActivity : WBaseActivity<SettingContract.Presenter>(), SettingContr
     private fun initDlg() {
         rgText = LayoutInflater.from(this)
                 .inflate(R.layout.dlg_text_picker, null) as RadioGroup
-        dlgText = AlertDialog.Builder(this)
+        dlgText = AlertDialog.Builder(this, R.style.DlgTheme)
                 .setTitle("选择字体大小")
                 .setView(rgText)
                 .setPositiveButton("确定") { _, _ ->
@@ -104,7 +104,7 @@ class SettingActivity : WBaseActivity<SettingContract.Presenter>(), SettingContr
             R.id.iv_setting_back -> {
                 onBackPressed()
             }
-            R.id.tv_setting_login -> {
+            R.id.btn_setting_login -> {
                 if (mIsLogin) {
                     mPresenter.requestLogout()
                 }else {
@@ -149,7 +149,7 @@ class SettingActivity : WBaseActivity<SettingContract.Presenter>(), SettingContr
         if (requestCode == SETTING_LOGIN && resultCode == Activity.RESULT_OK) {
             mLoginChanged = true
             mLoginUser = data!!.getParcelableExtra("loginUser")
-            tv_setting_login.text = "用户登出"
+            btn_setting_login.text = "用户登出"
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
@@ -175,7 +175,7 @@ class SettingActivity : WBaseActivity<SettingContract.Presenter>(), SettingContr
             mIsLogin = false
             mLoginChanged = true
             mLoginUser = null
-            tv_setting_login.text = "用户登录"
+            btn_setting_login.text = "用户登录"
         }else {
             toast(info)
         }
