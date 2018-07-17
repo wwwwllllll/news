@@ -2,10 +2,10 @@ package com.wuruoye.news.model
 
 import com.wuruoye.library.model.WConfig
 import com.wuruoye.library.util.net.OKHttpNet
-import okhttp3.CacheControl
-import okhttp3.Cookie
-import okhttp3.CookieJar
-import okhttp3.HttpUrl
+import com.wuruoye.library.util.net.WNetException
+import okhttp3.*
+import java.io.File
+import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 /**
@@ -39,5 +39,43 @@ class NetRequest : OKHttpNet() {
                     chain.proceed(request)
                 }
                 .build())
+    }
+
+    override fun uploadFile(url: String, values: MutableMap<String, String>,
+                            files: MutableMap<String, String>, types: MutableList<String>): String {
+        if (files.size != types.size) {
+            throw IllegalArgumentException()
+        }
+        val builder = MultipartBody.Builder().setType(MultipartBody.FORM)
+        for ((key, value) in values) {
+            builder.addFormDataPart(key, value)
+        }
+
+        var i = 0
+        for ((key, value) in files) {
+            val file = File(value)
+            if (file.isDirectory) {
+                throw WNetException("file $value is a directory not file")
+            } else if (!file.exists()) {
+                throw WNetException("file $value is not exists")
+            }
+            builder.addFormDataPart(key, file.name, RequestBody
+                    .create(MediaType.parse(types[i++]), file))
+        }
+        val request = Request.Builder()
+                .url(url)
+                .post(builder.build())
+                .build()
+        try {
+            val response = getClient().newCall(request).execute()
+            return if (response.isSuccessful) {
+                response.body()!!.string()
+            } else {
+                throw WNetException(response.message())
+            }
+        } catch (var3: IOException) {
+            throw WNetException(var3.message)
+        }
+
     }
 }
