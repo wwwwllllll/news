@@ -36,6 +36,7 @@ class UserFragment : WBaseFragment<UserContract.Presenter>(), UserContract.View,
         val ITEM_ICON = arrayOf(R.drawable.ic_information, R.drawable.ic_collect_not,
                 R.drawable.ic_setting)
         val ITEM_TITLE = arrayOf("个人信息", "收藏", "设置")
+        val ITEM_TEXT_SIZE = arrayOf(1.4F, 1.2F, 1F, 0.8F, 0.6F)
     }
     private var mIsLogin = false
     private var mLoginUser: LoginUser? = null
@@ -64,6 +65,7 @@ class UserFragment : WBaseFragment<UserContract.Presenter>(), UserContract.View,
             civ_user_avatar.setOnClickListener(this)
             tv_user_user.setOnClickListener(this)
 
+            initSign()
             initLL()
             initUser()
         }
@@ -100,10 +102,27 @@ class UserFragment : WBaseFragment<UserContract.Presenter>(), UserContract.View,
         }
     }
 
+    private fun initSign() {
+        val position = ITEM_TEXT_SIZE.indexOf(mPresenter.getTextSize())
+        val lines = when (position) {
+            -1 -> 2
+            0 -> 1
+            1 -> 2
+            else -> position
+        }
+        tv_user_sign.maxLines = lines
+    }
+
     override fun onClick(p0: View?) {
         when (p0!!.id) {
             R.id.civ_user_avatar -> {
-
+                if (mIsLogin && mLoginUser != null) {
+                    val bundle = Bundle()
+                    bundle.putStringArrayList("img", arrayListOf(mLoginUser!!.avatar))
+                    val intent = Intent(context, ImgActivity::class.java)
+                    intent.putExtras(bundle)
+                    startActivity(intent)
+                }
             }
             R.id.tv_user_user -> {
 

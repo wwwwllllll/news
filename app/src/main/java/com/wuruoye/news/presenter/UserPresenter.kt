@@ -19,6 +19,10 @@ class UserPresenter : UserContract.Presenter() {
         return mUserCache.isLogin
     }
 
+    override fun getTextSize(): Float {
+        return mUserCache.textSize
+    }
+
     override fun requestUserInfo() {
         val values = mapOf(Pair("id", mUserCache.userId))
         WNet.getInBackground(API.USER, values, object : Listener<String> {

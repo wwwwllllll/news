@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.support.design.widget.TextInputLayout
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.PopupMenu
@@ -16,6 +17,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.wuruoye.library.adapter.WBaseRVAdapter
 import com.wuruoye.library.ui.WBaseActivity
 import com.wuruoye.news.R
 import com.wuruoye.news.adapter.CommentRVAdapter
@@ -29,6 +31,7 @@ import com.wuruoye.news.model.bean.DetailItem.Companion.TYPE_H1
 import com.wuruoye.news.model.bean.DetailItem.Companion.TYPE_IMG
 import com.wuruoye.news.model.bean.DetailItem.Companion.TYPE_TEXT
 import com.wuruoye.news.model.bean.DetailItem.Companion.TYPE_TEXT_CEN
+import com.wuruoye.news.model.util.ClipboardUtil
 import com.wuruoye.news.model.util.ShareUtil
 import com.wuruoye.news.model.util.loge
 import com.wuruoye.news.model.util.toast
@@ -41,7 +44,13 @@ import kotlinx.android.synthetic.main.activity_detail.*
  * @Description :
  */
 class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
-        DetailContract.View, View.OnClickListener, CommentRVAdapter.OnActionListener, PopupMenu.OnMenuItemClickListener {
+        DetailContract.View, View.OnClickListener, CommentRVAdapter.OnActionListener,
+        PopupMenu.OnMenuItemClickListener, WBaseRVAdapter.OnItemLongClickListener<ArticleComment> {
+    companion object {
+        const val MAX_COMMENT_LENGTH = 200
+        val ITEM_COMMENT_FULL = arrayOf("举报", "复制评论内容", "删除")
+        val ITEM_COMMENT = arrayOf("举报", "复制评论内容")
+    }
     private lateinit var mArticle: ArticleItem
     private var mIsLogin = false
     private var mNoImg = false
@@ -52,9 +61,12 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
     private lateinit var mPraiseCallback: CommentRVAdapter.OnActionCallback
     private var mLoadCallback: CommentRVAdapter.OnActionCallback? = null
     private var mCommentParent = 0
+    private lateinit var mCurrentComment: ArticleComment
 
     private lateinit var dlgComment: AlertDialog
     private lateinit var tvCommentParent: TextView
+    private lateinit var etComment: EditText
+    private lateinit var tilComment: TextInputLayout
     private lateinit var dlgLogin: AlertDialog
     private lateinit var pmMenu: PopupMenu
 
@@ -103,22 +115,15 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
     private fun initDlg() {
         val view = LayoutInflater.from(this)
                 .inflate(R.layout.dlg_comment, null)
-        val et = view.findViewById<EditText>(R.id.et_dlg_comment)
+        etComment = view.findViewById<EditText>(R.id.et_dlg_comment)
+        tilComment = view.findViewById(R.id.til_dlg_comment)
         tvCommentParent = view.findViewById(R.id.tv_dlg_comment_parent)
 
         dlgComment = AlertDialog.Builder(this, R.style.DlgTheme)
                 .setTitle("写评论")
                 .setView(view)
-                .setPositiveButton("提交") {_, _ ->
-                    val content = et.text.toString()
-                    et.text.clear()
-                    val article = mArticle.id
-                    val parent = mCommentParent
-                    mPresenter.requestComment(article, content, parent)
-                }
-                .setNegativeButton("取消") {_, _ ->
-
-                }
+                .setPositiveButton("提交", null)
+                .setNegativeButton("取消", null)
                 .setCancelable(false)
                 .create()
 
@@ -140,9 +145,27 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
     private fun initRV() {
         val adapter = CommentRVAdapter()
         adapter.setOnActionListener(this)
+        adapter.setOnItemLongClickListener(this)
         rv_detail.adapter = adapter
         rv_detail.layoutManager = LinearLayoutManager(this)
         rv_detail.isNestedScrollingEnabled = false
+    }
+
+    private fun showCommentDlg() {
+        dlgComment.show()
+        dlgComment.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+            val content = etComment.text.toString()
+            if (content.length <= MAX_COMMENT_LENGTH) {
+                etComment.text.clear()
+                val article = mArticle.id
+                val parent = mCommentParent
+                mPresenter.requestComment(article, content, parent)
+                dlgComment.dismiss()
+            }else {
+                tilComment.error = "评论字符不能超过 200"
+            }
+        }
+        tilComment.hint = mPresenter.getUserName() + " : "
     }
 
     override fun onResultDetail(detail: ArticleDetail) {
@@ -242,7 +265,7 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
                     mCommentCallback = mDetailCommentCallback
                     mCommentParent = 0
                     tvCommentParent.visibility = View.GONE
-                    dlgComment.show()
+                    showCommentDlg()
                 }else {
                     dlgLogin.show()
                 }
@@ -308,6 +331,29 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
         }
     }
 
+    override fun onItemLongClick(p0: ArticleComment?) {
+        mCurrentComment = p0!!
+        val belong = p0.user.id == mPresenter.getUserId()
+        AlertDialog.Builder(this, R.style.DlgTheme)
+                .setTitle("选择操作")
+                .setItems(if (belong) ITEM_COMMENT_FULL else ITEM_COMMENT) {_,
+                                                                            position ->
+                    when (position) {
+                        0 -> {
+                            mPresenter.requestReport(p0.id)
+                        }
+                        1 -> {
+                            ClipboardUtil.clipText(this, p0.content)
+                            toast("已复制 ${p0.content}")
+                        }
+                        2 -> {
+                            mPresenter.requestDeleteComment(p0.id)
+                        }
+                    }
+                }
+                .show()
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onCommentClick(callback: CommentRVAdapter.OnActionCallback,
                                 item: ArticleComment) {
@@ -316,7 +362,7 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
             mCommentParent = item.id
             tvCommentParent.visibility = View.VISIBLE
             tvCommentParent.text = "@${item.user.name}: ${item.content}"
-            dlgComment.show()
+            showCommentDlg()
         }else {
             dlgLogin.show()
         }
@@ -406,6 +452,20 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
                     if (up) R.drawable.ic_heart_full else R.drawable.ic_heart_not)
             tv_detail_praise_num.text = (tv_detail_praise_num.text.toString().toInt()
                     + if (up) 1 else -1).toString()
+        }else {
+            toast(info)
+        }
+    }
+
+    override fun onResultReport(result: Boolean, info: String) {
+        toast(info)
+    }
+
+    override fun onResultDeleteComment(result: Boolean, info: String) {
+        if (result) {
+            val adapter = rv_detail.adapter as CommentRVAdapter
+            adapter.data = arrayListOf()
+            mPresenter.requestCommentList(mArticle.id)
         }else {
             toast(info)
         }

@@ -7,6 +7,7 @@ import com.wuruoye.library.util.net.IWNet
 import com.wuruoye.library.util.net.WNet
 import com.wuruoye.news.contract.UserInfoContract
 import com.wuruoye.news.model.API
+import com.wuruoye.news.model.UserCache
 import com.wuruoye.news.model.bean.LoginUser
 import com.wuruoye.news.model.util.DataUtil
 import java.util.regex.Pattern
@@ -17,6 +18,7 @@ import java.util.regex.Pattern
  * @Description :
  */
 class UserInfoPresenter : UserInfoContract.Presenter() {
+    private val mUserCache = UserCache.getInstance()
 
     override fun getAvatarPath(): String {
         val path = WConfig.IMAGE_PATH + "avatar.jpg"
@@ -67,7 +69,9 @@ class UserInfoPresenter : UserInfoContract.Presenter() {
             override fun onSuccessful(p0: String?) {
                 val result = DataUtil.parseResult(p0!!)
                 if (result.result) {
-                    view?.onResultUserInfo(DataUtil.parseLoginUser(result.info))
+                    val user = DataUtil.parseLoginUser(result.info)
+                    mUserCache.userName = user.name
+                    view?.onResultUserInfo(user)
                 }else {
                     view?.onResultUserInfo(result.info)
                 }

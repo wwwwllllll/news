@@ -15,6 +15,7 @@ class UserCache private constructor(): WBaseCache("user") {
         const val IS_LOGIN = "is_login"
         const val USER_ID = "user_id"
         const val USER_PWD = "user_pwd"
+        const val USER_NAME = "user_name"
         const val NO_IMG = "no_img"
         const val PROXY = "proxy"
         const val WEB = "web"
@@ -43,6 +44,10 @@ class UserCache private constructor(): WBaseCache("user") {
     var userPwd: String
         get() = getString(USER_PWD, "")
         set(value) = putString(USER_PWD, value)
+
+    var userName: String
+        get() = getString(USER_NAME, "暂未登录")
+        set(value) = putString(USER_NAME, value)
 
     var noImg: Boolean
         get() = getBoolean(NO_IMG, false)

@@ -116,6 +116,10 @@ class CommentRVAdapter : WBaseRVAdapter<ArticleComment>(){
                 llComment.setOnClickListener {
                     mOnActionListener?.onCommentClick(callback, comment)
                 }
+                itemView.setOnLongClickListener {
+                    onItemLongClick(comment)
+                    true
+                }
             }
         }
     }

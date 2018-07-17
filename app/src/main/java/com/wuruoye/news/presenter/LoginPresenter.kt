@@ -33,6 +33,7 @@ class LoginPresenter : LoginLoginContract.Presenter() {
                     mUserCache.isLogin = true
                     mUserCache.userId = id
                     mUserCache.userPwd = sPwd
+                    mUserCache.userName = user.name
                     view?.onResultLogin(user)
                 }else {
                     view?.onResultLoginInfo(result.info)

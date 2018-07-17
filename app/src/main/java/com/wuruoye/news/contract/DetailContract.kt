@@ -24,11 +24,15 @@ class DetailContract {
         fun onResultArticleInfo(info: String)
         fun onResultPraiseArticle(result: Boolean, info: String)
         fun onResultCollectArticle(result: Boolean, info: String)
+        fun onResultReport(result: Boolean, info: String)
+        fun onResultDeleteComment(result: Boolean, info: String)
     }
 
     abstract class Presenter : WPresenter<View>() {
         abstract fun isLogin(): Boolean
         abstract fun isNoImg(): Boolean
+        abstract fun getUserId(): String
+        abstract fun getUserName(): String
         abstract fun requestDetail(app: String, category: String, id: String)
         abstract fun requestCommentList(article: String)
         abstract fun requestPraiseComment(comment: Int)
@@ -36,5 +40,7 @@ class DetailContract {
         abstract fun requestArticleInfo(article: String)
         abstract fun requestPraiseArticle(article: String)
         abstract fun requestCollectArticle(article: String, content: ArticleItem)
+        abstract fun requestReport(comment: Int)
+        abstract fun requestDeleteComment(comment: Int)
     }
 }

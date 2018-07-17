@@ -18,6 +18,7 @@ class UserContract {
 
     abstract class Presenter : WPresenter<View>() {
         abstract fun isLogin(): Boolean
+        abstract fun getTextSize(): Float
         abstract fun requestUserInfo()
     }
 }

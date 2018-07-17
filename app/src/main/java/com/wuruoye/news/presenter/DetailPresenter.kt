@@ -2,6 +2,7 @@ package com.wuruoye.news.presenter
 
 import com.google.gson.Gson
 import com.wuruoye.library.model.Listener
+import com.wuruoye.library.util.net.IWNet
 import com.wuruoye.library.util.net.WNet
 import com.wuruoye.library.util.net.WNet.getInBackground
 import com.wuruoye.news.contract.DetailContract
@@ -25,6 +26,14 @@ class DetailPresenter : DetailContract.Presenter() {
 
     override fun isNoImg(): Boolean {
         return mUserCache.noImg
+    }
+
+    override fun getUserId(): String {
+        return mUserCache.userId
+    }
+
+    override fun getUserName(): String {
+        return mUserCache.userName
     }
 
     override fun requestDetail(app: String, category: String, id: String) {
@@ -152,5 +161,34 @@ class DetailPresenter : DetailContract.Presenter() {
                 view?.onResultPraiseArticle(result.result, result.info)
             }
         })
+    }
+
+    override fun requestReport(comment: Int) {
+        val values = mapOf(Pair("id", comment.toString()))
+        WNet.postInBackground(API.COMMENT_REPORT, values, object : Listener<String> {
+            override fun onSuccessful(p0: String?) {
+                val result = DataUtil.parseResult(p0!!)
+                view?.onResultReport(result.result, result.info)
+            }
+
+            override fun onFail(p0: String?) {
+                view?.onResultReport(false, p0!!)
+            }
+        })
+    }
+
+    override fun requestDeleteComment(comment: Int) {
+        val values = mapOf(Pair("id", comment.toString()))
+        WNet.requestInBackground(API.ARTICLE_COMMENT, values, object : Listener<String> {
+            override fun onSuccessful(p0: String?) {
+                val result = DataUtil.parseResult(p0!!)
+                mNextComment = 0L
+                view?.onResultDeleteComment(result.result, result.info)
+            }
+
+            override fun onFail(p0: String?) {
+                view?.onResultDeleteComment(false, p0!!)
+            }
+        }, IWNet.METHOD.DELETE)
     }
 }

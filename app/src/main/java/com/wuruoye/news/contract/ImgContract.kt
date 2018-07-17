@@ -10,10 +10,11 @@ import com.wuruoye.library.contract.WPresenter
  */
 class ImgContract {
     interface View : WIView {
-
+        fun onResultDownload(result: Boolean, info: String)
     }
 
     abstract class Presenter : WPresenter<View>() {
-
+        abstract fun getFilePath(name: String): String
+        abstract fun downloadFile(path: String)
     }
 }
