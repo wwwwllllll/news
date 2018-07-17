@@ -85,7 +85,11 @@ class StartActivity : WBaseActivity<StartContract.Presenter>(), StartContract.Vi
     }
 
     private fun goToMain() {
-        startActivity(Intent(this, MainActivity::class.java))
+        if (mPresenter.isLead()) {
+            startActivity(Intent(this, MainActivity::class.java))
+        }else {
+            startActivity(Intent(this, LeadActivity::class.java))
+        }
         finish()
     }
 }

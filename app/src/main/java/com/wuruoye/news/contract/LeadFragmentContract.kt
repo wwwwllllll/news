@@ -5,17 +5,15 @@ import com.wuruoye.library.contract.WPresenter
 
 /**
  * @Created : wuruoye
- * @Date : 2018/7/13 11:17.
+ * @Date : 2018/7/17 10:35.
  * @Description :
  */
-class StartContract {
+class LeadFragmentContract {
     interface View : WIView {
-        fun onResultCheck(login: Boolean)
+
     }
 
     abstract class Presenter : WPresenter<View>() {
-        abstract fun checkLogin()
-        abstract fun getTextSize(): Float
-        abstract fun isLead(): Boolean
+
     }
 }

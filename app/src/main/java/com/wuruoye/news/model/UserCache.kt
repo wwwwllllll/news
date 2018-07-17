@@ -19,6 +19,7 @@ class UserCache private constructor(): WBaseCache("user") {
         const val PROXY = "proxy"
         const val WEB = "web"
         const val TEXT_SIZE = "text_size"
+        const val LEAD = "lead"
 
         fun getInstance(): UserCache{
             return sInstance
@@ -58,4 +59,8 @@ class UserCache private constructor(): WBaseCache("user") {
     var textSize: Float
         get() = getFloat(TEXT_SIZE, 1F)
         set(value) = putFloat(TEXT_SIZE, value)
+
+    var isLead: Boolean
+        get() = getBoolean(LEAD, false)
+        set(value) = putBoolean(LEAD, value)
 }

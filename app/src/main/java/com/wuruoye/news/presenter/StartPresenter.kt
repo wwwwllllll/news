@@ -19,6 +19,10 @@ class StartPresenter : StartContract.Presenter() {
         return mUserCache.textSize
     }
 
+    override fun isLead(): Boolean {
+        return mUserCache.isLead
+    }
+
     override fun checkLogin() {
         if (!mUserCache.isLogin) {
             view?.onResultCheck(false)

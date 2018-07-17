@@ -39,6 +39,7 @@
         <activity android:name=".ui.UserInfoActivity" />
         <activity android:name=".ui.CollectActivity" />
         <activity android:name=".ui.SettingActivity" />
+        <activity android:name=".ui.LeadActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
