@@ -39,7 +39,8 @@
         <activity android:name=".ui.UserInfoActivity" />
         <activity android:name=".ui.CollectActivity" />
         <activity android:name=".ui.SettingActivity" />
-        <activity android:name=".ui.LeadActivity" />
+        <activity android:name=".ui.LeadActivity"
+            android:screenOrientation="portrait"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

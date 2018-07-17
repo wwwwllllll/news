@@ -1,7 +1,6 @@
 package com.wuruoye.news.ui
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import com.wuruoye.library.ui.WBaseFragment
 import com.wuruoye.news.R
@@ -18,7 +17,7 @@ class LeadFragment : WBaseFragment<LeadFragmentContract.Presenter>(), LeadFragme
         View.OnClickListener {
     companion object {
         val ITEM_IMG = arrayOf(R.drawable.lead_1, R.drawable.lead_2, R.drawable.lead_3)
-        const val DELAY = 3000L
+        const val DELAY = 5000L
     }
     private var mPage = 0
     private var mNext = false
@@ -34,19 +33,28 @@ class LeadFragment : WBaseFragment<LeadFragmentContract.Presenter>(), LeadFragme
     override fun initView(p0: View?) {
         iv_lead_bg.setImageResource(ITEM_IMG[mPage])
         tv_lead_next.setOnClickListener(this)
+        btn_lead.setOnClickListener(this)
 
-        Handler().postDelayed({
-            if (activity != null) {
-                if (!mNext) {
-                    goToNext()
-                }
-            }
-        }, DELAY)
+        if (mPage < 2) {
+            tv_lead_next.visibility = View.VISIBLE
+            btn_lead.visibility = View.GONE
+        }else {
+            tv_lead_next.visibility = View.GONE
+            btn_lead.visibility = View.VISIBLE
+        }
+//        Handler().postDelayed({
+//            if (activity != null) {
+//                if (!mNext) {
+//                    goToNext()
+//                }
+//            }
+//        }, DELAY)
     }
 
     override fun onClick(p0: View?) {
         when (p0!!.id) {
-            R.id.tv_lead_next -> {
+            R.id.tv_lead_next,
+            R.id.btn_lead -> {
                 goToNext()
             }
         }
