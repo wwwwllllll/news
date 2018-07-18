@@ -78,7 +78,7 @@
                 <ImageView
                     android:id="@+id/iv_detail_comment"
                     android:padding="15dp"
-                    android:src="@drawable/ic_comment"
+                    android:src="@drawable/ic_drawable_comment"
                     android:layout_width="50dp"
                     android:layout_height="50dp"/>
 
@@ -102,7 +102,7 @@
 
                 <ImageView
                     android:id="@+id/iv_detail_praise"
-                    android:src="@drawable/ic_heart_not"
+                    android:src="@drawable/ic_drawable_heart_not"
                     android:padding="15dp"
                     android:layout_width="50dp"
                     android:layout_height="50dp"/>
@@ -127,7 +127,7 @@
 
                 <ImageView
                     android:id="@+id/iv_detail_collect"
-                    android:src="@drawable/ic_collect_not"
+                    android:src="@drawable/ic_drawable_collect_not"
                     android:padding="15dp"
                     android:layout_width="50dp"
                     android:layout_height="50dp"

@@ -234,7 +234,7 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
 
     private fun onNoData() {
         loge(mArticle.url)
-        AlertDialog.Builder(this)
+        AlertDialog.Builder(this, R.style.DlgTheme)
                 .setTitle("提示")
                 .setMessage("后台解析失败，是否打开网页？")
                 .setPositiveButton("确定") { _, _ ->
@@ -435,9 +435,9 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
         tv_detail_collect_num.text = info.collect_num.toString()
 
         iv_detail_praise.setImageResource(
-                if (info.is_praise) R.drawable.ic_heart_full else R.drawable.ic_heart_not)
+                if (info.is_praise) R.drawable.ic_drawable_heart_full else R.drawable.ic_drawable_heart_not)
         iv_detail_collect.setImageResource(
-                if (info.is_collect) R.drawable.ic_collect_full else R.drawable.ic_collect_not)
+                if (info.is_collect) R.drawable.ic_drawable_collect_full else R.drawable.ic_drawable_collect_not)
     }
 
     override fun onResultArticleInfo(info: String) {
@@ -448,7 +448,7 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
         if (result) {
             val up = info == "UP"
             iv_detail_collect.setImageResource(
-                    if (up) R.drawable.ic_collect_full else R.drawable.ic_collect_not)
+                    if (up) R.drawable.ic_drawable_collect_full else R.drawable.ic_drawable_collect_not)
             tv_detail_collect_num.text = (tv_detail_collect_num.text.toString().toInt()
                     + if (up) 1 else -1).toString()
         }else {
@@ -460,7 +460,7 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
         if (result) {
             val up = info == "UP"
             iv_detail_praise.setImageResource(
-                    if (up) R.drawable.ic_heart_full else R.drawable.ic_heart_not)
+                    if (up) R.drawable.ic_drawable_heart_full else R.drawable.ic_drawable_heart_not)
             tv_detail_praise_num.text = (tv_detail_praise_num.text.toString().toInt()
                     + if (up) 1 else -1).toString()
         }else {

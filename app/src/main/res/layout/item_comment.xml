@@ -88,7 +88,7 @@
 
             <ImageView
                 android:id="@+id/iv_item_comment_praise"
-                android:src="@drawable/ic_heart_not"
+                android:src="@drawable/ic_drawable_heart_not"
                 android:padding="5dp"
                 android:layout_width="25dp"
                 android:layout_height="25dp" />
@@ -113,7 +113,7 @@
 
             <ImageView
                 android:id="@+id/iv_item_comment_comment"
-                android:src="@drawable/ic_comment"
+                android:src="@drawable/ic_drawable_comment"
                 android:padding="5dp"
                 android:layout_width="25dp"
                 android:layout_height="25dp" />

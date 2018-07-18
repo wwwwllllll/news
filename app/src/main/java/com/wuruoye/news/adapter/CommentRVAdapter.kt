@@ -67,12 +67,12 @@ class CommentRVAdapter : WBaseRVAdapter<ArticleComment>(){
                         if (add) {
                             comment.is_praise = true
                             comment.praise_num += 1
-                            ivPraise.setImageResource(R.drawable.ic_heart_full)
+                            ivPraise.setImageResource(R.drawable.ic_drawable_heart_full)
                             tvPraise.text = comment.praise_num.toString()
                         }else {
                             comment.is_praise = false
                             comment.praise_num -= 1
-                            ivPraise.setImageResource(R.drawable.ic_heart_not)
+                            ivPraise.setImageResource(R.drawable.ic_drawable_heart_not)
                             tvPraise.text = comment.praise_num.toString()
                         }
                     }
@@ -103,9 +103,9 @@ class CommentRVAdapter : WBaseRVAdapter<ArticleComment>(){
                 tvDate.text = DateUtil.formatTime(comment.time, "YYYY-MM-dd HH:SS")
 
                 if (comment.is_praise) {
-                    ivPraise.setImageResource(R.drawable.ic_heart_full)
+                    ivPraise.setImageResource(R.drawable.ic_drawable_heart_full)
                 }else {
-                    ivPraise.setImageResource(R.drawable.ic_heart_not)
+                    ivPraise.setImageResource(R.drawable.ic_drawable_heart_not)
                 }
                 tvPraise.text = comment.praise_num.toString()
                 tvComment.text = comment.comment_num.toString()
