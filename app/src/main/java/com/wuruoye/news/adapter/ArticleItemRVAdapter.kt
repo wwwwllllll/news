@@ -55,7 +55,7 @@ class ArticleItemRVAdapter : WBaseRVAdapter<ArticleItem>() {
                 tvForward.text = item.forward
                 tvAuthor.text = item.author
                 tvDate.text = DateUtil.formatTime(item.millis * 1000,
-                        "YYYY-MM-dd HH:MM")
+                        "yyyy-MM-dd HH:mm")
 
                 if (item.bg_img.isNotEmpty() && !mUserCache.noImg)
                     Glide.with(ivBg)

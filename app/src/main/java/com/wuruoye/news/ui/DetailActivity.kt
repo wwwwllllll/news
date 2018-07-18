@@ -55,6 +55,7 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
     private var mIsLogin = false
     private var mNoImg = false
     private var mLoginChanged = false
+    private var mResetComment = false
     private val mImgList = arrayListOf<String>()
 
     private lateinit var mCommentCallback: CommentRVAdapter.OnActionCallback
@@ -244,6 +245,11 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
                     intent.putExtras(bundle)
                     startActivity(intent)
                     finish()
+//                    val intent = Intent(Intent.ACTION_VIEW)
+//                    val uri = Uri.parse(mArticle.url)
+//                    intent.data = uri
+//                    startActivity(intent)
+//                    finish()
                 }
                 .setNegativeButton("取消") { _, _ ->
                     finish()
@@ -401,8 +407,13 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
             mLoadCallback!!.onNoMore()
         }else {
             val adapter = rv_detail.adapter as CommentRVAdapter
-            adapter.addData(commentList)
+            if (!mResetComment) {
+                adapter.addData(commentList)
+            }else {
+                adapter.data = commentList
+            }
         }
+        mResetComment = false
     }
 
     override fun onResultCommentList(info: String) {
@@ -463,8 +474,9 @@ class DetailActivity : WBaseActivity<DetailContract.Presenter>(),
 
     override fun onResultDeleteComment(result: Boolean, info: String) {
         if (result) {
-            val adapter = rv_detail.adapter as CommentRVAdapter
-            adapter.data = arrayListOf()
+            tv_detail_comment_num.text = (tv_detail_comment_num.text.toString().toInt() - 1)
+                    .toString()
+            mResetComment = true
             mPresenter.requestCommentList(mArticle.id)
         }else {
             toast(info)

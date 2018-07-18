@@ -10,6 +10,7 @@
         android:layout_height="50dp">
 
         <android.support.design.widget.CollapsingToolbarLayout
+            android:minHeight="0dp"
             app:layout_scrollFlags="scroll|snap|enterAlways|exitUntilCollapsed"
             android:layout_width="match_parent"
             android:layout_height="50dp">

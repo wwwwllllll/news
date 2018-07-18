@@ -3,15 +3,14 @@ package com.wuruoye.news.ui
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
+import android.net.http.SslError
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.widget.PopupMenu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.JsResult
-import android.webkit.WebChromeClient
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
 import android.widget.LinearLayout
 import com.wuruoye.library.ui.WBaseActivity
 import com.wuruoye.news.R
@@ -59,17 +58,29 @@ class  WebActivity : WBaseActivity<WebContract.Presenter>(), WebContract.View,
 
         val setting = wvWeb.settings
         with(setting) {
+            cacheMode = WebSettings.LOAD_NO_CACHE
             javaScriptEnabled = true
+            javaScriptCanOpenWindowsAutomatically = true
             useWideViewPort = true
             loadWithOverviewMode = true
             setSupportZoom(false)
             displayZoomControls = false
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
+            }
         }
 
         wvWeb.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-                view?.loadUrl(url!!)
+                if (url!!.startsWith("http")) {
+                    view?.loadUrl(url)
+                }
                 return true
+            }
+
+            override fun onReceivedSslError(view: WebView?, handler: SslErrorHandler?, error: SslError?) {
+                handler?.proceed()
+                super.onReceivedSslError(view, handler, error)
             }
         }
 
